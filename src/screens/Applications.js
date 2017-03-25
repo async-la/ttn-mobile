@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+// @flow
+
+import React, { Component } from 'react'
 import {
   AppRegistry,
   AsyncStorage,
@@ -7,14 +9,13 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
-  View
-} from 'react-native';
+  View,
+} from 'react-native'
 
 import queryString from 'query-string'
 import base64 from 'base-64'
 
 export default class TTNConsole extends Component {
-
   render() {
     return (
       <View style={styles.container}>
@@ -31,4 +32,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-});
+})
