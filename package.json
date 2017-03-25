@@ -25,7 +25,7 @@
   "devDependencies": {
     "babel-jest": "19.0.0",
     "babel-preset-react-native": "1.9.1",
-    "flow-bin": "0.38.0",
+    "flow-bin": "0.40",
     "jest": "^19.0.2",
     "react-test-renderer": "~15.4.1"
   },
