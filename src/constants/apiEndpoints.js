@@ -1,3 +1,5 @@
+// @flow
+
 // Applications
 const HOST = 'https://console.thethingsnetwork.org/api/'
 

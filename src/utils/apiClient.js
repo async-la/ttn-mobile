@@ -21,7 +21,7 @@ export async function get(endpoint, options) {
     const response = await fetch(endpoint, {
       method: 'GET',
       headers: {
-        'Authorization': token ? `Bearer ${token}` : undefined,
+        Authorization: token ? `Bearer ${token}` : undefined,
         'Content-Type': 'application/json',
       },
     })
@@ -44,10 +44,10 @@ export async function post(endpoint, options) {
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
-        'Authorization': token ? `Bearer ${token}` : undefined,
-        'Content-Type': 'application/json'
+        Authorization: token ? `Bearer ${token}` : undefined,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     })
 
     const json = await response.json()

@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react'
 import {
   AppRegistry,
@@ -7,18 +9,17 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
-  View
+  View,
 } from 'react-native'
 
 import queryString from 'query-string'
 import base64 from 'base-64'
 
 export default class TTNConsole extends Component {
-
   render() {
     return (
       <View style={styles.container}>
-      <Text>New Tab!!</Text>
+        <Text>New Tab!!</Text>
       </View>
     )
   }
@@ -31,4 +32,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FF00FF',
   },
-});
+})
