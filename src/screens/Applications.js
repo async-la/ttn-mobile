@@ -18,22 +18,36 @@ const mockApplication = {
   name: 'Test',
 }
 
-const mockApplications = [mockApplication]
+const mockApplications = [1, 1, 1, 11, 1, 1, 1, 1, 1].map(i => mockApplication)
 
 import { LATO_REGULAR } from '../constants/fonts'
 
 export default class TTNConsole extends Component {
   render() {
+    let i = 0
+    console.log(mockApplications)
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Test</Text>
         <FlatList
           data={mockApplications}
-          renderItem={application => <Text>{application.name}</Text>}
+          keyExtractor={item => i++}
+          renderItem={({ item }) => renderApplicationRow(item)}
+          style={{ width: '100%' }}
         />
       </View>
     )
   }
+}
+
+const renderApplicationRow = application => {
+  return (
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Text style={{ flex: 1 }}>{application.id}</Text>
+      <Text style={{ flex: 3 }}>{application.name}</Text>
+      <Text style={{ flex: 1 }}>{application.handler}</Text>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
