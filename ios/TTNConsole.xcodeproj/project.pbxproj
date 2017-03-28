@@ -13,6 +13,15 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* TTNConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TTNConsoleTests.m */; };
+		112783B01E89C80D0049531B /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783A71E89C80D0049531B /* Lato-Black.ttf */; };
+		112783B11E89C80D0049531B /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783A81E89C80D0049531B /* Lato-BlackItalic.ttf */; };
+		112783B21E89C80D0049531B /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783A91E89C80D0049531B /* Lato-Bold.ttf */; };
+		112783B31E89C80D0049531B /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AA1E89C80D0049531B /* Lato-BoldItalic.ttf */; };
+		112783B41E89C80D0049531B /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AB1E89C80D0049531B /* Lato-Italic.ttf */; };
+		112783B51E89C80D0049531B /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AC1E89C80D0049531B /* Lato-Light.ttf */; };
+		112783B61E89C80D0049531B /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AD1E89C80D0049531B /* Lato-LightItalic.ttf */; };
+		112783B71E89C80D0049531B /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AE1E89C80D0049531B /* Lato-Regular.ttf */; };
+		112783B81E89C80D0049531B /* LeagueSpartan-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AF1E89C80D0049531B /* LeagueSpartan-Bold.otf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -259,6 +268,15 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* TTNConsoleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTNConsoleTests.m; sourceTree = "<group>"; };
 		0179AA5811CF43C8BC9A6BAA /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		112783A71E89C80D0049531B /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Black.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
+		112783A81E89C80D0049531B /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-BlackItalic.ttf"; path = "TTNConsole/Assets/Fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
+		112783A91E89C80D0049531B /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Bold.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
+		112783AA1E89C80D0049531B /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-BoldItalic.ttf"; path = "TTNConsole/Assets/Fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
+		112783AB1E89C80D0049531B /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Italic.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
+		112783AC1E89C80D0049531B /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Light.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
+		112783AD1E89C80D0049531B /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-LightItalic.ttf"; path = "TTNConsole/Assets/Fonts/Lato-LightItalic.ttf"; sourceTree = "<group>"; };
+		112783AE1E89C80D0049531B /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
+		112783AF1E89C80D0049531B /* LeagueSpartan-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LeagueSpartan-Bold.otf"; path = "TTNConsole/Assets/Fonts/LeagueSpartan-Bold.otf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TTNConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTNConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -399,6 +417,30 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		112783771E89C2280049531B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				112783921E89C23D0049531B /* Fonts */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		112783921E89C23D0049531B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				112783A71E89C80D0049531B /* Lato-Black.ttf */,
+				112783A81E89C80D0049531B /* Lato-BlackItalic.ttf */,
+				112783A91E89C80D0049531B /* Lato-Bold.ttf */,
+				112783AA1E89C80D0049531B /* Lato-BoldItalic.ttf */,
+				112783AB1E89C80D0049531B /* Lato-Italic.ttf */,
+				112783AC1E89C80D0049531B /* Lato-Light.ttf */,
+				112783AD1E89C80D0049531B /* Lato-LightItalic.ttf */,
+				112783AE1E89C80D0049531B /* Lato-Regular.ttf */,
+				112783AF1E89C80D0049531B /* LeagueSpartan-Bold.otf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		11804F801E751CC500ECBD7C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,6 +562,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				112783771E89C2280049531B /* Assets */,
 				13B07FAE1A68108700A75B9A /* TTNConsole */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* TTNConsoleTests */,
@@ -622,7 +665,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 610;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -909,15 +952,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				112783B41E89C80D0049531B /* Lato-Italic.ttf in Resources */,
+				112783B21E89C80D0049531B /* Lato-Bold.ttf in Resources */,
+				112783B51E89C80D0049531B /* Lato-Light.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				112783B31E89C80D0049531B /* Lato-BoldItalic.ttf in Resources */,
+				112783B11E89C80D0049531B /* Lato-BlackItalic.ttf in Resources */,
+				112783B71E89C80D0049531B /* Lato-Regular.ttf in Resources */,
 				E93D18E6104749FDB043B2C7 /* Entypo.ttf in Resources */,
 				8A2F75CE6551465EB7F2474A /* EvilIcons.ttf in Resources */,
 				A538FC8934A2462EB461D4AC /* FontAwesome.ttf in Resources */,
 				F8C4930968964711B1973F17 /* Foundation.ttf in Resources */,
+				112783B81E89C80D0049531B /* LeagueSpartan-Bold.otf in Resources */,
 				BB930E4F84BC4B32A06F7CA3 /* Ionicons.ttf in Resources */,
 				5A479638271540ECA3ECFF86 /* MaterialCommunityIcons.ttf in Resources */,
 				819C951BB36F418E96C62856 /* MaterialIcons.ttf in Resources */,
 				2EEC0BA317F54295B2B532CB /* Octicons.ttf in Resources */,
+				112783B61E89C80D0049531B /* Lato-LightItalic.ttf in Resources */,
+				112783B01E89C80D0049531B /* Lato-Black.ttf in Resources */,
 				34EC611AB38A4AA9A1785E90 /* SimpleLineIcons.ttf in Resources */,
 				DB05C6647D954FC4B417A50E /* Zocial.ttf in Resources */,
 			);
@@ -1057,6 +1109,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNConsole.app/TTNConsole";
 			};
@@ -1082,6 +1135,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNConsole.app/TTNConsole";
 			};
@@ -1263,15 +1317,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1304,8 +1362,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1313,6 +1373,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
