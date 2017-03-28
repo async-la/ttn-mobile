@@ -2,15 +2,22 @@
 import React, { Component } from 'react'
 import { Linking, Text, View } from 'react-native'
 
-import { injectAuthActions } from '../scopes/auth/injects'
+import { injectAuthActions, type AuthActions } from '../scopes/auth/injects'
 import {
   injectApplicationActions,
+  type ApplicationActions,
 } from '../scopes/content/applications/injects'
 
 import base64 from 'base-64'
 import queryString from 'query-string'
 
+type Props = {
+  authActions: AuthActions,
+  applicationActions: ApplicationActions,
+};
+
 class SplashHome extends Component {
+  props: Props;
   componentDidMount() {
     Linking.addEventListener('url', this._handleOpenURL)
   }
@@ -57,7 +64,9 @@ class SplashHome extends Component {
       tokenType: json.token_type,
     })
 
-    const applications = await this.props.applicationActions.getApplications()
+    const applications = await this.props.applicationActions.getApplications(
+      123
+    )
     console.log(applications)
   };
   render() {
