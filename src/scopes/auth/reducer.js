@@ -1,6 +1,6 @@
 // @flow
 
-import { RECEIVE_AUTH } from './constants'
+import { RECEIVE_AUTH } from './types'
 
 export type State = {
   accessToken: string,
