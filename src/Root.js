@@ -1,12 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { AppRegistry, StyleSheet, Text, View } from 'react-native'
 
 import DelayUntilBootstrapped from './components/DelayUntilBootstrapped'
 import App from './App'
@@ -27,11 +22,11 @@ export default class TTNConsole extends Component {
         <View style={styles.container}>
           <DelayUntilBootstrapped>
             <App />
-          {/* <SplashHome /> */}
+            {/* <SplashHome /> */}
           </DelayUntilBootstrapped>
         </View>
       </Provider>
-    );
+    )
   }
 }
 
@@ -42,6 +37,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-});
+})
 
-AppRegistry.registerComponent('TTNConsole', () => TTNConsole);
+AppRegistry.registerComponent('TTNConsole', () => TTNConsole)
