@@ -2,20 +2,17 @@
 
 let singletonStore = null
 
-export function initializeClient(store) {
+export function initializeClient(store: Object) {
   singletonStore = store
 }
 
 function getToken() {
   if (!singletonStore) throw new Error('API Client is not initialized')
   return singletonStore.getState().auth.accessToken
-  console.log('singletonSTore', singletonStore.getState())
 }
 
-export async function get(endpoint, options) {
+async function getRequest(endpoint: String, options: Object) {
   const token = getToken()
-  console.log('get', endpoint)
-  console.log('token', token)
 
   try {
     const response = await fetch(endpoint, {
@@ -26,9 +23,7 @@ export async function get(endpoint, options) {
       },
     })
 
-    console.log('response', response)
     const json = await response.json()
-    console.log('json', json)
 
     return json
   } catch (err) {
@@ -36,7 +31,7 @@ export async function get(endpoint, options) {
   }
 }
 
-export async function post(endpoint, options) {
+async function postRequest(endpoint: String, options: Object) {
   const token = getToken()
   const { body } = options
 
@@ -56,4 +51,54 @@ export async function post(endpoint, options) {
   } catch (err) {
     throw err
   }
+}
+
+async function putRequest(endpoint: String, options: Object) {
+  const token = getToken()
+  const { body } = options
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'PUT',
+      headers: {
+        Authorization: token ? `Bearer ${token}` : undefined,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
+    const json = await response.json()
+
+    return json
+  } catch (err) {
+    throw err
+  }
+}
+
+async function deleteRequest(endpoint: String, options: Object) {
+  const token = getToken()
+  const { body } = options
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'DELETE',
+      headers: {
+        Authorization: token ? `Bearer ${token}` : undefined,
+        'Content-Type': 'application/json',
+      },
+    })
+
+    const json = await response.json()
+
+    return json
+  } catch (err) {
+    throw err
+  }
+}
+
+export default {
+  get: getRequest,
+  post: postRequest,
+  put: putRequest,
+  delete: deleteRequest,
 }
