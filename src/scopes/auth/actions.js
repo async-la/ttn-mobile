@@ -7,8 +7,8 @@ type AuthPayload = {
   accessTokenExpiresAt: number,
   refreshToken: string,
   tokenType: string,
-}
+};
 
-export function receiveAuth(payload:AuthPayload) {
+export function receiveAuth(payload: AuthPayload) {
   return { type: RECEIVE_AUTH, payload: payload }
 }

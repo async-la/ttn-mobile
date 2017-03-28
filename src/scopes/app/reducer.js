@@ -3,10 +3,10 @@
 import { REHYDRATE } from 'redux-persist/constants'
 
 export const initialState = {
-  bootstrapped: false
+  bootstrapped: false,
 }
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case REHYDRATE:
       return { ...state, ...action.payload.app, bootstrapped: true }
