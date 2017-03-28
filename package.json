@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "lint-staged": {
-    "*.js": [
+    "src/**/*.js": [
       "prettier --single-quote --trailing-comma --parser=flow --write",
       "eslint --fix",
       "git add"

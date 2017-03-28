@@ -1,6 +1,8 @@
 // @flow
 
-import { REHYDRATE } from 'redux-persist/constants'
+import { REHYDRATE } from '../types'
+
+import type { Action } from '../types'
 
 export type State = {
   bootstrapped: boolean,

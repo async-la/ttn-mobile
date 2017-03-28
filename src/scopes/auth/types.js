@@ -12,3 +12,5 @@ export type ReceiveAuthAction = {
   type: 'auth/RECEIVE_AUTH',
   payload: AuthPayload,
 };
+
+export type AuthAction = ReceiveAuthAction;

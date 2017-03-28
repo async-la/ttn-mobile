@@ -4,9 +4,11 @@ import Applications from '../../screens/Applications'
 import ApplicationsTest from '../../screens/ApplicationsTest'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 
+import type { Action } from '../types.js'
+
 // @TODO can we type this better or get type from react-navigation [zack]
 export type State = {
-  appNavigatorState: {
+  appNavigatorState?: {
     routes: Array<Object>,
     index: number,
   },
@@ -25,7 +27,7 @@ export const AppNavigator = TabNavigator({
   },
 })
 
-export default (state = {}, action) => {
+export default (state: State = {}, action: Action) => {
   const appNavigatorState = AppNavigator.router.getStateForAction(
     action,
     state.appNavigatorState

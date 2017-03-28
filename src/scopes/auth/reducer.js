@@ -2,11 +2,13 @@
 
 import { RECEIVE_AUTH } from './types'
 
+import type { Action } from '../types'
+
 export type State = {
-  accessToken: string,
-  accessTokenExpiresAt: number,
-  refreshToken: string,
-  tokenType: string,
+  accessToken: ?string,
+  accessTokenExpiresAt: ?number,
+  refreshToken: ?string,
+  tokenType: ?string,
 };
 
 export const initialState: State = {

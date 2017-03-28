@@ -11,7 +11,7 @@ function getToken() {
   return singletonStore.getState().auth.accessToken
 }
 
-async function getRequest(endpoint: String, options: Object) {
+async function getRequest(endpoint: String, options?: Object) {
   const token = getToken()
 
   try {
@@ -31,7 +31,7 @@ async function getRequest(endpoint: String, options: Object) {
   }
 }
 
-async function postRequest(endpoint: String, options: Object) {
+async function postRequest(endpoint: String, options?: Object) {
   const token = getToken()
   const { body } = options
 
@@ -53,7 +53,7 @@ async function postRequest(endpoint: String, options: Object) {
   }
 }
 
-async function putRequest(endpoint: String, options: Object) {
+async function putRequest(endpoint: String, options?: Object) {
   const token = getToken()
   const { body } = options
 
@@ -75,7 +75,7 @@ async function putRequest(endpoint: String, options: Object) {
   }
 }
 
-async function deleteRequest(endpoint: String, options: Object) {
+async function deleteRequest(endpoint: String, options?: Object) {
   const token = getToken()
   const { body } = options
 
