@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import { Linking, Text, View } from 'react-native'
 
 import { injectAuthActions, type AuthActions } from '../scopes/auth/injects'
-import {injectApplicationActions,
+import {
+  injectApplicationActions,
   type ApplicationActions,
 } from '../scopes/content/applications/injects'
 
