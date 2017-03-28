@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react'
+import { Text } from 'react-native'
 import { IntlProvider } from 'react-intl'
 
 type Props = {
@@ -10,7 +11,11 @@ type Props = {
 
 export function LanguageProvider(props: Props): React.Element<any> {
   return (
-    <IntlProvider locale={'en-US'} messages={props.messages['en-US']}>
+    <IntlProvider
+      locale={'en'}
+      messages={props.messages['en']}
+      textComponent={Text}
+    >
       {props.children}
     </IntlProvider>
   )

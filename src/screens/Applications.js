@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
+import { FormattedMessage } from 'react-intl'
 import {
   AppRegistry,
   AsyncStorage,
@@ -19,7 +20,9 @@ export default class TTNConsole extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Test</Text>
+        <Text>
+          <FormattedMessage id="app.general.test" defaultMessage="Test" />
+        </Text>
       </View>
     )
   }

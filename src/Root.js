@@ -1,12 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { AppRegistry, StyleSheet, Text, View } from 'react-native'
 
 import DelayUntilBootstrapped from './components/DelayUntilBootstrapped'
 import App from './App'
@@ -16,6 +11,7 @@ import { Provider } from 'react-redux'
 
 import configureStore from './store/configureStore'
 import { initializeClient } from './utils/apiClient'
+import { LanguageProvider } from './i18n'
 
 const { store } = configureStore()
 initializeClient(store)
@@ -24,14 +20,16 @@ export default class TTNConsole extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <DelayUntilBootstrapped>
-            <App />
-          {/* <SplashHome /> */}
-          </DelayUntilBootstrapped>
-        </View>
+        <LanguageProvider messages={[]}>
+          <View style={styles.container}>
+            <DelayUntilBootstrapped>
+              <App />
+              {/* <SplashHome /> */}
+            </DelayUntilBootstrapped>
+          </View>
+        </LanguageProvider>
       </Provider>
-    );
+    )
   }
 }
 
@@ -42,6 +40,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-});
+})
 
-AppRegistry.registerComponent('TTNConsole', () => TTNConsole);
+AppRegistry.registerComponent('TTNConsole', () => TTNConsole)
