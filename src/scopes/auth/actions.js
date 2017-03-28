@@ -1,14 +1,9 @@
 // @flow
 
-import { RECEIVE_AUTH } from './constants'
+import { RECEIVE_AUTH } from './types'
 
-type AuthPayload = {
-  accessToken: string,
-  accessTokenExpiresAt: number,
-  refreshToken: string,
-  tokenType: string,
-};
+import type { AuthPayload, ReceiveAuthAction } from './types'
 
-export function receiveAuth(payload: AuthPayload) {
+export function receiveAuth(payload: AuthPayload): ReceiveAuthAction {
   return { type: RECEIVE_AUTH, payload: payload }
 }
