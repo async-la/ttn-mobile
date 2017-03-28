@@ -1,7 +1,7 @@
 [ignore]
 
 ; Temporary Workarounds
-.*/node_modules/react-navigation/lib-rn/.*
+.*/node_modules/react-navigation/.*
 
 ; We fork some components by platform
 .*/*[.]android.js
@@ -35,6 +35,9 @@ experimental.strict_type_args=true
 munge_underscores=true
 
 module.name_mapper='^[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> 'RelativeImageStub'
+
+; Temporary Workaround
+module.name_mapper='^react-navigation$' -> 'emptyObject'
 
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
