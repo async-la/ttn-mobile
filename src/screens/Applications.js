@@ -13,9 +13,6 @@ import {
   View,
 } from 'react-native'
 
-import queryString from 'query-string'
-import base64 from 'base-64'
-
 export default class TTNConsole extends Component {
   render() {
     return (

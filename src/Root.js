@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 
 import configureStore from './store/configureStore'
 import { initializeClient } from './utils/apiClient'
-import { LanguageProvider } from './i18n'
+import { LanguageProvider, translations } from './i18n'
 
 const { store } = configureStore()
 initializeClient(store)
@@ -20,7 +20,7 @@ export default class TTNConsole extends Component {
   render() {
     return (
       <Provider store={store}>
-        <LanguageProvider messages={[]}>
+        <LanguageProvider translations={translations}>
           <View style={styles.container}>
             <DelayUntilBootstrapped>
               <App />

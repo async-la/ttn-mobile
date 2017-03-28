@@ -9,11 +9,12 @@ type Props = {
   children: React.Element<any>,
 };
 
+// @TODO: figure out locale or set it somewhere [cc]
 export function LanguageProvider(props: Props): React.Element<any> {
   return (
     <IntlProvider
       locale={'en'}
-      messages={props.messages['en']}
+      messages={props.translations['en']}
       textComponent={Text}
     >
       {props.children}
