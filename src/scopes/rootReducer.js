@@ -11,7 +11,7 @@ import navigators, {
 export default combineReducers({ app, auth, navigators })
 
 export type State = {
-  navigators: NavigatorsState,
-  auth: AuthState,
   app: AppState,
+  auth: AuthState,
+  navigators: NavigatorsState,
 };

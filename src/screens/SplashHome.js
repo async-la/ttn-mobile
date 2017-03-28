@@ -11,8 +11,7 @@ import base64 from 'base-64'
 import queryString from 'query-string'
 
 class SplashHome extends Component {
-  async componentDidMount() {
-    console.log(this.props)
+  componentDidMount() {
     Linking.addEventListener('url', this._handleOpenURL)
   }
 
