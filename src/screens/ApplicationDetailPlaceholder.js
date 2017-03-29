@@ -1,27 +1,18 @@
 // @flow
 
 import React, { Component } from 'react'
-import {
-  AppRegistry,
-  AsyncStorage,
-  ListView,
-  Linking,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from 'react-native'
-
-import queryString from 'query-string'
-import base64 from 'base-64'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { LATO_REGULAR } from '../constants/fonts'
 
-export default class TTNConsole extends Component {
+export default class ApplicationDetailPlaceholder extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Test</Text>
+        <TouchableOpacity>
+          <Text style={styles.header}>I'm an application!</Text>
+          <Text>{this.props.navigation.state.key}</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -29,11 +20,12 @@ export default class TTNConsole extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFFF00',
   },
-  welcome: {
+  header: {
     fontFamily: LATO_REGULAR,
     color: 'black',
     fontSize: 30,

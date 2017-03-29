@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addNavigationHelpers } from 'react-navigation'
 
-import { AppNavigator } from './scopes/navigators/reducer'
+import AppNavigator from './scopes/navigation/navigator'
 
 class App extends Component {
   render() {
@@ -20,5 +20,5 @@ class App extends Component {
 }
 
 export default connect(state => ({
-  nav: state.navigators.appNavigatorState,
+  nav: state.navigator,
 }))(App)
