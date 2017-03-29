@@ -1,7 +1,23 @@
 // @flow
 
 import React, { Component } from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+
+import { LATO_REGULAR } from '../constants/fonts'
+import { APPLICATION_DETAIL } from '../scopes/navigation/constants'
+
+import {
+  LIGHT_GREY,
+  LIGHT_ORANGE,
+  ORANGE,
+  DARK_ORANGE,
+} from '../constants/colors'
 
 const mockApplications = [
   {
@@ -36,26 +52,59 @@ const mockApplications = [
   },
 ]
 
-import { LATO_REGULAR } from '../constants/fonts'
-import {
-  LIGHT_GREY,
-  LIGHT_ORANGE,
-  ORANGE,
-  DARK_ORANGE,
-} from '../constants/colors'
+export default class ApplicationsList extends Component {
+  renderApplicationRow(application) {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          this.props.navigation.navigate(APPLICATION_DETAIL, {
+            appName: application.name,
+          })}
+      >
+        <View style={styles.applicationRow}>
+          <View style={[styles.applicationContainer, styles.idContainer]}>
+            <Text style={[styles.idText]}>{application.id}</Text>
+          </View>
+          <View style={[styles.applicationContainer, styles.nameContainer]}>
+            <Text>{application.name}</Text>
+          </View>
+          <View style={[styles.applicationContainer, styles.handlerContainer]}>
+            <Text style={[styles.handlerText]}>{application.handler}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
+  }
 
-export default class TTNConsole extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Applications</Text>
         <FlatList
           data={mockApplications}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => renderApplicationRow(item)}
+          renderItem={({ item }) => this.renderApplicationRow(item)}
           ItemSeparatorComponent={Separator}
           style={styles.list}
         />
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            bottom: 20,
+            right: 20,
+            width: 40,
+            height: 40,
+            alignSelf: 'flex-end',
+            backgroundColor: '#e74c3c',
+            borderRadius: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => alert("I'm a form!")}
+        >
+          <Text style={{ fontWeight: 'bold', fontSize: 25, color: 'white' }}>
+            +
+          </Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -63,28 +112,12 @@ export default class TTNConsole extends Component {
 
 const Separator = () => <View style={styles.separator} />
 
-const renderApplicationRow = application => {
-  return (
-    <View style={styles.applicationRow}>
-      <View style={[styles.applicationContainer, styles.idContainer]}>
-        <Text style={[styles.idText]}>{application.id}</Text>
-      </View>
-      <View style={[styles.applicationContainer, styles.nameContainer]}>
-        <Text>{application.name}</Text>
-      </View>
-      <View style={[styles.applicationContainer, styles.handlerContainer]}>
-        <Text style={[styles.handlerText]}>{application.handler}</Text>
-      </View>
-    </View>
-  )
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#00FFFF',
   },
   header: {
     fontFamily: LATO_REGULAR,
