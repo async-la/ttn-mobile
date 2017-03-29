@@ -1,4 +1,4 @@
 // @flow
 
-export { translations } from './config'
+export { DEFAULT_LOCALE, translations } from './config'
 export { LanguageProvider } from './LanguageProvider'

@@ -3,6 +3,7 @@
 import React from 'react'
 import { Text } from 'react-native'
 import { IntlProvider } from 'react-intl'
+import { DEFAULT_LOCALE } from './'
 
 type Props = {
   messages: { [key: string]: string },
@@ -10,11 +11,12 @@ type Props = {
 };
 
 // @TODO: figure out locale or set it somewhere [cc]
+
 export function LanguageProvider(props: Props): React.Element<any> {
   return (
     <IntlProvider
-      locale={'en'}
-      messages={props.translations['en']}
+      locale={DEFAULT_LOCALE}
+      messages={props.translations[DEFAULT_LOCALE]}
       textComponent={Text}
     >
       {props.children}
