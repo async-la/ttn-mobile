@@ -3,9 +3,9 @@
 import React, { Component } from 'react'
 import { AppRegistry, StyleSheet, Text, View } from 'react-native'
 
-import DelayUntilBootstrapped from './components/DelayUntilBootstrapped'
 import App from './App'
-
+import DelayUntilBootstrapped from './components/DelayUntilBootstrapped'
+import DeviceMonitor from './components/DeviceMonitor'
 import SplashHome from './screens/SplashHome'
 import { Provider } from 'react-redux'
 
@@ -19,10 +19,12 @@ export default class TTNConsole extends Component {
   render() {
     return (
       <Provider store={store}>
-        <DelayUntilBootstrapped>
-          <App />
-          {/* <SplashHome /> */}
-        </DelayUntilBootstrapped>
+        <DeviceMonitor>
+          <DelayUntilBootstrapped>
+            <App />
+            {/* <SplashHome /> */}
+          </DelayUntilBootstrapped>
+        </DeviceMonitor>
       </Provider>
     )
   }

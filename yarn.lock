@@ -3614,6 +3614,10 @@ react-intl@^2.2.3:
     intl-relativeformat "^1.3.0"
     invariant "^2.1.1"
 
+react-native-device-monitor@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-monitor/-/react-native-device-monitor-1.3.0.tgz#36193402226a9eaed055d9bd58749191a1fcaff4"
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
