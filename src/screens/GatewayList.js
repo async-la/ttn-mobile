@@ -4,9 +4,14 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { LATO_REGULAR } from '../constants/fonts'
-import { GATEWAY_DETAIL } from '../scopes/navigation/constants'
+import { GATEWAY_DETAIL, GATEWAYS_LABEL } from '../scopes/navigation/constants'
 
 export default class GatewayList extends Component {
+  static navigationOptions = {
+    header: ({ state }) => ({
+      title: GATEWAYS_LABEL,
+    }),
+  };
   render() {
     return (
       <View style={styles.container}>

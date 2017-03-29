@@ -4,9 +4,17 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { LATO_REGULAR } from '../constants/fonts'
-import { APPLICATION_DETAIL } from '../scopes/navigation/constants'
+import {
+  APPLICATION_DETAIL,
+  APPLICATIONS_LABEL,
+} from '../scopes/navigation/constants'
 
 export default class ApplicationsList extends Component {
+  static navigationOptions = {
+    header: ({ state }) => ({
+      title: APPLICATIONS_LABEL,
+    }),
+  };
   render() {
     return (
       <View style={styles.container}>
