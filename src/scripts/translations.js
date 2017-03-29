@@ -3,6 +3,7 @@
 import * as fs from 'fs'
 import { sync as globSync } from 'glob'
 import { sync as mkdirpSync } from 'mkdirp'
+import { DEFAULT_LOCALE } from '../i18n'
 
 const MESSAGES_PATTERN = './build/messages/**/*.json'
 const LANG_DIR = './build/lang/'
@@ -31,6 +32,6 @@ let defaultMessages = globSync(MESSAGES_PATTERN)
 
 mkdirpSync(LANG_DIR)
 fs.writeFileSync(
-  LANG_DIR + 'en.json',
+  LANG_DIR + DEFAULT_LOCALE + '.json',
   JSON.stringify(defaultMessages, null, 2)
 )
