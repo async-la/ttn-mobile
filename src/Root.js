@@ -21,25 +21,14 @@ export default class TTNConsole extends Component {
     return (
       <Provider store={store}>
         <LanguageProvider translations={translations}>
-          <View style={styles.container}>
-            <DelayUntilBootstrapped>
-              <App />
-              {/* <SplashHome /> */}
-            </DelayUntilBootstrapped>
-          </View>
+          <DelayUntilBootstrapped>
+            <App />
+            {/* <SplashHome /> */}
+          </DelayUntilBootstrapped>
         </LanguageProvider>
       </Provider>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-})
 
 AppRegistry.registerComponent('TTNConsole', () => TTNConsole)
