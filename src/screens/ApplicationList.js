@@ -13,10 +13,11 @@ import { LATO_REGULAR } from '../constants/fonts'
 import { APPLICATION_DETAIL } from '../scopes/navigation/constants'
 
 import {
+  DARK_ORANGE,
   LIGHT_GREY,
   LIGHT_ORANGE,
   ORANGE,
-  DARK_ORANGE,
+  WHITE,
 } from '../constants/colors'
 
 const mockApplications = [
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00FFFF',
+    backgroundColor: LIGHT_GREY,
   },
   header: {
     fontFamily: LATO_REGULAR,
@@ -134,6 +135,8 @@ const styles = StyleSheet.create({
     backgroundColor: LIGHT_GREY,
   },
   applicationRow: {
+    backgroundColor: WHITE,
+    borderRadius: 3,
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
