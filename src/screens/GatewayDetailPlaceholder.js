@@ -4,6 +4,9 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 export default class GatewayDetailPlaceholder extends Component {
+  static navigationOptions = {
+    title: ({ state }) => state.params.gatewayName,
+  };
   render() {
     return (
       <View style={styles.container}>
