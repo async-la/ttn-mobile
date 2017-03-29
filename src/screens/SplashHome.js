@@ -72,7 +72,9 @@ class SplashHome extends Component {
   render() {
     return (
       <View>
-        <Text onPress={this._authorize}>Login</Text>
+        <Text onPress={this._authorize}>
+          <FormattedMessage id="app.general.login" defaultMessage="Login" />
+        </Text>
       </View>
     )
   }

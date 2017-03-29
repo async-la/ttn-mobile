@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
+import { FormattedMessage } from 'react-intl'
 import {
   AppRegistry,
   AsyncStorage,
@@ -12,16 +13,15 @@ import {
   View,
 } from 'react-native'
 
-import queryString from 'query-string'
-import base64 from 'base-64'
-
 import { LATO_REGULAR } from '../constants/fonts'
 
 export default class TTNConsole extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Test</Text>
+        <Text style={styles.welcome}>
+          <FormattedMessage id="app.general.test" defaultMessage="Test" />
+        </Text>
       </View>
     )
   }
