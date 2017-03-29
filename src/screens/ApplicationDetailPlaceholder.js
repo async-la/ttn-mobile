@@ -6,6 +6,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { LATO_REGULAR } from '../constants/fonts'
 
 export default class ApplicationDetailPlaceholder extends Component {
+  static navigationOptions = {
+    title: ({ state }) => state.params.appName,
+  };
   render() {
     return (
       <View style={styles.container}>

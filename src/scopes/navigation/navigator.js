@@ -12,23 +12,27 @@ import Profile from '../../screens/Profile'
 import TestScreen from '../../screens/TestScreen'
 
 import {
-  APPLICATIONS,
-  APPLICATIONS_TAB,
   APPLICATION_DETAIL,
   APPLICATION_LIST,
+  APPLICATIONS,
+  APPLICATIONS_LABEL,
   DATA,
+  DATA_LABEL,
   DEVICE_DETAIL,
   DEVICE_LIST,
-  DEVICES,
-  GATEWAYS,
-  GATEWAYS_TAB,
+  DEVICES_LABEL,
   GATEWAY_LIST,
   GATEWAY_DETAIL,
+  GATEWAYS,
+  GATEWAYS_LABEL,
   OVERVIEW,
+  OVERVIEW_LABEL,
   PROFILE,
-  PROFILE_TAB,
+  PROFILE_LABEL,
   SETTINGS,
+  SETTINGS_LABEL,
   TRAFFIC,
+  TRAFFIC_LABEL,
 } from './constants'
 import { LATO_REGULAR, LEAGUE_SPARTAN } from '../../constants/fonts'
 
@@ -37,13 +41,18 @@ const ApplicationDetail = TabNavigator(
     [OVERVIEW]: {
       screen: ApplicationDetailPlaceholder,
       path: '/overview',
+      navigationOptions: {
+        tabBar: {
+          label: OVERVIEW_LABEL,
+        },
+      },
     },
     [DEVICE_LIST]: {
       screen: DeviceList,
       path: '/devices',
       navigationOptions: {
         tabBar: {
-          label: DEVICES,
+          label: DEVICES_LABEL,
         },
       },
     },
@@ -61,10 +70,20 @@ const ApplicationDetail = TabNavigator(
     [DATA]: {
       screen: ApplicationDetailPlaceholder,
       path: '/data',
+      navigationOptions: {
+        tabBar: {
+          label: DATA_LABEL,
+        },
+      },
     },
     [SETTINGS]: {
       screen: ApplicationDetailPlaceholder,
       path: '/settings',
+      navigationOptions: {
+        tabBar: {
+          label: SETTINGS_LABEL,
+        },
+      },
     },
   },
   {
@@ -88,12 +107,27 @@ const DeviceDetail = TabNavigator(
   {
     [OVERVIEW]: {
       screen: DeviceDetailPlaceholder,
+      navigationOptions: {
+        tabBar: {
+          label: OVERVIEW_LABEL,
+        },
+      },
     },
     [DATA]: {
       screen: DeviceDetailPlaceholder,
+      navigationOptions: {
+        tabBar: {
+          label: DATA_LABEL,
+        },
+      },
     },
     [SETTINGS]: {
       screen: DeviceDetailPlaceholder,
+      navigationOptions: {
+        tabBar: {
+          label: SETTINGS_LABEL,
+        },
+      },
     },
   },
   {
@@ -112,12 +146,12 @@ const DeviceDetail = TabNavigator(
   }
 )
 
-const ApplicationsTab = StackNavigator({
+const Applications = StackNavigator({
   [APPLICATION_LIST]: {
     screen: ApplicationList,
     path: '/',
     navigationOptions: {
-      title: APPLICATIONS,
+      title: APPLICATIONS_LABEL,
     },
   },
   [APPLICATION_DETAIL]: {
@@ -132,12 +166,27 @@ const GatewayDetail = TabNavigator(
   {
     [OVERVIEW]: {
       screen: GatewayDetailPlaceholder,
+      navigationOptions: {
+        tabBar: {
+          label: OVERVIEW_LABEL,
+        },
+      },
     },
     [TRAFFIC]: {
       screen: GatewayDetailPlaceholder,
+      navigationOptions: {
+        tabBar: {
+          label: TRAFFIC_LABEL,
+        },
+      },
     },
     [SETTINGS]: {
       screen: GatewayDetailPlaceholder,
+      navigationOptions: {
+        tabBar: {
+          label: SETTINGS_LABEL,
+        },
+      },
     },
   },
   {
@@ -157,12 +206,12 @@ const GatewayDetail = TabNavigator(
   }
 )
 
-const GatewaysTab = StackNavigator({
+const Gateways = StackNavigator({
   [GATEWAY_LIST]: {
     screen: GatewayList,
     path: '/',
     navigationOptions: {
-      title: GATEWAYS,
+      title: GATEWAYS_LABEL,
     },
   },
   [GATEWAY_DETAIL]: {
@@ -174,36 +223,36 @@ const GatewaysTab = StackNavigator({
 // Main app navigator. Define bottom tabs here
 export default (AppNavigator = TabNavigator(
   {
-    [APPLICATIONS_TAB]: {
-      screen: ApplicationsTab,
+    [APPLICATIONS]: {
+      screen: Applications,
       path: '/',
       navigationOptions: {
         tabBar: {
-          label: APPLICATIONS,
+          label: APPLICATIONS_LABEL,
         },
       },
     },
-    [GATEWAYS_TAB]: {
-      screen: GatewaysTab,
+    [GATEWAYS]: {
+      screen: Gateways,
       path: '/gateways',
       navigationOptions: {
         tabBar: {
-          label: GATEWAYS,
+          label: GATEWAYS_LABEL,
         },
       },
     },
-    [PROFILE_TAB]: {
+    [PROFILE]: {
       screen: Profile,
       path: '/profile',
       navigationOptions: {
         tabBar: {
-          label: PROFILE,
+          label: PROFILE_LABEL,
         },
       },
     },
   },
   {
-    order: [APPLICATIONS_TAB, GATEWAYS_TAB, PROFILE_TAB],
+    order: [APPLICATIONS, GATEWAYS, PROFILE],
     tabBarComponent: TabView.TabBarBottom,
     tabBarPosition: 'bottom',
   }
