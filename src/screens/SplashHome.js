@@ -2,17 +2,23 @@
 import React, { Component } from 'react'
 import { Linking, Text, View } from 'react-native'
 
-import { injectAuthActions } from '../scopes/auth/injects'
+import { injectAuthActions, type AuthActions } from '../scopes/auth/injects'
 import {
   injectApplicationActions,
+  type ApplicationActions,
 } from '../scopes/content/applications/injects'
 
 import base64 from 'base-64'
 import queryString from 'query-string'
 
+type Props = {
+  authActions: AuthActions,
+  applicationActions: ApplicationActions,
+};
+
 class SplashHome extends Component {
-  async componentDidMount() {
-    console.log(this.props)
+  props: Props;
+  componentDidMount() {
     Linking.addEventListener('url', this._handleOpenURL)
   }
 
@@ -51,14 +57,16 @@ class SplashHome extends Component {
     const json = await result.json()
     console.log('receiveAuth', json)
 
-    this.props.authActions.receiveAuth({
+    this.props.receiveAuth({
       accessToken: json.access_token,
       accessTokenExpiresAt: Date.now() + json.expires_in * 1000,
       refreshToken: json.refresh_token,
       tokenType: json.token_type,
     })
 
-    const applications = await this.props.applicationActions.getApplications()
+    const applications = await this.props.applicationActions.getApplications(
+      123
+    )
     console.log(applications)
   };
   render() {

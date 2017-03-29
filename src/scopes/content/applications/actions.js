@@ -1,21 +1,22 @@
 // @flow
 
-import * as apiClient from '../../../utils/apiClient'
+import apiClient from '../../../utils/apiClient'
 
+import { RECEIVE_APPLICATION, type ApplicationsAction } from './types'
 import { APPLICATIONS } from '../../../constants/apiEndpoints'
 
+import type { Dispatch, GetState } from '../../../types/redux'
+
 export function getApplications() {
-  return async (dispatch, getState) => {
+  return async (dispatch: Dispatch, getState: GetState) => {
     const applications = await apiClient.get(APPLICATIONS)
     console.log('getApplications', applications)
-
-    dispatch ({type: RECEIVE_APPLICATIONS, applications })
   }
 }
 
-export function getApplicationById(applicationId) {
-  return async (dispatch, getState) => {
+export function getApplicationById(applicationId: string) {
+  return async (dispatch: Dispatch, getState: GetState) => {
     const applications = await apiClient.get(APPLICATIONS + applicationId)
-    dispatch ({type: RECEIVE_APPLICATION, application })
+    return dispatch({ type: RECEIVE_APPLICATION, applications })
   }
 }
