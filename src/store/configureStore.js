@@ -12,7 +12,7 @@ import thunk from 'redux-thunk'
 const VERSION = 1
 
 //@TODO exclude logging on provide
-const middleware = [logger, thunk]
+const middleware = [thunk, logger]
 
 const enhancers = applyMiddleware(...middleware)
 const stateManagedReducer = stateManager(rootReducer, { version: VERSION }, {})
