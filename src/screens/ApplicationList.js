@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import {
+  FlatList,
   Modal,
   StyleSheet,
   Text,
@@ -16,6 +17,47 @@ import {
   APPLICATIONS_LABEL,
 } from '../scopes/navigation/constants'
 
+import {
+  DARK_ORANGE,
+  LIGHT_GREY,
+  LIGHT_ORANGE,
+  ORANGE,
+  WHITE,
+} from '../constants/colors'
+
+const mockApplications = [
+  {
+    euis: ['70B3D57EF0003448'],
+    handler: 'ttn-handler-us-west',
+    id: '758',
+    name: 'Test',
+  },
+  {
+    euis: ['70B3D57EF0003448'],
+    handler: 'ttn-handler-us-west',
+    id: '7581206457',
+    name: 'Horses',
+  },
+  {
+    euis: ['70B3D57EF0003448'],
+    handler: 'ttn-handler-us-west',
+    id: '1231206',
+    name: 'Apples',
+  },
+  {
+    euis: ['70B3D57EF0003448'],
+    handler: 'ttn-handler-us-east',
+    id: '8493206457',
+    name: 'Westworld',
+  },
+  {
+    euis: ['70B3D57EF0003448'],
+    handler: 'ttn-handler-us-west',
+    id: '7581206457832',
+    name: 'Burgers',
+  },
+]
+
 export default class ApplicationsList extends Component {
   static navigationOptions = {
     header: ({ state }) => ({
@@ -26,11 +68,33 @@ export default class ApplicationsList extends Component {
   state = {
     modalVisible: false,
   };
-  
+
+  renderApplicationRow(application) {
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          this.props.navigation.navigate(APPLICATION_DETAIL, {
+            appName: application.name,
+          })}
+      >
+        <View style={styles.applicationRow}>
+          <View style={[styles.applicationContainer, styles.idContainer]}>
+            <Text style={[styles.idText]}>{application.id}</Text>
+          </View>
+          <View style={[styles.applicationContainer, styles.nameContainer]}>
+            <Text>{application.name}</Text>
+          </View>
+          <View style={[styles.applicationContainer, styles.handlerContainer]}>
+            <Text style={[styles.handlerText]}>{application.handler}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
-
         <Modal
           animationType={'slide'}
           transparent={false}
@@ -60,34 +124,13 @@ export default class ApplicationsList extends Component {
           </View>
         </Modal>
 
-        <Text style={styles.header}>Application List</Text>
-        <TouchableOpacity
-          style={{ backgroundColor: '#FF00FF' }}
-          onPress={() =>
-            this.props.navigation.navigate(APPLICATION_DETAIL, {
-              appName: 'Moisture',
-            })}
-        >
-          <Text style={styles.header}>Moisture</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ backgroundColor: '#FF00FF' }}
-          onPress={() =>
-            this.props.navigation.navigate(APPLICATION_DETAIL, {
-              appName: 'Temperature',
-            })}
-        >
-          <Text style={styles.header}>Temperature</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ backgroundColor: '#FF00FF' }}
-          onPress={() =>
-            this.props.navigation.navigate(APPLICATION_DETAIL, {
-              appName: 'Air Quality',
-            })}
-        >
-          <Text style={styles.header}>Air Quality</Text>
-        </TouchableOpacity>
+        <FlatList
+          data={mockApplications}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => this.renderApplicationRow(item)}
+          ItemSeparatorComponent={Separator}
+          style={styles.list}
+        />
 
         <TouchableOpacity
           style={{
@@ -113,16 +156,61 @@ export default class ApplicationsList extends Component {
   }
 }
 
+const Separator = () => <View style={styles.separator} />
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00FFFF',
+    backgroundColor: LIGHT_GREY,
   },
   header: {
     fontFamily: LATO_REGULAR,
     color: 'black',
     fontSize: 30,
+  },
+  list: {
+    flex: 1,
+    width: '100%',
+  },
+  separator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: LIGHT_GREY,
+  },
+  applicationRow: {
+    backgroundColor: WHITE,
+    borderRadius: 3,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+  applicationContainer: {
+    flex: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 5,
+  },
+  idContainer: {
+    backgroundColor: LIGHT_ORANGE,
+    borderBottomColor: ORANGE,
+    borderBottomWidth: 1,
+    borderRadius: 3,
+    width: 120,
+  },
+  idText: {
+    color: DARK_ORANGE,
+  },
+  nameContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+  },
+  handlerContainer: {
+    width: 110,
+  },
+  handlerText: {
+    fontStyle: 'italic',
+    fontSize: 10,
   },
 })

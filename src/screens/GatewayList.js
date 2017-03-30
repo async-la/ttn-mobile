@@ -11,7 +11,7 @@ export default class GatewayList extends Component {
     header: ({ state }) => ({
       title: GATEWAYS_LABEL,
     }),
-  }
+  };
   state = {
     modalVisible: false,
   };
