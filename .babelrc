@@ -1,3 +1,10 @@
 {
-"presets": ["react-native"]
+  "presets": [
+    "react-native"
+  ],
+  "plugins": [
+    ["react-intl", {
+      "messagesDir": "./build/messages/"
+    }]
+  ]
 }

@@ -150,9 +150,6 @@ const Applications = StackNavigator({
   [APPLICATION_LIST]: {
     screen: ApplicationList,
     path: '/',
-    navigationOptions: {
-      title: APPLICATIONS_LABEL,
-    },
   },
   [APPLICATION_DETAIL]: {
     screen: ApplicationDetail,
@@ -210,9 +207,6 @@ const Gateways = StackNavigator({
   [GATEWAY_LIST]: {
     screen: GatewayList,
     path: '/',
-    navigationOptions: {
-      title: GATEWAYS_LABEL,
-    },
   },
   [GATEWAY_DETAIL]: {
     screen: GatewayDetail,
