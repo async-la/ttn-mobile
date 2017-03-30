@@ -4,14 +4,12 @@ import { combineReducers } from 'redux'
 
 import app, { type State as AppState } from './app/reducer'
 import auth, { type State as AuthState } from './auth/reducer'
-import navigators, {
-  type State as NavigatorsState,
-} from './navigators/reducer'
+import navigator, { type State as NavigatorState } from './navigation/reducer'
 
-export default combineReducers({ app, auth, navigators })
+export default combineReducers({ app, auth, navigator })
 
 export type State = {
   app: AppState,
   auth: AuthState,
-  navigators: NavigatorsState,
+  navigator: NavigatorState,
 };

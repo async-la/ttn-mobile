@@ -57,7 +57,7 @@ class SplashHome extends Component {
     const json = await result.json()
     console.log('receiveAuth', json)
 
-    this.props.authActions.receiveAuth({
+    this.props.receiveAuth({
       accessToken: json.access_token,
       accessTokenExpiresAt: Date.now() + json.expires_in * 1000,
       refreshToken: json.refresh_token,
@@ -72,7 +72,9 @@ class SplashHome extends Component {
   render() {
     return (
       <View>
-        <Text onPress={this._authorize}>Login</Text>
+        <Text onPress={this._authorize}>
+          <FormattedMessage id="app.general.login" defaultMessage="Login" />
+        </Text>
       </View>
     )
   }
