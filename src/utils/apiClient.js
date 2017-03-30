@@ -33,7 +33,7 @@ async function getRequest(endpoint: String, options?: Object) {
 
 async function postRequest(endpoint: String, options?: Object) {
   const token = getToken()
-  const { body } = options
+  const { body } = options || { body: null }
 
   try {
     const response = await fetch(endpoint, {
@@ -55,7 +55,7 @@ async function postRequest(endpoint: String, options?: Object) {
 
 async function putRequest(endpoint: String, options?: Object) {
   const token = getToken()
-  const { body } = options
+  const { body } = options || { body: null }
 
   try {
     const response = await fetch(endpoint, {
@@ -77,7 +77,7 @@ async function putRequest(endpoint: String, options?: Object) {
 
 async function deleteRequest(endpoint: String, options?: Object) {
   const token = getToken()
-  const { body } = options
+  const { body } = options || { body: null }
 
   try {
     const response = await fetch(endpoint, {

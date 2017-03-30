@@ -1,6 +1,6 @@
 // @flow
 
-import { createSetter } from './lib'
+import { createKV } from './lib'
 
 function dispatch() {}
 
@@ -9,6 +9,20 @@ const config = {
   local: { type: 'local', expires: 20000 },
 }
 
-dispatch.set = createSetter(config)
+type KVState = {|
+  a: number,
+  b: string,
+|};
+const initialState: KVState = {
+  a: 1,
+  b: 'a',
+}
 
-dispatch.set({ a: 'b' }, 'shortSession')
+const kv = createKV(config, initialState)
+
+// kv.set({ a: 'b' }, 'locals')
+kv.set('a', 'b', 'local')
+const s = kv.get('a')
+const ss = kv.get('b')
+
+const aa: string = s.a
