@@ -21,4 +21,3 @@ rules:
   flowtype/require-valid-file-annotation: [2, "always"]
   flowtype/boolean-style: [2, "boolean"]
   flowtype/use-flow-type: 2
-

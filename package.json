@@ -12,7 +12,9 @@
   "scripts": {
     "lint": "eslint src",
     "precommit": "lint-staged",
+    "install": "yarn translate",
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start:haul": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "translate": "node_modules/babel-cli/bin/babel-node.js src/scripts/translations"
   },
@@ -42,6 +44,7 @@
     "eslint-plugin-flowtype": "^2.30.4",
     "eslint-plugin-import": "^2.2.0",
     "flow-bin": "0.40",
+    "haul-cli": "^0.1.2",
     "husky": "^0.13.3",
     "jest": "^19.0.2",
     "lint-staged": "^3.4.0",
