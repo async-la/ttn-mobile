@@ -1,5 +1,8 @@
 // @flow
 
+// Required when running app with Chrome Debugger off [cdro]
+global.Intl = require('react-intl')
+
 import React, { Component } from 'react'
 import { AppRegistry, StyleSheet, Text, View } from 'react-native'
 
