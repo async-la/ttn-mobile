@@ -26,7 +26,6 @@ node_modules/react-native/flow
 flow/
 
 [options]
-emoji=true
 
 module.system=haste
 

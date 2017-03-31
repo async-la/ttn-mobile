@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react'
+import React from 'react'
 import { ActivityIndicator } from 'react-native'
 
 import { connect } from 'react-redux'
