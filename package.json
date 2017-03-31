@@ -11,10 +11,10 @@
   },
   "scripts": {
     "lint": "eslint src",
+    "postinstall": "yarn translate",
     "precommit": "lint-staged",
-    "install": "yarn translate",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "start:haul": "node node_modules/react-native/local-cli/cli.js start",
+    "start:haul": "haul start --platform all",
     "test": "jest",
     "translate": "node_modules/babel-cli/bin/babel-node.js src/scripts/translations"
   },
