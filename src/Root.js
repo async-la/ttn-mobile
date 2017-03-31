@@ -1,16 +1,19 @@
 // @flow
 
+// Required when running app with Chrome Debugger off [cdro]
+global.Intl = require('react-intl')
+
 import React, { Component } from 'react'
-import { AppRegistry, StyleSheet, Text, View } from 'react-native'
+import { AppRegistry } from 'react-native'
 
-import DelayUntilBootstrapped from './components/DelayUntilBootstrapped'
 import App from './App'
-
-import SplashHome from './screens/SplashHome'
+import DelayUntilBootstrapped from './components/DelayUntilBootstrapped'
+import DeviceMonitor from './components/DeviceMonitor'
 import { Provider } from 'react-redux'
 
 import configureStore from './store/configureStore'
 import { initializeClient } from './utils/apiClient'
+import { LanguageProvider, translations } from './i18n'
 
 const { store } = configureStore()
 initializeClient(store)
@@ -19,10 +22,13 @@ export default class TTNConsole extends Component {
   render() {
     return (
       <Provider store={store}>
-        <DelayUntilBootstrapped>
-          <App />
-          {/* <SplashHome /> */}
-        </DelayUntilBootstrapped>
+        <DeviceMonitor>
+          <LanguageProvider translations={translations}>
+            <DelayUntilBootstrapped>
+              <App />
+            </DelayUntilBootstrapped>
+          </LanguageProvider>
+        </DeviceMonitor>
       </Provider>
     )
   }

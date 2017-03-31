@@ -10,7 +10,7 @@ import type { Dispatch, GetState } from '../../../types/redux'
 export function getApplications() {
   return async (dispatch: Dispatch, getState: GetState) => {
     const applications = await apiClient.get(APPLICATIONS)
-    console.log('getApplications', applications)
+    return applications
   }
 }
 
