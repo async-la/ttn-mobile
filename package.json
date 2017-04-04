@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
+    "lodash": "^4.17.4",
     "query-string": "^4.3.2",
     "react": "16.0.0-alpha.4",
     "react-intl": "^2.2.3",
