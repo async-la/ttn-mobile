@@ -1,4 +1,5 @@
 // @flow
+import React from 'react'
 import { TabNavigator, TabView, StackNavigator } from 'react-navigation'
 
 import ApplicationList from '../../screens/ApplicationList'
@@ -9,7 +10,10 @@ import DeviceDetailPlaceholder from '../../screens/DeviceDetailPlaceholder'
 import GatewayList from '../../screens/GatewayList'
 import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
 import Profile from '../../screens/Profile'
-import TestScreen from '../../screens/TestScreen'
+// import TestScreen from '../../screens/TestScreen'
+
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Zocial from 'react-native-vector-icons/Zocial'
 
 import {
   APPLICATION_DETAIL,
@@ -34,7 +38,9 @@ import {
   TRAFFIC,
   TRAFFIC_LABEL,
 } from './constants'
-import { LATO_REGULAR, LEAGUE_SPARTAN } from '../../constants/fonts'
+
+import { BLUE } from '../../constants/colors'
+import { LATO_REGULAR } from '../../constants/fonts'
 
 const ApplicationDetail = TabNavigator(
   {
@@ -215,7 +221,7 @@ const Gateways = StackNavigator({
 })
 
 // Main app navigator. Define bottom tabs here
-export default (AppNavigator = TabNavigator(
+const AppNavigator = TabNavigator(
   {
     [APPLICATIONS]: {
       screen: Applications,
@@ -223,6 +229,13 @@ export default (AppNavigator = TabNavigator(
       navigationOptions: {
         tabBar: {
           label: APPLICATIONS_LABEL,
+          icon: ({ tintColor, focused }) => (
+            <Zocial
+              name="buffer"
+              size={20}
+              style={{ color: focused ? BLUE : 'grey' }}
+            />
+          ),
         },
       },
     },
@@ -232,6 +245,13 @@ export default (AppNavigator = TabNavigator(
       navigationOptions: {
         tabBar: {
           label: GATEWAYS_LABEL,
+          icon: ({ tintColor, focused }) => (
+            <MaterialIcons
+              name="router"
+              size={30}
+              style={{ color: focused ? BLUE : 'grey' }}
+            />
+          ),
         },
       },
     },
@@ -241,6 +261,13 @@ export default (AppNavigator = TabNavigator(
       navigationOptions: {
         tabBar: {
           label: PROFILE_LABEL,
+          icon: ({ tintColor, focused }) => (
+            <MaterialIcons
+              name="person"
+              size={30}
+              style={{ color: focused ? BLUE : 'grey' }}
+            />
+          ),
         },
       },
     },
@@ -249,5 +276,11 @@ export default (AppNavigator = TabNavigator(
     order: [APPLICATIONS, GATEWAYS, PROFILE],
     tabBarComponent: TabView.TabBarBottom,
     tabBarPosition: 'bottom',
+    tabBarOptions: {
+      showLabel: false,
+      showIcon: true,
+    },
   }
-))
+)
+
+export default AppNavigator
