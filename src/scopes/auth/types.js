@@ -13,4 +13,9 @@ export type ReceiveAuthAction = {
   payload: AuthPayload,
 };
 
-export type AuthAction = ReceiveAuthAction;
+export const RESET_AUTH = 'auth/RESET_AUTH'
+export type ResetAuthAction = {
+  type: 'auth/RESET_AUTH',
+};
+
+export type AuthAction = ReceiveAuthAction | ResetAuthAction;
