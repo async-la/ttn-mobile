@@ -3,8 +3,7 @@ import React from 'react'
 import { TabNavigator, TabView, StackNavigator } from 'react-navigation'
 
 import ApplicationList from '../../screens/ApplicationList'
-import ApplicationDetailPlaceholder
-  from '../../screens/ApplicationDetailPlaceholder'
+import ApplicationOverview from '../../screens/ApplicationOverview'
 import DeviceList from '../../screens/DeviceList'
 import DeviceDetailPlaceholder from '../../screens/DeviceDetailPlaceholder'
 import GatewayList from '../../screens/GatewayList'
@@ -45,7 +44,7 @@ import { LATO_REGULAR } from '../../constants/fonts'
 const ApplicationDetail = TabNavigator(
   {
     [OVERVIEW]: {
-      screen: ApplicationDetailPlaceholder,
+      screen: ApplicationOverview,
       path: '/overview',
       navigationOptions: {
         tabBar: {
@@ -74,7 +73,7 @@ const ApplicationDetail = TabNavigator(
     // },
 
     [DATA]: {
-      screen: ApplicationDetailPlaceholder,
+      screen: ApplicationOverview,
       path: '/data',
       navigationOptions: {
         tabBar: {
@@ -83,7 +82,7 @@ const ApplicationDetail = TabNavigator(
       },
     },
     [SETTINGS]: {
-      screen: ApplicationDetailPlaceholder,
+      screen: ApplicationOverview,
       path: '/settings',
       navigationOptions: {
         tabBar: {

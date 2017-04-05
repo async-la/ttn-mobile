@@ -3,6 +3,10 @@ import { refreshAccessTokenAsync } from '../scopes/auth/actions'
 
 let singletonStore = null
 
+type APIOptions = {
+  body?: Object,
+};
+
 export function initializeClient(store: Object) {
   singletonStore = store
 }
@@ -19,7 +23,7 @@ async function getToken() {
   }
 }
 
-async function getRequest(endpoint: String, options?: Object) {
+async function getRequest(endpoint: string) {
   const token = await getToken()
   try {
     const response = await fetch(endpoint, {
@@ -37,7 +41,7 @@ async function getRequest(endpoint: String, options?: Object) {
   }
 }
 
-async function postRequest(endpoint: String, options?: Object) {
+async function postRequest(endpoint: string, options?: APIOptions = {}) {
   const token = await getToken()
   const { body } = options
 
@@ -59,7 +63,7 @@ async function postRequest(endpoint: String, options?: Object) {
   }
 }
 
-async function putRequest(endpoint: String, options?: Object) {
+async function putRequest(endpoint: string, options: APIOptions = {}) {
   const token = await getToken()
   const { body } = options
 
@@ -81,7 +85,7 @@ async function putRequest(endpoint: String, options?: Object) {
   }
 }
 
-async function deleteRequest(endpoint: String, options?: Object) {
+async function deleteRequest(endpoint: string, options?: APIOptions) {
   const token = await getToken()
 
   try {

@@ -2,161 +2,162 @@
 
 import React, { Component } from 'react'
 import {
+  ActivityIndicator,
   FlatList,
   Modal,
   StyleSheet,
   Text,
-  TouchableHighlight,
   TouchableOpacity,
   View,
 } from 'react-native'
+import ApplicationListItem from '../components/ApplicationListItem'
 
+import { APPLICATIONS_LABEL } from '../scopes/navigation/constants'
+import { BLUE, LIGHT_GREY } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
-import {
-  APPLICATION_DETAIL,
-  APPLICATIONS_LABEL,
-} from '../scopes/navigation/constants'
 
-import {
-  DARK_ORANGE,
-  LIGHT_GREY,
-  LIGHT_ORANGE,
-  ORANGE,
-  WHITE,
-} from '../constants/colors'
+import * as TTNApplicationActions from '../scopes/content/applications/actions'
+import { connect } from 'react-redux'
 
-const mockApplications = [
-  {
-    euis: ['70B3D57EF0003448'],
-    handler: 'ttn-handler-us-west',
-    id: '758',
-    name: 'Test',
-  },
-  {
-    euis: ['70B3D57EF0003448'],
-    handler: 'ttn-handler-us-west',
-    id: '7581206457',
-    name: 'Horses',
-  },
-  {
-    euis: ['70B3D57EF0003448'],
-    handler: 'ttn-handler-us-west',
-    id: '1231206',
-    name: 'Apples',
-  },
-  {
-    euis: ['70B3D57EF0003448'],
-    handler: 'ttn-handler-us-east',
-    id: '8493206457',
-    name: 'Westworld',
-  },
-  {
-    euis: ['70B3D57EF0003448'],
-    handler: 'ttn-handler-us-west',
-    id: '7581206457832',
-    name: 'Burgers',
-  },
-]
+type Props = {
+  applications: Object,
+  getApplicationsAsync: typeof TTNApplicationActions.getApplicationsAsync,
+  navigation: Object,
+};
 
-export default class ApplicationsList extends Component {
+type State = {
+  initialLoad: boolean,
+  modalVisible: boolean,
+  isRefreshing: boolean,
+};
+
+class ApplicationsList extends Component {
   static navigationOptions = {
     header: ({ state }) => ({
       title: APPLICATIONS_LABEL,
     }),
   };
 
-  state = {
+  props: Props;
+  state: State = {
+    initialLoad: false,
     modalVisible: false,
+    isRefreshing: false,
   };
 
-  renderApplicationRow(application) {
+  componentDidMount() {
+    this._fetchApplications(true)
+  }
+
+  _fetchApplications = async (initialLoad = false) => {
+    if (!initialLoad) this.setState({ isRefreshing: true })
+
+    await this.props.getApplicationsAsync()
+
+    if (!initialLoad) {
+      this.setState({ isRefreshing: false })
+    } else {
+      this.setState({ initialLoad: true })
+    }
+  };
+
+  _renderApplicationRow(id) {
+    const application = this.props.applications.dictionary[id]
+    return (
+      <ApplicationListItem
+        application={application}
+        navigation={this.props.navigation}
+      />
+    )
+  }
+
+  _renderModal() {
+    return (
+      <Modal
+        animationType={'slide'}
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {}}
+      >
+        <View style={{ marginTop: 40, marginLeft: 20 }}>
+          <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
+            Add Application
+          </Text>
+          <Text>I'm a form!</Text>
+
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#3498db',
+              padding: 20,
+              marginTop: 20,
+              width: 100,
+              borderRadius: 5,
+            }}
+            onPress={() => {
+              this.setState({ modalVisible: false })
+            }}
+          >
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    )
+  }
+
+  _renderModalToggle() {
     return (
       <TouchableOpacity
-        onPress={() =>
-          this.props.navigation.navigate(APPLICATION_DETAIL, {
-            appName: application.name,
-          })}
+        style={styles.modalToggle}
+        onPress={() => this.setState({ modalVisible: true })}
       >
-        <View style={styles.applicationRow}>
-          <View style={[styles.applicationContainer, styles.idContainer]}>
-            <Text style={[styles.idText]}>{application.id}</Text>
-          </View>
-          <View style={[styles.applicationContainer, styles.nameContainer]}>
-            <Text>{application.name}</Text>
-          </View>
-          <View style={[styles.applicationContainer, styles.handlerContainer]}>
-            <Text style={[styles.handlerText]}>{application.handler}</Text>
-          </View>
-        </View>
+        <Text style={{ color: 'white' }}>+</Text>
       </TouchableOpacity>
     )
   }
 
+  _renderContent = () => {
+    if (!this.state.initialLoad) {
+      return <ActivityIndicator size="large" />
+    } else if (this.state.initialLoad && !this.props.applications.list) {
+      return (
+        <Text onPress={this._fetchApplications}>
+          No Applications found. Tap here to refresh
+        </Text>
+      )
+    } else {
+      return (
+        <FlatList
+          data={this.props.applications.list}
+          initialListSize={this.props.applications.list.length}
+          keyExtractor={item => item}
+          renderItem={({ item }) => this._renderApplicationRow(item)}
+          ItemSeparatorComponent={Separator}
+          style={styles.list}
+          onRefresh={this._fetchApplications}
+          refreshing={this.state.isRefreshing}
+        />
+      )
+    }
+  };
   render() {
     return (
       <View style={styles.container}>
-        <Modal
-          animationType={'slide'}
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {}}
-        >
-          <View style={{ marginTop: 40, marginLeft: 20 }}>
-            <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
-              Add Application
-            </Text>
-            <Text>I'm a form!</Text>
-
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#3498db',
-                padding: 20,
-                marginTop: 20,
-                width: 100,
-                borderRadius: 5,
-              }}
-              onPress={() => {
-                this.setState({ modalVisible: false })
-              }}
-            >
-              <Text style={{ color: 'white', fontWeight: 'bold' }}>Cancel</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-
-        <FlatList
-          data={mockApplications}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => this.renderApplicationRow(item)}
-          ItemSeparatorComponent={Separator}
-          style={styles.list}
-        />
-
-        <TouchableOpacity
-          style={{
-            position: 'absolute',
-            bottom: 20,
-            right: 20,
-            width: 40,
-            height: 40,
-            alignSelf: 'flex-end',
-            backgroundColor: '#e74c3c',
-            borderRadius: 40,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          onPress={() => this.setState({ modalVisible: true })}
-        >
-          <Text style={{ fontWeight: 'bold', fontSize: 25, color: 'white' }}>
-            +
-          </Text>
-        </TouchableOpacity>
+        {this._renderContent()}
+        {this._renderModal()}
+        {this._renderModalToggle()}
       </View>
     )
   }
 }
 
 const Separator = () => <View style={styles.separator} />
+
+export default connect(
+  state => ({
+    applications: state.content.applications,
+  }),
+  TTNApplicationActions
+)(ApplicationsList)
 
 const styles = StyleSheet.create({
   container: {
@@ -179,38 +180,16 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: LIGHT_GREY,
   },
-  applicationRow: {
-    backgroundColor: WHITE,
-    borderRadius: 3,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
-  },
-  applicationContainer: {
-    flex: 0,
-    alignItems: 'center',
+  modalToggle: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    width: 40,
+    height: 40,
+    alignSelf: 'flex-end',
+    backgroundColor: BLUE,
+    borderRadius: 40,
     justifyContent: 'center',
-    paddingHorizontal: 5,
-  },
-  idContainer: {
-    backgroundColor: LIGHT_ORANGE,
-    borderBottomColor: ORANGE,
-    borderBottomWidth: 1,
-    borderRadius: 3,
-    width: 120,
-  },
-  idText: {
-    color: DARK_ORANGE,
-  },
-  nameContainer: {
-    flex: 1,
-    alignItems: 'flex-start',
-  },
-  handlerContainer: {
-    width: 110,
-  },
-  handlerText: {
-    fontStyle: 'italic',
-    fontSize: 10,
+    alignItems: 'center',
   },
 })

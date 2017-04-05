@@ -2,21 +2,41 @@
 
 import apiClient from '../../../utils/apiClient'
 
-import { RECEIVE_APPLICATION, type ApplicationsAction } from './types'
 import { APPLICATIONS } from '../../../constants/apiEndpoints'
-
+import { RECEIVE_TTN_APPLICATION, RECEIVE_TTN_APPLICATIONS } from './types'
+import type { TTNApplication } from './types'
 import type { Dispatch, GetState } from '../../../types/redux'
 
-export function getApplications() {
+/**
+ * Fetch ALL Applications
+ */
+export function getApplicationsAsync() {
   return async (dispatch: Dispatch, getState: GetState) => {
-    const applications = await apiClient.get(APPLICATIONS)
-    return applications
+    const payload: Array<TTNApplication> = await apiClient.get(APPLICATIONS)
+    return dispatch({ type: RECEIVE_TTN_APPLICATIONS, payload })
   }
 }
 
-export function getApplicationById(applicationId: string) {
+/**
+ * Fetch Application by ID
+ */
+export function getApplicationByIdAsync(applicationId: string) {
   return async (dispatch: Dispatch, getState: GetState) => {
-    const applications = await apiClient.get(APPLICATIONS + applicationId)
-    return dispatch({ type: RECEIVE_APPLICATION, applications })
+    const payload: TTNApplication = await apiClient.get(
+      APPLICATIONS + applicationId
+    )
+    return dispatch({ type: RECEIVE_TTN_APPLICATION, payload })
+  }
+}
+
+/**
+ * Fetch Devices for Application
+ */
+export function getApplicationDevicesAsync(applicationId: string) {
+  return async (dispatch: Dispatch, getState: GetState) => {
+    const payload: Array<TTNApplication> = await apiClient.get(
+      APPLICATIONS + applicationId + '/devices/'
+    )
+    return payload
   }
 }
