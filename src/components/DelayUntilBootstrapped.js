@@ -10,5 +10,5 @@ export default connect(state => ({
 }))(props => {
   return props.bootstrapped
     ? props.children
-    : <ActivityIndicator size="large" />
+    : <ActivityIndicator style={{ flex: 1 }} size="large" />
 })

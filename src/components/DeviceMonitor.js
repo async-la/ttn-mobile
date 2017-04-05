@@ -1,19 +1,21 @@
 // @flow
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import DeviceMonitor from 'react-native-device-monitor'
 
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as deviceActions from '../scopes/device/actions'
 
+type Props = {
+  children: Object,
+  setAppState: typeof deviceActions.setAppState,
+  setKeyboardStatus: typeof deviceActions.setKeyboardStatus,
+  setNetworkStatus: typeof deviceActions.setNetworkStatus,
+  setViewport: typeof deviceActions.setViewport,
+};
+
 class AppDeviceMonitor extends Component {
-  static propTypes = {
-    setAppState: PropTypes.func,
-    setKeyboardStatus: PropTypes.func,
-    setNetworkStatus: PropTypes.func,
-    setViewport: PropTypes.func,
-  };
+  props: Props;
   render() {
     return (
       <DeviceMonitor
@@ -28,6 +30,4 @@ class AppDeviceMonitor extends Component {
   }
 }
 
-export default connect(null, dispatch => ({
-  ...bindActionCreators(deviceActions, dispatch),
-}))(AppDeviceMonitor)
+export default connect(null, deviceActions)(AppDeviceMonitor)
