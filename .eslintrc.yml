@@ -25,3 +25,4 @@ rules:
   flowtype/use-flow-type: 2
   no-unused-vars: [2, {vars: all, args: none}]
   jsx-quotes: [2, "prefer-double"]
+  react/prop-types: [2, { skipUndeclared: true }]
