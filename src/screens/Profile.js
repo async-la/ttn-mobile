@@ -2,11 +2,14 @@
 
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
+import { FormattedMessage } from 'react-intl'
+import { connect } from 'react-redux'
+import * as authActions from '../scopes/auth/actions'
 
 const randomColorValue = () => Math.floor(Math.random() * 255)
 const randomColor = `rgb(${randomColorValue()}, ${randomColorValue()}, ${randomColorValue()})`
 
-export default class Profile extends Component {
+class Profile extends Component {
   render() {
     return (
       <View
@@ -17,8 +20,12 @@ export default class Profile extends Component {
           alignItems: 'center',
         }}
       >
-        <Text>I'm your profile!</Text>
+        <Text onPress={this.props.resetAuth}>
+          <FormattedMessage id="app.action.logout" defaultMessage="Logout" />
+        </Text>
       </View>
     )
   }
 }
+
+export default connect(null, authActions)(Profile)

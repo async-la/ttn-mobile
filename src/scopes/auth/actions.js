@@ -4,13 +4,17 @@ import base64 from 'base-64'
 import queryString from 'query-string'
 
 import { ACCESS_TOKEN_URI } from '../../constants/apiEndpoints'
-import { RECEIVE_AUTH } from './types'
+import { RECEIVE_AUTH, RESET_AUTH } from './types'
 
 import type { AuthPayload, ReceiveAuthAction } from './types'
 import type { Dispatch, GetState } from '../../types/redux'
 
 export function receiveAuth(payload: AuthPayload): ReceiveAuthAction {
   return { type: RECEIVE_AUTH, payload: payload }
+}
+
+export function resetAuth(): resetAuth {
+  return { type: RESET_AUTH }
 }
 
 export function getAccessTokenAsync(event: { url: string }) {
