@@ -10,10 +10,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+
+import AddButton from '../components/AddButton'
 import ApplicationListItem from '../components/ApplicationListItem'
 
 import { APPLICATIONS_LABEL } from '../scopes/navigation/constants'
-import { BLUE, LIGHT_GREY } from '../constants/colors'
+import { LIGHT_GREY } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
@@ -47,6 +49,14 @@ class ApplicationsList extends Component {
 
   componentDidMount() {
     this._fetchApplications(true)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!this.state.isRefreshing && nextState.isRefreshing) {
+      return false
+    } else {
+      return true
+    }
   }
 
   _fetchApplications = async (initialLoad = false) => {
@@ -105,14 +115,7 @@ class ApplicationsList extends Component {
   }
 
   _renderModalToggle() {
-    return (
-      <TouchableOpacity
-        style={styles.modalToggle}
-        onPress={() => this.setState({ modalVisible: true })}
-      >
-        <Text style={{ color: 'white' }}>+</Text>
-      </TouchableOpacity>
-    )
+    return <AddButton onPress={() => this.setState({ modalVisible: true })} />
   }
 
   _renderContent = () => {
@@ -179,17 +182,5 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
     backgroundColor: LIGHT_GREY,
-  },
-  modalToggle: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    width: 40,
-    height: 40,
-    alignSelf: 'flex-end',
-    backgroundColor: BLUE,
-    borderRadius: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 })
