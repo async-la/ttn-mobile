@@ -15,7 +15,7 @@ import AddButton from '../components/AddButton'
 import ApplicationListItem from '../components/ApplicationListItem'
 
 import { APPLICATIONS_LABEL } from '../scopes/navigation/constants'
-import { LIGHT_GREY } from '../constants/colors'
+import { LIGHT_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
@@ -49,14 +49,6 @@ class ApplicationsList extends Component {
 
   componentDidMount() {
     this._fetchApplications(true)
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (!this.state.isRefreshing && nextState.isRefreshing) {
-      return false
-    } else {
-      return true
-    }
   }
 
   _fetchApplications = async (initialLoad = false) => {
@@ -107,7 +99,7 @@ class ApplicationsList extends Component {
               this.setState({ modalVisible: false })
             }}
           >
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>Cancel</Text>
+            <Text style={{ color: WHITE, fontWeight: 'bold' }}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -167,7 +159,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: LIGHT_GREY,
+    backgroundColor: WHITE,
   },
   header: {
     fontFamily: LATO_REGULAR,
