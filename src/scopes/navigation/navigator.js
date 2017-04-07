@@ -73,7 +73,7 @@ const ApplicationDetail = TabNavigator(
     // },
 
     [DATA]: {
-      screen: ApplicationOverview,
+      screen: Profile,
       path: '/data',
       navigationOptions: {
         tabBar: {
@@ -82,7 +82,7 @@ const ApplicationDetail = TabNavigator(
       },
     },
     [SETTINGS]: {
-      screen: ApplicationOverview,
+      screen: Profile,
       path: '/settings',
       navigationOptions: {
         tabBar: {
@@ -96,12 +96,19 @@ const ApplicationDetail = TabNavigator(
     order: [OVERVIEW, DEVICE_LIST, DATA, SETTINGS],
     tabBarComponent: TabView.TabBarTop,
     tabBarPosition: 'top',
+    lazyLoad: true,
     animationEnabled: true,
     swipeEnabled: true,
     pressOpacity: 0.2,
     tabBarOptions: {
       labelStyle: {
         fontFamily: LATO_REGULAR,
+      },
+      style: {
+        backgroundColor: BLUE,
+      },
+      indicatorStyle: {
+        backgroundColor: 'white',
       },
       scrollEnabled: true,
     },
@@ -136,17 +143,24 @@ const DeviceDetail = TabNavigator(
     },
   },
   {
+    animationEnabled: true,
     backBehavior: 'none',
+    lazyLoad: true,
     order: [OVERVIEW, DATA, SETTINGS],
+    scrollEnabled: true,
+    swipeEnabled: true,
     tabBarComponent: TabView.TabBarTop,
     tabBarPosition: 'top',
-    animationEnabled: true,
-    swipeEnabled: true,
     tabBarOptions: {
       labelStyle: {
         fontFamily: LATO_REGULAR,
       },
-      scrollEnabled: true,
+      style: {
+        backgroundColor: BLUE,
+      },
+      indicatorStyle: {
+        backgroundColor: 'white',
+      },
     },
   }
 )
@@ -273,6 +287,7 @@ const AppNavigator = TabNavigator(
   },
   {
     order: [APPLICATIONS, GATEWAYS, PROFILE],
+    lazyLoad: true,
     tabBarComponent: TabView.TabBarBottom,
     tabBarPosition: 'bottom',
     tabBarOptions: {
