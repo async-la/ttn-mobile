@@ -22,6 +22,7 @@
 		112783B61E89C80D0049531B /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AD1E89C80D0049531B /* Lato-LightItalic.ttf */; };
 		112783B71E89C80D0049531B /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AE1E89C80D0049531B /* Lato-Regular.ttf */; };
 		112783B81E89C80D0049531B /* LeagueSpartan-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AF1E89C80D0049531B /* LeagueSpartan-Bold.otf */; };
+		1198B72F1E97FF7A00BAA9A3 /* TTNMQTT.m in Sources */ = {isa = PBXBuildFile; fileRef = 1198B72E1E97FF7A00BAA9A3 /* TTNMQTT.m */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -47,6 +48,7 @@
 		34EC611AB38A4AA9A1785E90 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAE482AA97D640BC8788F820 /* SimpleLineIcons.ttf */; };
 		5A479638271540ECA3ECFF86 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0179AA5811CF43C8BC9A6BAA /* MaterialCommunityIcons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		7AE8D8476B7E68D38F26DA7D /* libPods-TTNConsole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4615CA4FECA96623CDAE3231 /* libPods-TTNConsole.a */; };
 		819C951BB36F418E96C62856 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5867E3E6A03B4B65893FFDB4 /* MaterialIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8A2F75CE6551465EB7F2474A /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D965A8EF89F64E4AA54C1FB9 /* EvilIcons.ttf */; };
@@ -277,6 +279,8 @@
 		112783AD1E89C80D0049531B /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-LightItalic.ttf"; path = "TTNConsole/Assets/Fonts/Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		112783AE1E89C80D0049531B /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		112783AF1E89C80D0049531B /* LeagueSpartan-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LeagueSpartan-Bold.otf"; path = "TTNConsole/Assets/Fonts/LeagueSpartan-Bold.otf"; sourceTree = "<group>"; };
+		1198B72D1E97FF7A00BAA9A3 /* TTNMQTT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNMQTT.h; path = TTNConsole/Modules/TTNMQTT.h; sourceTree = "<group>"; };
+		1198B72E1E97FF7A00BAA9A3 /* TTNMQTT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTNMQTT.m; path = TTNConsole/Modules/TTNMQTT.m; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TTNConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTNConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +296,7 @@
 		279EAE2459934829AAB9414E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* TTNConsole-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TTNConsole-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* TTNConsole-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TTNConsole-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4615CA4FECA96623CDAE3231 /* libPods-TTNConsole.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TTNConsole.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC072E86C194377A3EA121A /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		57F85268FBF940BD853AE777 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		5867E3E6A03B4B65893FFDB4 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -299,6 +304,8 @@
 		71C016C8B1F54F229D3A5372 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		89D9D892B2A7C2030EB33FEF /* Pods-TTNConsole.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTNConsole.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TTNConsole/Pods-TTNConsole.debug.xcconfig"; sourceTree = "<group>"; };
+		946DAE36859431ABC81D2C73 /* Pods-TTNConsole.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTNConsole.release.xcconfig"; path = "Pods/Target Support Files/Pods-TTNConsole/Pods-TTNConsole.release.xcconfig"; sourceTree = "<group>"; };
 		A89F57E7C3AF4ABBB4E6BA8C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		D965A8EF89F64E4AA54C1FB9 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		E8AA4960030C4AF0973B7EE0 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
@@ -330,6 +337,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				DC9B90D7377A4864BBDAB52B /* libRNVectorIcons.a in Frameworks */,
+				7AE8D8476B7E68D38F26DA7D /* libPods-TTNConsole.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +457,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1198B7121E97FEDA00BAA9A3 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				1198B72D1E97FF7A00BAA9A3 /* TTNMQTT.h */,
+				1198B72E1E97FF7A00BAA9A3 /* TTNMQTT.m */,
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -522,6 +539,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		6F34F9DCE24E2954E2089FCA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				89D9D892B2A7C2030EB33FEF /* Pods-TTNConsole.debug.xcconfig */,
+				946DAE36859431ABC81D2C73 /* Pods-TTNConsole.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,11 +589,14 @@
 			isa = PBXGroup;
 			children = (
 				112783771E89C2280049531B /* Assets */,
-				13B07FAE1A68108700A75B9A /* TTNConsole */,
+				8A61275DF616F01CED5C6523 /* Frameworks */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* TTNConsoleTests */,
+				1198B7121E97FEDA00BAA9A3 /* Modules */,
+				6F34F9DCE24E2954E2089FCA /* Pods */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				5FB501B6AA7149F1B7E5E6C9 /* Resources */,
+				13B07FAE1A68108700A75B9A /* TTNConsole */,
+				00E356EF1AD99517003FC87E /* TTNConsoleTests */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -582,6 +611,14 @@
 				2D02E4901E0B4A5D006451C7 /* TTNConsole-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8A61275DF616F01CED5C6523 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4615CA4FECA96623CDAE3231 /* libPods-TTNConsole.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -609,10 +646,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TTNConsole" */;
 			buildPhases = (
+				A1966E5A2346E55A93FDDF02 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				208E8561684EF69463476C74 /* [CP] Embed Pods Frameworks */,
+				14D0DF88490900F1956B588C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -670,7 +710,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = G496R7LJ3Q;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = G496R7LJ3Q;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1007,6 +1051,36 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		14D0DF88490900F1956B588C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TTNConsole/Pods-TTNConsole-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		208E8561684EF69463476C74 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TTNConsole/Pods-TTNConsole-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1020,6 +1094,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+		};
+		A1966E5A2346E55A93FDDF02 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1037,6 +1126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				1198B72F1E97FF7A00BAA9A3 /* TTNMQTT.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1090,6 +1180,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = G496R7LJ3Q;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1120,6 +1211,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = G496R7LJ3Q;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1143,10 +1235,12 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89D9D892B2A7C2030EB33FEF /* Pods-TTNConsole.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = G496R7LJ3Q;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1166,9 +1260,11 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 946DAE36859431ABC81D2C73 /* Pods-TTNConsole.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G496R7LJ3Q;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",

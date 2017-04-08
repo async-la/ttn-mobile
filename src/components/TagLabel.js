@@ -11,6 +11,8 @@ import {
   ORANGE,
 } from '../constants/colors'
 
+import { LATO_REGULAR } from '../constants/fonts'
+
 type Props = {
   center?: boolean,
   children?: React.Element<any>,
@@ -29,7 +31,12 @@ const TagLabel = (props: Props) => {
         },
       ]}
     >
-      <Text style={{ color: props.orange ? DARK_ORANGE : BLUE }}>
+      <Text
+        style={{
+          fontFamily: LATO_REGULAR,
+          color: props.orange ? DARK_ORANGE : BLUE,
+        }}
+      >
         {props.children}
       </Text>
     </View>
@@ -42,7 +49,7 @@ const styles = {
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderRadius: 3,
     height: 30,
     padding: 10,

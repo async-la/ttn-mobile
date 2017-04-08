@@ -2,6 +2,7 @@
 import React from 'react'
 import { TabNavigator, TabView, StackNavigator } from 'react-navigation'
 
+import ApplicationData from '../../screens/ApplicationData'
 import ApplicationList from '../../screens/ApplicationList'
 import ApplicationOverview from '../../screens/ApplicationOverview'
 import DeviceList from '../../screens/DeviceList'
@@ -73,7 +74,7 @@ const ApplicationDetail = TabNavigator(
     // },
 
     [DATA]: {
-      screen: Profile,
+      screen: ApplicationData,
       path: '/data',
       navigationOptions: {
         tabBar: {
