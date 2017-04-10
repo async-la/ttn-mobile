@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
 import { TabNavigator, TabView, StackNavigator } from 'react-navigation'
+import { Text } from 'react-native'
 
 import ApplicationList from '../../screens/ApplicationList'
 import ApplicationOverview from '../../screens/ApplicationOverview'
@@ -41,6 +42,21 @@ import {
 import { BLUE } from '../../constants/colors'
 import { LATO_REGULAR } from '../../constants/fonts'
 
+const tabBarTopLabel = formattedMessage => (
+  <Text
+    style={{
+      color: 'white',
+      textAlign: 'center',
+      fontSize: 14,
+      margin: 8,
+      backgroundColor: 'transparent',
+      fontFamily: LATO_REGULAR,
+    }}
+  >
+    {formattedMessage}
+  </Text>
+)
+
 const ApplicationDetail = TabNavigator(
   {
     [OVERVIEW]: {
@@ -48,7 +64,7 @@ const ApplicationDetail = TabNavigator(
       path: '/overview',
       navigationOptions: {
         tabBar: {
-          label: OVERVIEW_LABEL,
+          label: tabBarTopLabel(OVERVIEW_LABEL),
         },
       },
     },
@@ -57,7 +73,7 @@ const ApplicationDetail = TabNavigator(
       path: '/devices',
       navigationOptions: {
         tabBar: {
-          label: DEVICES_LABEL,
+          label: tabBarTopLabel(DEVICES_LABEL),
         },
       },
     },
@@ -77,7 +93,7 @@ const ApplicationDetail = TabNavigator(
       path: '/data',
       navigationOptions: {
         tabBar: {
-          label: DATA_LABEL,
+          label: tabBarTopLabel(DATA_LABEL),
         },
       },
     },
@@ -86,7 +102,7 @@ const ApplicationDetail = TabNavigator(
       path: '/settings',
       navigationOptions: {
         tabBar: {
-          label: SETTINGS_LABEL,
+          label: tabBarTopLabel(SETTINGS_LABEL),
         },
       },
     },
@@ -101,9 +117,6 @@ const ApplicationDetail = TabNavigator(
     swipeEnabled: true,
     pressOpacity: 0.2,
     tabBarOptions: {
-      labelStyle: {
-        fontFamily: LATO_REGULAR,
-      },
       style: {
         backgroundColor: BLUE,
       },
@@ -121,7 +134,7 @@ const DeviceDetail = TabNavigator(
       screen: DeviceDetailPlaceholder,
       navigationOptions: {
         tabBar: {
-          label: OVERVIEW_LABEL,
+          label: tabBarTopLabel(OVERVIEW_LABEL),
         },
       },
     },
@@ -129,7 +142,7 @@ const DeviceDetail = TabNavigator(
       screen: DeviceDetailPlaceholder,
       navigationOptions: {
         tabBar: {
-          label: DATA_LABEL,
+          label: tabBarTopLabel(DATA_LABEL),
         },
       },
     },
@@ -137,7 +150,7 @@ const DeviceDetail = TabNavigator(
       screen: DeviceDetailPlaceholder,
       navigationOptions: {
         tabBar: {
-          label: SETTINGS_LABEL,
+          label: tabBarTopLabel(SETTINGS_LABEL),
         },
       },
     },
@@ -152,9 +165,6 @@ const DeviceDetail = TabNavigator(
     tabBarComponent: TabView.TabBarTop,
     tabBarPosition: 'top',
     tabBarOptions: {
-      labelStyle: {
-        fontFamily: LATO_REGULAR,
-      },
       style: {
         backgroundColor: BLUE,
       },
@@ -184,7 +194,7 @@ const GatewayDetail = TabNavigator(
       screen: GatewayDetailPlaceholder,
       navigationOptions: {
         tabBar: {
-          label: OVERVIEW_LABEL,
+          label: tabBarTopLabel(OVERVIEW_LABEL),
         },
       },
     },
@@ -192,7 +202,7 @@ const GatewayDetail = TabNavigator(
       screen: GatewayDetailPlaceholder,
       navigationOptions: {
         tabBar: {
-          label: TRAFFIC_LABEL,
+          label: tabBarTopLabel(TRAFFIC_LABEL),
         },
       },
     },
@@ -200,7 +210,7 @@ const GatewayDetail = TabNavigator(
       screen: GatewayDetailPlaceholder,
       navigationOptions: {
         tabBar: {
-          label: SETTINGS_LABEL,
+          label: tabBarTopLabel(SETTINGS_LABEL),
         },
       },
     },
@@ -214,8 +224,11 @@ const GatewayDetail = TabNavigator(
     swipeEnabled: true,
     pressOpacity: 0.2,
     tabBarOptions: {
-      labelStyle: {
-        fontFamily: LATO_REGULAR,
+      style: {
+        backgroundColor: BLUE,
+      },
+      indicatorStyle: {
+        backgroundColor: 'white',
       },
       scrollEnabled: true,
     },
