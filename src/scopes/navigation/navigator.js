@@ -38,7 +38,7 @@ import {
   TRAFFIC_LABEL,
 } from './constants'
 
-import { BLUE } from '../../constants/colors'
+import { BLUE, WHITE } from '../../constants/colors'
 import { LATO_REGULAR } from '../../constants/fonts'
 
 const ApplicationDetail = TabNavigator(
@@ -108,7 +108,7 @@ const ApplicationDetail = TabNavigator(
         backgroundColor: BLUE,
       },
       indicatorStyle: {
-        backgroundColor: 'white',
+        backgroundColor: WHITE,
       },
       scrollEnabled: true,
     },
@@ -159,7 +159,7 @@ const DeviceDetail = TabNavigator(
         backgroundColor: BLUE,
       },
       indicatorStyle: {
-        backgroundColor: 'white',
+        backgroundColor: WHITE,
       },
     },
   }

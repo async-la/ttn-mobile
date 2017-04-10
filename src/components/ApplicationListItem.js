@@ -3,9 +3,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-import { DARK_ORANGE, LIGHT_ORANGE, ORANGE, WHITE } from '../constants/colors'
+import TagLabel from '../components/TagLabel'
 
 import { APPLICATION_DETAIL } from '../scopes/navigation/constants'
+import { WHITE } from '../constants/colors'
+
 import type { TTNApplication } from '../scopes/content/applications/types'
 
 type Props = {
@@ -28,9 +30,7 @@ export default class ApplicationListItem extends Component {
         onPress={() => this._navigateToSingleApplication(application)}
       >
         <View style={styles.applicationRow}>
-          <View style={[styles.applicationContainer, styles.idContainer]}>
-            <Text style={[styles.idText]}>{application.id}</Text>
-          </View>
+          <TagLabel center orange>{application.id}</TagLabel>
           <View style={[styles.applicationContainer, styles.nameContainer]}>
             <Text>{application.name}</Text>
           </View>
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
     borderRadius: 3,
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     padding: 10,
     minHeight: 100,
@@ -57,18 +58,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 5,
-  },
-  idContainer: {
-    alignSelf: 'center',
-    backgroundColor: LIGHT_ORANGE,
-    borderBottomColor: ORANGE,
-    borderBottomWidth: 1,
-    borderRadius: 3,
-    width: 120,
-    height: 30,
-  },
-  idText: {
-    color: DARK_ORANGE,
   },
   nameContainer: {
     flex: 1,

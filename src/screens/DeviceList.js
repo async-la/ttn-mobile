@@ -14,7 +14,7 @@ import {
 import AddButton from '../components/AddButton'
 import DeviceListItem from '../components/DeviceListItem'
 
-import { LIGHT_GREY } from '../constants/colors'
+import { LIGHT_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
@@ -47,14 +47,6 @@ class DevicesList extends Component {
 
   componentDidMount() {
     this._fetchApplicationDevices(true)
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (!this.state.isRefreshing && nextState.isRefreshing) {
-      return false
-    } else {
-      return true
-    }
   }
 
   _fetchApplicationDevices = async (initialLoad = false) => {
@@ -105,7 +97,7 @@ class DevicesList extends Component {
               this.setState({ modalVisible: false })
             }}
           >
-            <Text style={{ color: 'white', fontWeight: 'bold' }}>Cancel</Text>
+            <Text style={{ color: WHITE, fontWeight: 'bold' }}>Cancel</Text>
           </TouchableOpacity>
         </View>
       </Modal>

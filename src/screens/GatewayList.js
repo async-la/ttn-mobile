@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { LATO_REGULAR } from '../constants/fonts'
+import { WHITE } from '../constants/colors'
 import { GATEWAY_DETAIL, GATEWAYS_LABEL } from '../scopes/navigation/constants'
 
 export default class GatewayList extends Component {
@@ -42,7 +43,7 @@ export default class GatewayList extends Component {
                 this.setState({ modalVisible: false })
               }}
             >
-              <Text style={{ color: 'white', fontWeight: 'bold' }}>Cancel</Text>
+              <Text style={{ color: WHITE, fontWeight: 'bold' }}>Cancel</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -93,7 +94,7 @@ export default class GatewayList extends Component {
           }}
           onPress={() => this.setState({ modalVisible: true })}
         >
-          <Text style={{ fontWeight: 'bold', fontSize: 25, color: 'white' }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 25, color: WHITE }}>
             +
           </Text>
         </TouchableOpacity>
