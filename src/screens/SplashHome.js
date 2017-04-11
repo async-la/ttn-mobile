@@ -12,6 +12,7 @@ import {
 
 import { FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
+import ClipboardToggle from '../components/ClipboardToggle'
 
 import { BLUE, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
@@ -64,6 +65,11 @@ class SplashHome extends Component {
           source={require('../assets/brand/logo.png')}
           style={styles.logo}
         />
+        <ClipboardToggle
+          password
+          value="ttn-account-v2.C_aZZJDZOCTCzSD6TB81vwL68M2_oq4WMdsDAq2uU2s"
+        />
+        <ClipboardToggle value="70B3D57EF0003448" />
         {this.state.loading
           ? <ActivityIndicator size="large" color={BLUE} />
           : <TouchableOpacity style={styles.button} onPress={this._authorize}>
