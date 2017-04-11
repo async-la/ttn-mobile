@@ -19,11 +19,14 @@ import { LIGHT_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
+import * as notificationActions from '../scopes/notification/actions'
+
 import { connect } from 'react-redux'
 
 type Props = {
   applications: Object,
   getApplicationsAsync: typeof TTNApplicationActions.getApplicationsAsync,
+  showNotification: typeof notificationActions.showNotification,
   navigation: Object,
 };
 
@@ -48,6 +51,8 @@ class ApplicationsList extends Component {
   };
 
   componentDidMount() {
+    console.log('THIS PROPS', this.props)
+
     this._fetchApplications(true)
   }
 
@@ -137,6 +142,15 @@ class ApplicationsList extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text
+          onPress={() => {
+            this.props.showNotification({
+              message: 'HELLO',
+            })
+          }}
+        >
+          TEST
+        </Text>
         {this._renderContent()}
         {this._renderModal()}
         {this._renderModalToggle()}
@@ -151,7 +165,7 @@ export default connect(
   state => ({
     applications: state.content.applications,
   }),
-  TTNApplicationActions
+  { ...TTNApplicationActions, ...notificationActions }
 )(ApplicationsList)
 
 const styles = StyleSheet.create({

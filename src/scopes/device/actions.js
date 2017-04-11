@@ -12,11 +12,16 @@ import type {
   KeyboardStatusPayload,
   NetworkStatusPayload,
   ViewportPayload,
+  ResetDeviceAction,
   SetAppStateAction,
   SetKeyboardStatusAction,
   SetNetworkStatusAction,
   SetViewportAction,
 } from './types'
+
+export function resetDevice(): ResetDeviceAction {
+  return { type: RESET }
+}
 
 export function setAppState(payload: AppStatePayload): SetAppStateAction {
   return { type: SET_APP_STATE, payload: payload }

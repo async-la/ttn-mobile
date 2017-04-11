@@ -9,7 +9,6 @@ import {
   SET_VIEWPORT,
 } from './types'
 import type {
-  AppStatePayload,
   DeviceAction,
   KeyboardStatusPayload,
   NetworkStatusPayload,
