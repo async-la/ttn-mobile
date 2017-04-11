@@ -1,7 +1,6 @@
 // @flow
 import React from 'react'
 import { TabNavigator, TabView, StackNavigator } from 'react-navigation'
-import { Text } from 'react-native'
 
 import ApplicationList from '../../screens/ApplicationList'
 import ApplicationOverview from '../../screens/ApplicationOverview'
@@ -11,6 +10,7 @@ import GatewayList from '../../screens/GatewayList'
 import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
 import Profile from '../../screens/Profile'
 // import TestScreen from '../../screens/TestScreen'
+import tabBarTopLabel from '../../components/navigation/tabBarTopLabel'
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Zocial from 'react-native-vector-icons/Zocial'
@@ -40,22 +40,6 @@ import {
 } from './constants'
 
 import { BLUE } from '../../constants/colors'
-import { LATO_REGULAR } from '../../constants/fonts'
-
-const tabBarTopLabel = formattedMessage => (
-  <Text
-    style={{
-      color: 'white',
-      textAlign: 'center',
-      fontSize: 14,
-      margin: 8,
-      backgroundColor: 'transparent',
-      fontFamily: LATO_REGULAR,
-    }}
-  >
-    {formattedMessage}
-  </Text>
-)
 
 const ApplicationDetail = TabNavigator(
   {
