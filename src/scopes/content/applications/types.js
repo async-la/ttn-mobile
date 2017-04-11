@@ -14,11 +14,11 @@ type Collaborator = {
 export type TTNApplication = {
   id: string,
   name?: string,
-  euis: Array<string>,
-  access_keys: Array<AccessKey>,
-  created: string,
+  euis?: Array<string>,
+  access_keys?: Array<AccessKey>,
+  created?: string,
   collaborators?: Array<Collaborator>,
-  handler: string,
+  handler?: string,
 };
 
 export const RECEIVE_TTN_APPLICATION = 'content/RECEIVE_TTN_APPLICATION'

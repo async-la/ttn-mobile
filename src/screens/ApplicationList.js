@@ -7,11 +7,11 @@ import {
   Modal,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native'
 
 import AddButton from '../components/AddButton'
+import ApplicationForm from '../components/ApplicationForm'
 import ApplicationListItem from '../components/ApplicationListItem'
 
 import { APPLICATIONS_LABEL } from '../scopes/navigation/constants'
@@ -81,27 +81,10 @@ class ApplicationsList extends Component {
         visible={this.state.modalVisible}
         onRequestClose={() => {}}
       >
-        <View style={{ marginTop: 40, marginLeft: 20 }}>
-          <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
-            Add Application
-          </Text>
-          <Text>I'm a form!</Text>
-
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#3498db',
-              padding: 20,
-              marginTop: 20,
-              width: 100,
-              borderRadius: 5,
-            }}
-            onPress={() => {
-              this.setState({ modalVisible: false })
-            }}
-          >
-            <Text style={{ color: WHITE, fontWeight: 'bold' }}>Cancel</Text>
-          </TouchableOpacity>
-        </View>
+        <ApplicationForm
+          onCancel={() => this.setState({ modalVisible: false })}
+          onSubmit={() => this.setState({ modalVisible: false })}
+        />
       </Modal>
     )
   }
