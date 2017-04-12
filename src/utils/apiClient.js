@@ -76,9 +76,8 @@ async function putRequest(endpoint: string, options: APIOptions = {}) {
       },
       body: JSON.stringify(body),
     })
-
-    const json = await response.json()
-
+    //@NOTE: 204 status fails on calling toJSON
+    const json = response.status !== 204 && (await response.json())
     return json
   } catch (err) {
     throw err

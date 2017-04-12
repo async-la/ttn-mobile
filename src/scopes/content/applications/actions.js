@@ -40,3 +40,22 @@ export function getApplicationDevicesAsync(applicationId: string) {
     return payload
   }
 }
+
+/**
+ * Add Application
+ */
+
+export function addApplicationAsync(application: TTNApplication) {
+  const { handler, id, name } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.post(APPLICATIONS, { body: { id, name } })
+      await apiClient.put(APPLICATIONS + id + '/registration', {
+        body: { handler },
+      })
+      await dispatch(getApplicationByIdAsync(id))
+    } catch (err) {
+      console.log('# Add application async error', err)
+    }
+  }
+}
