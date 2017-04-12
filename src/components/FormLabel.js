@@ -8,7 +8,7 @@ import { LATO_REGULAR } from '../constants/fonts'
 
 type Props = {
   primaryText: string,
-  secondaryText: ?string,
+  secondaryText?: string,
   style?: Object,
 };
 

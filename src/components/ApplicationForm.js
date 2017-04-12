@@ -14,6 +14,8 @@ import SubmitButton from '../components/SubmitButton'
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { connect } from 'react-redux'
 
+const BUTTON_SIZE = 60
+
 type Props = {
   onCancel: () => void,
   onSubmit: () => void,
@@ -28,7 +30,7 @@ class ApplicationForm extends Component {
     id: '',
     idValid: false,
     inProgress: false,
-    region: 'ttn-handler-us-west',
+    handler: 'ttn-handler-us-west',
   };
   _onChangeText = (text, formInputId) => {
     switch (formInputId) {
@@ -56,7 +58,7 @@ class ApplicationForm extends Component {
     const body = {
       id: this.state.id,
       name: this.state.description,
-      handler: this.state.region,
+      handler: this.state.handler,
     }
 
     this.setState({ inProgress: true })
@@ -107,8 +109,8 @@ class ApplicationForm extends Component {
             secondaryText="Select the handler you want to register this application to"
           />
           <Picker
-            selectedValue={this.state.region}
-            onValueChange={region => this.setState({ region })}
+            selectedValue={this.state.handler}
+            onValueChange={handler => this.setState({ handler })}
           >
             <Picker.Item
               label="ttn-handler-asia-se"
@@ -134,6 +136,7 @@ class ApplicationForm extends Component {
                 active={this._allInputsValid()}
                 inProgress={this.state.inProgress}
                 onPress={this._onSubmit}
+                style={styles.submitButton}
                 title="Add application"
               />
             </View>
@@ -152,11 +155,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginRight: 20,
     marginTop: 20,
   },
   cancelButton: {
     marginRight: 20,
+  },
+  submitButton: {
+    width: BUTTON_SIZE * 3.5,
+    height: BUTTON_SIZE,
   },
   container: {
     marginLeft: 30,

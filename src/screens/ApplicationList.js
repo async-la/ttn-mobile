@@ -82,13 +82,16 @@ class ApplicationsList extends Component {
         onRequestClose={() => {}}
       >
         <ApplicationForm
-          onCancel={() => this.setState({ modalVisible: false })}
-          onSubmit={() => this.setState({ modalVisible: false })}
+          onCancel={this._dismissModal}
+          onSubmit={this._dismissModal}
         />
       </Modal>
     )
   }
 
+  _dismissModal = () => {
+    this.setState({ modalVisible: false })
+  };
   _renderModalToggle() {
     return <AddButton onPress={() => this.setState({ modalVisible: true })} />
   }

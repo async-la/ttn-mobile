@@ -4,11 +4,14 @@ import React from 'react'
 import { Platform, TouchableOpacity } from 'react-native'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { BLUE, WHITE } from '../constants/colors'
+import { BLUE, GREY, WHITE } from '../constants/colors'
 
 const AddButton = (props: Object) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={props.onPress}>
+    <TouchableOpacity
+      style={[styles.button, props.disabled && styles.inactive]}
+      onPress={props.onPress}
+    >
       <Ionicons
         name="ios-add"
         size={35}
@@ -32,5 +35,8 @@ const styles = {
     borderRadius: 44,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  inactive: {
+    backgroundColor: GREY,
   },
 }

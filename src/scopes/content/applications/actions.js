@@ -20,11 +20,10 @@ export function getApplicationsAsync() {
 /**
  * Fetch Application by ID
  */
-export function getApplicationByIdAsync(applicationId: string) {
+export function getApplicationAsync(application: TTNApplication) {
+  const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
-    const payload: TTNApplication = await apiClient.get(
-      APPLICATIONS + applicationId
-    )
+    const payload: TTNApplication = await apiClient.get(APPLICATIONS + id)
     return dispatch({ type: RECEIVE_TTN_APPLICATION, payload })
   }
 }
@@ -32,12 +31,18 @@ export function getApplicationByIdAsync(applicationId: string) {
 /**
  * Fetch Devices for Application
  */
-export function getApplicationDevicesAsync(applicationId: string) {
+export function getApplicationDevicesAsync(application: TTNApplication) {
+  const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
-    const payload: Array<TTNApplication> = await apiClient.get(
-      APPLICATIONS + applicationId + '/devices/'
-    )
-    return payload
+    if (!application.handler) return []
+    try {
+      const payload: Array<TTNApplication> = await apiClient.get(
+        APPLICATIONS + id + '/devices/'
+      )
+      return payload
+    } catch (err) {
+      console.log('## getApplicationDevicesAsync error', err)
+    }
   }
 }
 
@@ -50,12 +55,59 @@ export function addApplicationAsync(application: TTNApplication) {
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
       await apiClient.post(APPLICATIONS, { body: { id, name } })
-      await apiClient.put(APPLICATIONS + id + '/registration', {
-        body: { handler },
-      })
-      await dispatch(getApplicationByIdAsync(id))
+      if (handler) await dispatch(updateHandlerAsync(application))
+      await dispatch(getApplicationAsync(application))
     } catch (err) {
-      console.log('# Add application async error', err)
+      console.log('## addApplicationAsync error', err)
+    }
+  }
+}
+
+/**
+ * Update Existing Application
+ */
+
+export function updateApplicationAsync(application: TTNApplication) {
+  const { handler, id, name } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.patch(APPLICATIONS + id, { body: { description: name } })
+      if (handler) await dispatch(updateHandlerAsync(application))
+      await dispatch(getApplicationAsync(application))
+    } catch (err) {
+      console.log('## updateApplicationAsync error', err)
+    }
+  }
+}
+
+export function updateHandlerAsync(application: TTNApplication) {
+  const { handler, id } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      if (handler === 'none')
+        await apiClient.delete(APPLICATIONS + id + '/registration')
+      else
+        await apiClient.put(APPLICATIONS + id + '/registration', {
+          body: { handler },
+        })
+    } catch (err) {
+      console.log('## updateHandlerAsync error', err)
+    }
+  }
+}
+
+/**
+ * Delete Application
+ */
+
+export function deleteApplicationAsync(application: TTNApplication) {
+  const { id } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.delete(APPLICATIONS + id)
+      await dispatch(getApplicationsAsync())
+    } catch (err) {
+      console.log('## deleteApplicationAsync error', err)
     }
   }
 }

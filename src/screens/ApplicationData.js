@@ -55,6 +55,9 @@ class ApplicationData extends Component {
 
   componentDidMount() {
     const { application } = this.props
+    //TODO: Notify user to set handler
+    if (!application.handler) return
+
     const messageUplinkPermission = getMessageUplinkPermission(application)
     if (messageUplinkPermission) {
       this._createMQTTSession(application, messageUplinkPermission.key)
@@ -65,6 +68,8 @@ class ApplicationData extends Component {
   }
 
   componentWillUnmount() {
+    //@NOTE: The following check is necessary when deleting an application
+    if (!this.props.application || !this.props.application.handler) return
     this._subscription && this._subscription.remove()
     TTNMQTT.destroySessionAsync()
   }

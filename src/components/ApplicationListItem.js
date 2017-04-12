@@ -18,7 +18,10 @@ type Props = {
 export default class ApplicationListItem extends Component {
   props: Props;
   _navigateToSingleApplication = application => {
+    // TODO: clean up props -- knowing whether or not a handler is present
+    // is useful info so we might as well pass the entire application [dan]
     this.props.navigation.navigate(APPLICATION_DETAIL, {
+      application: application,
       appName: application.name,
       appId: application.id,
     })
