@@ -3,10 +3,12 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
+  Image,
   RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native'
 
@@ -15,7 +17,10 @@ import ContentBlock from '../components/ContentBlock'
 import TagLabel from '../components/TagLabel'
 import { FormattedMessage } from 'react-intl'
 
+import { BLUE } from '../constants/colors'
+import { DEVICE_LIST } from '../scopes/navigation/constants'
 import { LATO_REGULAR } from '../constants/fonts'
+
 import { connect } from 'react-redux'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
@@ -73,6 +78,11 @@ class ApplicationDetail extends Component {
     }
   };
 
+  _navigateToDevices = () => {
+    this.props.navigation.navigate(DEVICE_LIST, {
+      appId: this.props.application.id,
+    })
+  };
   _renderCollaborators(collaborators) {
     return (
       <ContentBlock
@@ -193,7 +203,20 @@ class ApplicationDetail extends Component {
               />
             }
           >
-            <Text>{this.state.devices.length}</Text>
+            <TouchableOpacity
+              style={styles.deviceButton}
+              onPress={this._navigateToDevices}
+            >
+              <Image
+                resizeMode="contain"
+                source={require('../assets/device.png')}
+                style={styles.deviceButtonImage}
+              />
+              <Text style={styles.deviceButtonText}>
+                {this.state.devices.length}
+              </Text>
+              <Text>registered devices</Text>
+            </TouchableOpacity>
           </ContentBlock>
 
           {application.collaborators &&
@@ -255,5 +278,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+  },
+  deviceButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deviceButtonImage: {
+    width: 100,
+    height: 50,
+    margin: 10,
+  },
+  deviceButtonText: {
+    fontFamily: LATO_REGULAR,
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: BLUE,
+    margin: 10,
   },
 })
