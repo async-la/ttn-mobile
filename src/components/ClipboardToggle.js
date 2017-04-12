@@ -105,8 +105,7 @@ export default class ClipboardToggle extends Component {
 
   _renderHexkeyClipboard = () => {
     return (
-      <View style={styles.container}>
-
+      <View style={[styles.container, { ...this.props.style }]}>
         <View style={styles.toggleSwitchContainer}>
           <TouchableOpacity
             onPress={this._toggleKeyFormat}
@@ -118,7 +117,7 @@ export default class ClipboardToggle extends Component {
           </TouchableOpacity>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <Text style={{ padding: 10 }}>{this.state.currentState.value}</Text>
+          <Text style={styles.inputText}>{this.state.currentState.value}</Text>
         </ScrollView>
         <View style={styles.clipBoardContainer}>
           <TouchableOpacity
@@ -138,7 +137,7 @@ export default class ClipboardToggle extends Component {
   };
   _renderPasswordClipboard() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { ...this.props.style }]}>
         <View style={styles.toggleSwitchContainer}>
           <TouchableOpacity
             onPress={this._togglePassword}
@@ -152,7 +151,7 @@ export default class ClipboardToggle extends Component {
           </TouchableOpacity>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <Text style={{ padding: 10 }}>
+          <Text style={styles.inputText}>
             {this.state.passwordVisible
               ? this.props.value
               : this.props.value.replace(/(.)/g, '•')}
@@ -219,5 +218,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: DARK_GREY,
+  },
+  inputText: {
+    padding: 10,
   },
 })

@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native'
 
+import ClipboardToggle from '../components/ClipboardToggle'
 import ContentBlock from '../components/ContentBlock'
 import TagLabel from '../components/TagLabel'
 import { FormattedMessage } from 'react-intl'
@@ -25,12 +26,12 @@ import moment from 'moment'
 type Props = {
   application: TTNApplication,
   getApplicationByIdAsync: typeof TTNApplicationActions.getApplicationByIdAsync,
-  getApplicationDevicesAsync: typeof TTNApplicationActions.getApplicationDevicesAsync,
+  getApplicationDevicesAsync: Function,
   navigation: Object,
 };
 
 type State = {
-  devices: Array<any>,
+  devices: Array<Object>,
   initialLoad: boolean,
   isRefreshing: boolean,
 };
@@ -73,19 +74,32 @@ class ApplicationDetail extends Component {
   };
 
   _renderCollaborators(collaborators) {
-    return collaborators.map(collaborator => {
-      const labels = collaborator.rights.map(right => (
-        <View key={right} style={styles.collaboratorLabels}>
-          <TagLabel>{right}</TagLabel>
-        </View>
-      ))
-      return (
-        <View key={collaborator.username} style={styles.collaborators}>
-          <Text style={styles.collaboratorName}>{collaborator.username}</Text>
-          <View style={styles.labelsWrapper}>{labels}</View>
-        </View>
-      )
-    })
+    return (
+      <ContentBlock
+        heading={
+          <FormattedMessage
+            id="app.label.application.collaborators"
+            defaultMessage="COLLABORATORS"
+          />
+        }
+      >
+        {collaborators.map(collaborator => {
+          const labels = collaborator.rights.map(right => (
+            <View key={right} style={styles.collaboratorLabels}>
+              <TagLabel>{right}</TagLabel>
+            </View>
+          ))
+          return (
+            <View key={collaborator.username} style={styles.collaborators}>
+              <Text style={styles.collaboratorName}>
+                {collaborator.username}
+              </Text>
+              <View style={styles.labelsWrapper}>{labels}</View>
+            </View>
+          )
+        })}
+      </ContentBlock>
+    )
   }
 
   _renderAccessKeys(accessKeys) {
@@ -96,13 +110,34 @@ class ApplicationDetail extends Component {
         </View>
       ))
       return (
-        <View key={accessKey.name} style={styles.collaborators}>
+        <View key={accessKey.key} style={{ alignItems: 'flex-start' }}>
           <Text style={styles.collaboratorName}>{accessKey.name}</Text>
-          {/* <Text style={styles.collaboratorName}>{accessKey.key}</Text> */}
+          <ClipboardToggle
+            style={{ marginVertical: 15 }}
+            password
+            value={accessKey.key}
+          />
           <View style={styles.labelsWrapper}>{labels}</View>
         </View>
       )
     })
+  }
+
+  _renderApplicationEUIS(euis) {
+    return (
+      <ContentBlock
+        heading={
+          <FormattedMessage
+            id="app.label.application.eui"
+            defaultMessage="APPLICATION EUIS"
+          />
+        }
+      >
+        {euis.map(eui => (
+          <ClipboardToggle key={eui} style={{ marginBottom: 10 }} value={eui} />
+        ))}
+      </ContentBlock>
+    )
   }
 
   render() {
@@ -147,16 +182,8 @@ class ApplicationDetail extends Component {
             <Text>{application.handler}</Text>
 
           </ContentBlock>
-          <ContentBlock
-            heading={
-              <FormattedMessage
-                id="app.label.application.eui"
-                defaultMessage="APPLICATION EUIS"
-              />
-            }
-          >
-            <Text>{application.euis.join(',')}</Text>
-          </ContentBlock>
+
+          {application.euis && this._renderApplicationEUIS(application.euis)}
 
           <ContentBlock
             heading={
@@ -169,17 +196,8 @@ class ApplicationDetail extends Component {
             <Text>{this.state.devices.length}</Text>
           </ContentBlock>
 
-          <ContentBlock
-            heading={
-              <FormattedMessage
-                id="app.label.application.collaborators"
-                defaultMessage="COLLABORATORS"
-              />
-            }
-          >
-            {application.collaborators &&
-              this._renderCollaborators(application.collaborators)}
-          </ContentBlock>
+          {application.collaborators &&
+            this._renderCollaborators(application.collaborators)}
 
           <ContentBlock
             heading={
