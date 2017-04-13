@@ -7,12 +7,13 @@ import { configurePersist } from 'redux-p/src/index'
 const STATE_VERSION = 1
 const migrations = {}
 
-import purgeStoredState from 'redux-p/src/purgeStoredState'
-purgeStoredState({
-  key: 'root',
-  storage: AsyncStorage,
-  version: STATE_VERSION,
-})
+// Static Purge State
+// import purgeStoredState from 'redux-p/src/purgeStoredState'
+// purgeStoredState({
+//   key: 'root',
+//   storage: AsyncStorage,
+//   version: STATE_VERSION,
+// })
 
 export default function() {
   const { persist, createPersistor } = configurePersist()

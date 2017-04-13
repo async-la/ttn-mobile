@@ -11,6 +11,7 @@
   "scripts": {
     "lint": "eslint src",
     "postinstall": "yarn translate",
+    "precommit": "lint-staged",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:haul": "haul start --platform all",
     "test": "jest",
@@ -35,8 +36,8 @@
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.0",
-    "redux-persist": "^4.5.0",
-    "redux-persist-state-manager": "^0.1.1",
+    "redux-p": "rt2zz/redux-p#develop",
+    "redux-reduce": "rt2zz/redux-reduce#develop",
     "redux-thunk": "^2.2.0",
     "shitty-qs": "^1.0.1"
   },

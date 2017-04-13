@@ -2,14 +2,14 @@
 
 import { createStore, applyMiddleware } from 'redux'
 
-import logger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 
 import configurePersist from './configurePersist'
 import configureReducer from './configureReducer'
 
 //@TODO exclude logging on provide
-const middleware = [thunk, logger]
+const middleware = [thunk, createLogger({ collapsed: true })]
 
 const enhancers = applyMiddleware(...middleware)
 

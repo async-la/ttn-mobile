@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import DeviceMonitor from 'react-native-device-monitor'
 
 import { connect } from 'react-redux'
-import * as deviceActions from '../scopes/device/actions'
+import * as deviceActions from '../scopes/device'
 
 type Props = {
   children: Object,
