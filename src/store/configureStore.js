@@ -1,26 +1,24 @@
 // @flow
 
-import { AsyncStorage } from 'react-native'
 import { createStore, applyMiddleware } from 'redux'
-import { persistStore } from 'redux-persist'
 
 import logger from 'redux-logger'
-import rootReducer from '../scopes/rootReducer'
-import stateManager from 'redux-persist-state-manager'
 import thunk from 'redux-thunk'
 
-const VERSION = 1
+import configurePersist from './configurePersist'
+import configureReducer from './configureReducer'
 
 //@TODO exclude logging on provide
 const middleware = [thunk, logger]
 
 const enhancers = applyMiddleware(...middleware)
-const stateManagedReducer = stateManager(rootReducer, { version: VERSION }, {})
 
 export default () => {
-  const store = createStore(stateManagedReducer, undefined, enhancers)
-  const persistor = persistStore(store, { storage: AsyncStorage })
-  //.purge()
+  const { persistRoot, persist, createPersistor } = configurePersist()
+  const reducer = persistRoot(configureReducer(persist))
+
+  const store = createStore(reducer, undefined, enhancers)
+  const persistor = createPersistor(store)
 
   return { store, persistor }
 }
