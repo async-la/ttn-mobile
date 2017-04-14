@@ -1,0 +1,188 @@
+//@flow
+
+import React, { Component } from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
+
+import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
+import { LEAGUE_SPARTAN } from '../constants/fonts'
+
+import CancelButton from '../components/CancelButton'
+import CheckBox from '../components/CheckBox'
+import FormInput from '../components/FormInput'
+import FormLabel from '../components/FormLabel'
+import SubmitButton from '../components/SubmitButton'
+
+import * as TTNApplicationActions from '../scopes/content/applications/actions'
+import { connect } from 'react-redux'
+import type { TTNApplication } from '../scopes/content/applications/types'
+
+const BUTTON_SIZE = 60
+
+type Props = {
+  application: TTNApplication,
+  onCancel: () => void,
+  onSubmit: () => void,
+  //createAccessKeyAsync:  typeof TTNApplicationActions.createAccessKeyAsync,
+};
+
+class AccessKeyGenerateForm extends Component {
+  props: Props;
+  state = {
+    accessKeyName: '',
+    accessKeyNameValid: false,
+    inProgress: false,
+    settingsSelected: false,
+    messagesSelected: false,
+    devicesSelected: false,
+  };
+  _onChangeText = (text, formInputId) => {
+    switch (formInputId) {
+      case 'accessKeyName':
+        this.setState({ accessKeyName: text })
+        break
+    }
+  };
+  _onValidate = (isValid, formInputId) => {
+    switch (formInputId) {
+      case 'accessKeyName':
+        this.setState({ accessKeyNameValid: isValid })
+        break
+    }
+  };
+  _onSubmit = async () => {
+    const { application, createAccessKeyAsync, onSubmit } = this.props
+    const {
+      accessKeyName,
+      devicesSelected,
+      messagesSelected,
+      settingsSelected,
+    } = this.state
+
+    let rights = []
+    settingsSelected && rights.push('settings')
+    devicesSelected && rights.push('devices')
+    messagesSelected && rights.push('messages:up:r', 'messages:down:w')
+
+    this.setState({ inProgress: true })
+    await createAccessKeyAsync(application, { name: accessKeyName, rights })
+    this.setState({ inProgress: false })
+    onSubmit && onSubmit()
+  };
+  _allInputsValid() {
+    const {
+      accessKeyNameValid,
+      devicesSelected,
+      messagesSelected,
+      settingsSelected,
+    } = this.state
+    return accessKeyNameValid &&
+      (devicesSelected || messagesSelected || settingsSelected)
+  }
+
+  render() {
+    const { onCancel } = this.props
+    const { settingsSelected, devicesSelected, messagesSelected } = this.state
+    return (
+      <ScrollView>
+        <View style={styles.header}>
+          <Text style={styles.formTitle}>GENERATE ACCESS KEY</Text>
+        </View>
+        <View style={styles.container}>
+
+          <FormLabel primaryText="Name" secondaryText="What is this key for?" />
+          <FormInput
+            id="accessKeyName"
+            validationType="accessKey"
+            onChangeText={this._onChangeText}
+            onValidate={this._onValidate}
+            value={this.state.accessKeyName.toLowerCase()}
+            required
+          />
+
+          <FormLabel primaryText="Rights" />
+          <View style={styles.optionContainer}>
+            <CheckBox
+              primaryText="Settings"
+              secondaryText="Edit the application settings"
+              selected={settingsSelected}
+              onPress={() =>
+                this.setState({ settingsSelected: !settingsSelected })}
+            />
+            <CheckBox
+              primaryText="Devices"
+              secondaryText="View and edit devices of the application"
+              selected={devicesSelected}
+              onPress={() =>
+                this.setState({ devicesSelected: !devicesSelected })}
+            />
+            <CheckBox
+              primaryText="Messages"
+              secondaryText="View and send messages from and to the application"
+              selected={messagesSelected}
+              onPress={() =>
+                this.setState({ messagesSelected: !messagesSelected })}
+            />
+          </View>
+
+          <View>
+            <View style={styles.buttonRow}>
+              <CancelButton onPress={onCancel} style={styles.cancelButton} />
+              <SubmitButton
+                active={this._allInputsValid()}
+                inProgress={this.state.inProgress}
+                onPress={this._onSubmit}
+                style={styles.submitButton}
+                title="Generate Access Key"
+              />
+            </View>
+          </View>
+
+        </View>
+      </ScrollView>
+    )
+  }
+}
+
+export default connect(null, TTNApplicationActions)(AccessKeyGenerateForm)
+
+const styles = StyleSheet.create({
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  cancelButton: {
+    marginRight: 20,
+  },
+  submitButton: {
+    width: BUTTON_SIZE * 3.8,
+    height: BUTTON_SIZE,
+  },
+  container: {
+    marginLeft: 30,
+    marginRight: 30,
+    backgroundColor: WHITE,
+  },
+  formTitle: {
+    color: BLUE,
+    fontFamily: LEAGUE_SPARTAN,
+    fontSize: 22,
+    marginLeft: 20,
+    marginBottom: 15,
+  },
+  header: {
+    paddingTop: 40,
+    backgroundColor: LIGHT_GREY,
+    borderColor: GREY,
+    borderBottomWidth: 2,
+  },
+  option: {
+    borderColor: BLUE,
+    borderBottomWidth: 1,
+  },
+  optionContainer: {
+    padding: 10,
+  },
+})

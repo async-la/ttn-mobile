@@ -15,6 +15,7 @@ type Props = {
   onConfirm?: Function,
   onDeny?: Function,
   onPress?: () => void,
+  small?: boolean,
   style?: Object,
 };
 
@@ -37,15 +38,18 @@ class DeleteButton extends Component {
     onPress && onPress()
   };
   render() {
-    const { inProgress, style } = this.props
+    const { inProgress, small, style } = this.props
     return (
-      <TouchableOpacity style={[styles.button, style]} onPress={this._onPress}>
+      <TouchableOpacity
+        style={[styles.button, small && styles.buttonSmall, style]}
+        onPress={this._onPress}
+      >
         {inProgress
           ? <ActivityIndicator color={RED} />
           : <Ionicons
-            name="ios-trash-outline"
-            size={30}
-            style={{ color: RED }}
+            name={small ? 'md-remove' : 'ios-trash-outline'}
+            size={small ? 10 : 30}
+            style={[styles.icon, small && styles.iconSmall]}
             />}
       </TouchableOpacity>
     )
@@ -58,10 +62,25 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: LIGHT_RED,
     borderRadius: 30,
+    borderWidth: 1,
+    borderColor: RED,
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonSmall: {
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    backgroundColor: RED,
+    width: 20,
+    height: 20,
+  },
+  icon: {
+    color: RED,
+  },
+  iconSmall: {
+    color: LIGHT_RED,
   },
   text: {
     color: RED,

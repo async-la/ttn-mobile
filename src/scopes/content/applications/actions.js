@@ -4,7 +4,12 @@ import apiClient from '../../../utils/apiClient'
 
 import { APPLICATIONS } from '../../../constants/apiEndpoints'
 import { RECEIVE_TTN_APPLICATION, RECEIVE_TTN_APPLICATIONS } from './types'
-import type { TTNApplication } from './types'
+import type {
+  AccessKey,
+  AccessKeyOptions,
+  Collaborator,
+  TTNApplication,
+} from './types'
 import type { Dispatch, GetState } from '../../../types/redux'
 
 /**
@@ -34,7 +39,12 @@ export function getApplicationAsync(application: TTNApplication) {
 export function getApplicationDevicesAsync(application: TTNApplication) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
-    if (!application.handler) return []
+    if (!application.handler) {
+      console.warn(
+        'Attempting to get devices with no handler registered, returning empty array'
+      )
+      return []
+    }
     try {
       const payload: Array<TTNApplication> = await apiClient.get(
         APPLICATIONS + id + '/devices/'
@@ -108,6 +118,100 @@ export function deleteApplicationAsync(application: TTNApplication) {
       await dispatch(getApplicationsAsync())
     } catch (err) {
       console.log('## deleteApplicationAsync error', err)
+    }
+  }
+}
+
+export function createEUIAsync(application: TTNApplication) {
+  const { id } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      const payload = await apiClient.post(APPLICATIONS + id + '/euis')
+      await dispatch(getApplicationAsync(application))
+      return payload
+    } catch (err) {
+      console.log('## createEUIAsync error', err)
+    }
+  }
+}
+
+export function deleteEUIAsync(application: TTNApplication, eui: string) {
+  const { id } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.delete(APPLICATIONS + id + '/euis/' + eui)
+      await dispatch(getApplicationAsync(application))
+    } catch (err) {
+      console.log('## deleteEUIAsync error', err)
+    }
+  }
+}
+
+export function createAccessKeyAsync(
+  application: TTNApplication,
+  accessKeyOptions: AccessKeyOptions
+) {
+  const { id } = application
+  const { name, rights } = accessKeyOptions
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.put(APPLICATIONS + id + '/access-keys/' + name, {
+        body: { rights },
+      })
+      await dispatch(getApplicationAsync(application))
+    } catch (err) {
+      console.log('## createAccessKeyAsync error', err)
+    }
+  }
+}
+
+export function deleteAccessKeyAsync(
+  application: TTNApplication,
+  accessKey: AccessKey
+) {
+  const { id } = application
+  const { name } = accessKey
+  return async (dispatch: Dispatch, getState: GetState) => {
+    console.log('deleting access key', name)
+    try {
+      await apiClient.delete(APPLICATIONS + id + '/access-keys/' + name)
+      await dispatch(getApplicationAsync(application))
+    } catch (err) {
+      console.log('## deleteAccessKeyAsync error', err)
+    }
+  }
+}
+
+export function createCollaboratorAsync(
+  application: TTNApplication,
+  collaborator: Collaborator
+) {
+  const { id } = application
+  const { username, rights } = collaborator
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.put(APPLICATIONS + id + '/collaborators/' + username, {
+        body: { rights },
+      })
+      await dispatch(getApplicationAsync(application))
+    } catch (err) {
+      console.log('## createCollaboratorAsync error', err)
+    }
+  }
+}
+
+export function deleteCollaboratorAsync(
+  application: TTNApplication,
+  collaborator: Collaborator
+) {
+  const { id } = application
+  const { username } = collaborator
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.delete(APPLICATIONS + id + '/collaborators/' + username)
+      await dispatch(getApplicationAsync(application))
+    } catch (err) {
+      console.log('## deleteCollaboratorAsync error', err)
     }
   }
 }

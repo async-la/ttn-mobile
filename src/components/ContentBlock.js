@@ -8,14 +8,16 @@ import { LEAGUE_SPARTAN } from '../constants/fonts'
 
 type Props = {
   heading: React.Element<any>,
+  headingRight?: React.Element<any>,
   children?: React.Element<any>,
 };
 
-const AddButton = (props: Props) => {
+const ContentBlock = (props: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
         <Text style={styles.headingText}>{props.heading}</Text>
+        {props.headingRight}
       </View>
       <View style={styles.content}>
         {props.children}
@@ -24,7 +26,7 @@ const AddButton = (props: Props) => {
   )
 }
 
-export default AddButton
+export default ContentBlock
 
 const styles = {
   container: {
@@ -37,6 +39,8 @@ const styles = {
   heading: {
     backgroundColor: LIGHT_GREY,
     padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   headingText: {
     fontFamily: LEAGUE_SPARTAN,
