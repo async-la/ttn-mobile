@@ -4,12 +4,14 @@ import {
   ActivityIndicator,
   Image,
   Linking,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native'
 
+import SafariView from 'react-native-safari-view'
 import { FormattedMessage } from 'react-intl'
 import { connect } from 'react-redux'
 
@@ -19,17 +21,17 @@ import * as authActions from '../scopes/auth/actions'
 
 type Props = {
   getAccessTokenAsync: typeof authActions.getAccessTokenAsync,
-};
+}
 
 type State = {
   loading: boolean,
-};
+}
 
 class SplashHome extends Component {
-  props: Props;
+  props: Props
   state: State = {
     loading: false,
-  };
+  }
 
   componentDidMount() {
     Linking.addEventListener('url', this._handleOpenURL)
@@ -41,20 +43,26 @@ class SplashHome extends Component {
   }
 
   _authorize = () => {
-    Linking.openURL(
+    const url =
       'https://account.thethingsnetwork.org/users/authorize?client_id=async-llc&redirect_uri=ttn://oauth&response_type=code'
-    )
-  };
+
+    if (Platform.OS === 'ios') {
+      SafariView.show({ url, fromBottom: true })
+    } else {
+      Linking.openURL(url)
+    }
+  }
 
   _handleOpenURL = async (event: { url: string }) => {
     try {
+      SafariView.dismiss()
       this.setState({ loading: true })
       await this.props.getAccessTokenAsync(event)
     } catch (err) {
       this.setState({ loading: false })
       throw err
     }
-  };
+  }
 
   render() {
     return (
@@ -67,13 +75,13 @@ class SplashHome extends Component {
         {this.state.loading
           ? <ActivityIndicator size="large" color={BLUE} />
           : <TouchableOpacity style={styles.button} onPress={this._authorize}>
-            <Text style={styles.buttonText}>
-              <FormattedMessage
-                id="app.general.login"
-                defaultMessage="LOGIN"
+              <Text style={styles.buttonText}>
+                <FormattedMessage
+                  id="app.general.login"
+                  defaultMessage="LOGIN"
                 />
-            </Text>
-          </TouchableOpacity>}
+              </Text>
+            </TouchableOpacity>}
       </View>
     )
   }
