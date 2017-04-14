@@ -714,7 +714,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = G496R7LJ3Q;
+						DevelopmentTeam = Z3USYGGF55;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1238,9 +1239,10 @@
 			baseConfigurationReference = 89D9D892B2A7C2030EB33FEF /* Pods-TTNConsole.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = G496R7LJ3Q;
+				DEVELOPMENT_TEAM = Z3USYGGF55;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1254,6 +1256,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.async.ttn;
 				PRODUCT_NAME = TTNConsole;
+				PROVISIONING_PROFILE = "9282c1d4-244e-4c7a-a442-0739b89be83a";
+				PROVISIONING_PROFILE_SPECIFIER = "TTN Console Development";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1263,8 +1267,9 @@
 			baseConfigurationReference = 946DAE36859431ABC81D2C73 /* Pods-TTNConsole.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G496R7LJ3Q;
+				DEVELOPMENT_TEAM = Z3USYGGF55;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1278,6 +1283,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.async.ttn;
 				PRODUCT_NAME = TTNConsole;
+				PROVISIONING_PROFILE = "5e6f87db-2d39-4988-85d9-c85862d2e9e1";
+				PROVISIONING_PROFILE_SPECIFIER = "TTN Console Distribution";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
