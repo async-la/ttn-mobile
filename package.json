@@ -1,6 +1,6 @@
 {
   "name": "TTNConsole",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "lint-staged": {
     "src/**/*.js": [
@@ -15,7 +15,11 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:haul": "haul start --platform all",
     "test": "jest",
-    "translate": "node_modules/babel-cli/bin/babel-node.js src/scripts/translations"
+    "translate": "node_modules/babel-cli/bin/babel-node.js src/scripts/translations",
+    "version:bump": "node ./scripts/version-increment.js && git add . && node ./scripts/version-commit.js",
+    "version:tag": "node ./scripts/version-tag.js && git push origin --tags",
+    "version:push": "git push origin `git rev-parse --abbrev-ref HEAD`",
+    "deploy": "npm run version:bump && npm run version:tag && npm run version:push"
   },
   "dependencies": {
     "base-64": "^0.1.0",
