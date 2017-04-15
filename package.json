@@ -1,6 +1,6 @@
 {
   "name": "TTNConsole",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "lint-staged": {
     "src/**/*.js": [
@@ -18,7 +18,7 @@
     "translate": "node_modules/babel-cli/bin/babel-node.js src/scripts/translations",
     "version:bump": "node ./scripts/version-increment.js && git add . && node ./scripts/version-commit.js",
     "version:tag": "node ./scripts/version-tag.js && git push origin --tags",
-    "version:push": "git push origin `git rev-parse --abbrev-ref HEAD`",
+    "version:push": "git push -f origin `git rev-parse --abbrev-ref HEAD`",
     "deploy": "npm run version:bump && npm run version:tag && npm run version:push"
   },
   "dependencies": {
