@@ -1,12 +1,17 @@
 // @flow
 
-type AccessKey = {
+export type AccessKey = {
   name: string,
   key: string,
   rights: Array<string>,
 };
 
-type Collaborator = {
+export type AccessKeyOptions = {
+  name: string,
+  rights: Array<string>,
+};
+
+export type Collaborator = {
   username: string,
   rights: Array<string>,
 };

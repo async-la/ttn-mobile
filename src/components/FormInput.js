@@ -29,8 +29,17 @@ class FormInput extends Component {
     hasEnteredText: false,
   };
   _onChangeText = text => {
+    const { validationType } = this.props
+    switch (validationType) {
+      case 'accessKey':
+      case 'applicationId':
+        text = text.toLowerCase()
+        break
+    }
+
     if (this.state.hasEnteredText) this._validateText(text)
     else this.setState({ hasEnteredText: true })
+
     this.props.onChangeText(text, this.props.id)
   };
   _validateText = value => {
@@ -39,15 +48,17 @@ class FormInput extends Component {
     let validationMsg
 
     switch (validationType) {
-      case 'email':
+      case 'accessKey':
       case 'applicationId':
-        isInvalid = !value || value.length < 2
-        validationMsg = 'Application ID must contain at least 2 characters'
+        const regexp = /^[a-z0-9]+([-_][a-z0-9]+)*$/
+        isInvalid = !value || value.length < 2 || !regexp.test(value)
+        validationMsg = 'Name must consist of lowercase alphanumeric characters, nonconsecutive - and _ and cannot start or end with - or _'
         break
       case 'applicationDescription':
         isInvalid = !value || value.length < 1
         validationMsg = 'Description cannot be empty'
         break
+      case 'email':
       default:
         isInvalid = required ? !value.length : false
         validationMsg = 'Field cannot be blank'
@@ -110,7 +121,7 @@ const styles = StyleSheet.create({
   invalidMsg: {
     color: RED,
     textAlign: 'right',
-    height: 20,
+    flexWrap: 'wrap',
   },
   invalidInput,
   textInput: Platform.OS === 'ios' ? iosInputStyle : androidInputStyle,

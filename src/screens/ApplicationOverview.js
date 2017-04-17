@@ -30,9 +30,8 @@ import moment from 'moment'
 
 type Props = {
   application: TTNApplication,
-  getApplicationByIdAsync: typeof TTNApplicationActions.getApplicationByIdAsync,
   getApplicationDevicesAsync: Function,
-  navigation: Object,
+  getApplicationAsync: typeof TTNApplicationActions.getApplicationAsync,
 };
 
 type State = {
@@ -59,17 +58,14 @@ class ApplicationDetail extends Component {
 
   _fetchApplication = async (initialLoad = false) => {
     const {
-      getApplicationByIdAsync,
+      application,
+      getApplicationAsync,
       getApplicationDevicesAsync,
-      navigation,
     } = this.props
 
     if (!initialLoad) this.setState({ isRefreshing: true })
-
-    await getApplicationByIdAsync(navigation.state.params.appId)
-    const devices = await getApplicationDevicesAsync(
-      navigation.state.params.appId
-    )
+    await getApplicationAsync(application)
+    const devices = await getApplicationDevicesAsync(application)
 
     if (!initialLoad) {
       this.setState({ isRefreshing: false, devices })

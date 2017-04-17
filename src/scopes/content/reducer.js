@@ -58,7 +58,7 @@ export default (state: State = initialState, action: TTNApplicationAction) => {
       return {
         ...state,
         applications: {
-          list: _.uniq([...state.applications.list, ...incomingList]),
+          list: incomingList,
           dictionary: incomingDictionary,
         },
       }

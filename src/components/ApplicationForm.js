@@ -1,7 +1,7 @@
 //@flow
 
 import React, { Component } from 'react'
-import { Picker, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LEAGUE_SPARTAN } from '../constants/fonts'
@@ -9,10 +9,14 @@ import { LEAGUE_SPARTAN } from '../constants/fonts'
 import CancelButton from '../components/CancelButton'
 import FormInput from '../components/FormInput'
 import FormLabel from '../components/FormLabel'
+import RadioButtonPanel from '../components/RadioButtonPanel'
 import SubmitButton from '../components/SubmitButton'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
+import { handlers } from '../constants/application'
 import { connect } from 'react-redux'
+
+const BUTTON_SIZE = 60
 
 type Props = {
   onCancel: () => void,
@@ -20,15 +24,24 @@ type Props = {
   //addApplicationAsync:  typeof TTNApplicationActions.addApplicationAsync,
 };
 
+type State = {
+  description: string,
+  descriptionValid: boolean,
+  id: string,
+  idValid: boolean,
+  inProgress: boolean,
+  handler: string,
+};
+
 class ApplicationForm extends Component {
   props: Props;
-  state = {
+  state: State = {
     description: '',
     descriptionValid: false,
     id: '',
     idValid: false,
     inProgress: false,
-    region: 'ttn-handler-us-west',
+    handler: 'ttn-handler-us-west',
   };
   _onChangeText = (text, formInputId) => {
     switch (formInputId) {
@@ -56,7 +69,7 @@ class ApplicationForm extends Component {
     const body = {
       id: this.state.id,
       name: this.state.description,
-      handler: this.state.region,
+      handler: this.state.handler,
     }
 
     this.setState({ inProgress: true })
@@ -106,26 +119,11 @@ class ApplicationForm extends Component {
             primaryText="Handler registration"
             secondaryText="Select the handler you want to register this application to"
           />
-          <Picker
-            selectedValue={this.state.region}
-            onValueChange={region => this.setState({ region })}
-          >
-            <Picker.Item
-              label="ttn-handler-asia-se"
-              value="ttn-handler-asia-se"
-            />
-            <Picker.Item
-              label="ttn-handler-brazil"
-              value="ttn-handler-brazil"
-            />
-            <Picker.Item
-              label="ttn-handler-us-west"
-              value="ttn-handler-us-west"
-            />
-            <Picker.Item label="ttn-handler-eu" value="ttn-handler-eu" />
-            <Picker.Item label="Do not register to a handler" value="" />
-
-          </Picker>
+          <RadioButtonPanel
+            buttons={Object.values(handlers)}
+            selected={this.state.handler}
+            onSelect={handler => this.setState({ handler })}
+          />
 
           <View>
             <View style={styles.buttonRow}>
@@ -134,6 +132,7 @@ class ApplicationForm extends Component {
                 active={this._allInputsValid()}
                 inProgress={this.state.inProgress}
                 onPress={this._onSubmit}
+                style={styles.submitButton}
                 title="Add application"
               />
             </View>
@@ -152,11 +151,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginRight: 20,
     marginTop: 20,
   },
   cancelButton: {
     marginRight: 20,
+  },
+  submitButton: {
+    width: BUTTON_SIZE * 3.5,
+    height: BUTTON_SIZE,
+    marginBottom: 15,
   },
   container: {
     marginLeft: 30,

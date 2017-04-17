@@ -41,6 +41,27 @@ async function getRequest(endpoint: string) {
   }
 }
 
+async function patchRequest(endrpoint: string, options?: APIOptions = {}) {
+  const token = await getToken()
+  const { body } = options
+
+  try {
+    const response = await fetch(endrpoint, {
+      method: 'PATCH',
+      headers: {
+        Authorization: token ? `Bearer ${token}` : undefined,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
+    const json = response.status !== 204 && (await response.json())
+    return json
+  } catch (err) {
+    throw err
+  }
+}
+
 async function postRequest(endpoint: string, options?: APIOptions = {}) {
   const token = await getToken()
   const { body } = options
@@ -76,8 +97,10 @@ async function putRequest(endpoint: string, options: APIOptions = {}) {
       },
       body: JSON.stringify(body),
     })
-    //@NOTE: 204 status fails on calling toJSON
+
+    //@NOTE: 204 status fails on calling .json()
     const json = response.status !== 204 && (await response.json())
+
     return json
   } catch (err) {
     throw err
@@ -86,7 +109,6 @@ async function putRequest(endpoint: string, options: APIOptions = {}) {
 
 async function deleteRequest(endpoint: string, options?: APIOptions) {
   const token = await getToken()
-
   try {
     const response = await fetch(endpoint, {
       method: 'DELETE',
@@ -96,7 +118,8 @@ async function deleteRequest(endpoint: string, options?: APIOptions) {
       },
     })
 
-    const json = await response.json()
+    //@NOTE: 204 status fails on calling .json()
+    const json = response.status !== 204 && (await response.json())
 
     return json
   } catch (err) {
@@ -106,6 +129,7 @@ async function deleteRequest(endpoint: string, options?: APIOptions) {
 
 export default {
   get: getRequest,
+  patch: patchRequest,
   post: postRequest,
   put: putRequest,
   delete: deleteRequest,

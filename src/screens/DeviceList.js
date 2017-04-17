@@ -3,10 +3,13 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
+  Alert,
   FlatList,
   Modal,
+  Platform,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native'
@@ -21,11 +24,13 @@ import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { connect } from 'react-redux'
 
 type Props = {
+  application: Object,
   getApplicationDevicesAsync: typeof TTNApplicationActions.getApplicationDevicesAsync,
   navigation: Object,
 };
 
 type State = {
+  addButtonDisabled: boolean,
   devices: Array<Object>,
   initialLoad: boolean,
   modalVisible: boolean,
@@ -35,6 +40,7 @@ type State = {
 class DevicesList extends Component {
   props: Props;
   state: State = {
+    addButtonDisabled: false,
     devices: [],
     initialLoad: false,
     modalVisible: false,
@@ -46,7 +52,16 @@ class DevicesList extends Component {
   };
 
   componentDidMount() {
+    if (!this.props.application.handler)
+      this.setState({ addButtonDisabled: true })
     this._fetchApplicationDevices(true)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.application.handler && !this.state.addButtonDisabled)
+      this.setState({ addButtonDisabled: true })
+    else if (this.state.addButtonDisabled)
+      this.setState({ addButtonDisabled: false })
   }
 
   _fetchApplicationDevices = async (initialLoad = false) => {
@@ -55,9 +70,8 @@ class DevicesList extends Component {
     if (!initialLoad) this.setState({ isRefreshing: true })
 
     const devices = await getApplicationDevicesAsync(
-      navigation.state.params.appId
+      navigation.state.params.application
     )
-
     if (!initialLoad) {
       this.setState({ isRefreshing: false, devices })
     } else {
@@ -105,17 +119,40 @@ class DevicesList extends Component {
   }
 
   _renderModalToggle() {
-    return <AddButton onPress={() => this.setState({ modalVisible: true })} />
+    return (
+      <AddButton
+        onPress={
+          this.state.addButtonDisabled ? this._preventModal : this._displayModal
+        }
+        disabled={this.state.addButtonDisabled}
+      />
+    )
   }
 
+  _displayModal = () => {
+    this.setState({ modalVisible: true })
+  };
+  _preventModal = () => {
+    if (Platform.OS === 'android')
+      ToastAndroid.show(
+        'You must register a handler before adding a device',
+        ToastAndroid.SHORT
+      )
+    else {
+      Alert.alert(
+        'Alert',
+        'You must register a handler before adding a device'
+      )
+    }
+  };
   _renderContent = () => {
     if (!this.state.initialLoad) {
       return <ActivityIndicator size="large" />
     } else if (this.state.initialLoad && this.state.devices.length === 0) {
       return (
-        <Text onPress={this._fetchApplicationDevices}>
-          No Devices found. Tap here to refresh
-        </Text>
+        <TouchableOpacity onPress={this._fetchApplicationDevices}>
+          <Text>No Devices found. Tap here to refresh</Text>
+        </TouchableOpacity>
       )
     } else {
       return (
@@ -145,7 +182,14 @@ class DevicesList extends Component {
 
 const Separator = () => <View style={styles.separator} />
 
-export default connect(null, TTNApplicationActions)(DevicesList)
+export default connect(
+  (state, props) => ({
+    application: state.content.applications.dictionary[
+      props.navigation.state.params.application.id
+    ],
+  }),
+  TTNApplicationActions
+)(DevicesList)
 
 const styles = StyleSheet.create({
   container: {

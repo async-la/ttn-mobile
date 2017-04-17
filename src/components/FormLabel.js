@@ -8,14 +8,19 @@ import { LATO_REGULAR } from '../constants/fonts'
 
 type Props = {
   primaryText: string,
-  secondaryText: ?string,
+  primaryTextStyle?: Object,
+  secondaryText?: string,
   style?: Object,
 };
 
-const FormLabel = ({ primaryText, secondaryText, style }: Props) => {
+const FormLabel = (
+  { primaryText, primaryTextStyle, secondaryText, style }: Props
+) => {
   return (
     <View style={[styles.container, style]}>
-      <Text style={styles.descriptionPrimary}>{primaryText}</Text>
+      <Text style={[styles.descriptionPrimary, primaryTextStyle]}>
+        {primaryText}
+      </Text>
       {secondaryText &&
         <Text style={styles.descriptionSecondary}>{secondaryText}</Text>}
     </View>
