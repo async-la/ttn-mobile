@@ -1,7 +1,7 @@
 //@flow
 
 import React, { Component } from 'react'
-import { Picker, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LEAGUE_SPARTAN } from '../constants/fonts'
@@ -9,9 +9,11 @@ import { LEAGUE_SPARTAN } from '../constants/fonts'
 import CancelButton from '../components/CancelButton'
 import FormInput from '../components/FormInput'
 import FormLabel from '../components/FormLabel'
+import RadioButtonPanel from '../components/RadioButtonPanel'
 import SubmitButton from '../components/SubmitButton'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
+import { handlers } from '../constants/application'
 import { connect } from 'react-redux'
 
 const BUTTON_SIZE = 60
@@ -22,9 +24,18 @@ type Props = {
   //addApplicationAsync:  typeof TTNApplicationActions.addApplicationAsync,
 };
 
+type State = {
+  description: string,
+  descriptionValid: boolean,
+  id: string,
+  idValid: boolean,
+  inProgress: boolean,
+  handler: string,
+};
+
 class ApplicationForm extends Component {
   props: Props;
-  state = {
+  state: State = {
     description: '',
     descriptionValid: false,
     id: '',
@@ -108,26 +119,11 @@ class ApplicationForm extends Component {
             primaryText="Handler registration"
             secondaryText="Select the handler you want to register this application to"
           />
-          <Picker
-            selectedValue={this.state.handler}
-            onValueChange={handler => this.setState({ handler })}
-          >
-            <Picker.Item
-              label="ttn-handler-asia-se"
-              value="ttn-handler-asia-se"
-            />
-            <Picker.Item
-              label="ttn-handler-brazil"
-              value="ttn-handler-brazil"
-            />
-            <Picker.Item
-              label="ttn-handler-us-west"
-              value="ttn-handler-us-west"
-            />
-            <Picker.Item label="ttn-handler-eu" value="ttn-handler-eu" />
-            <Picker.Item label="Do not register to a handler" value="" />
-
-          </Picker>
+          <RadioButtonPanel
+            buttons={Object.values(handlers)}
+            selected={this.state.handler}
+            onSelect={handler => this.setState({ handler })}
+          />
 
           <View>
             <View style={styles.buttonRow}>
@@ -163,6 +159,7 @@ const styles = StyleSheet.create({
   submitButton: {
     width: BUTTON_SIZE * 3.5,
     height: BUTTON_SIZE,
+    marginBottom: 15,
   },
   container: {
     marginLeft: 30,

@@ -5,6 +5,12 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LEAGUE_SPARTAN } from '../constants/fonts'
+import {
+  DEVICES,
+  MESSAGES_DOWN_W,
+  MESSAGES_UP_R,
+  SETTINGS,
+} from '../constants/application'
 
 import CancelButton from '../components/CancelButton'
 import CheckBox from '../components/CheckBox'
@@ -25,9 +31,18 @@ type Props = {
   //createAccessKeyAsync:  typeof TTNApplicationActions.createAccessKeyAsync,
 };
 
+type State = {
+  accessKeyName: string,
+  accessKeyNameValid: boolean,
+  inProgress: boolean,
+  settingsSelected: boolean,
+  messagesSelected: boolean,
+  devicesSelected: boolean,
+};
+
 class AccessKeyGenerateForm extends Component {
   props: Props;
-  state = {
+  state: State = {
     accessKeyName: '',
     accessKeyNameValid: false,
     inProgress: false,
@@ -59,9 +74,9 @@ class AccessKeyGenerateForm extends Component {
     } = this.state
 
     let rights = []
-    settingsSelected && rights.push('settings')
-    devicesSelected && rights.push('devices')
-    messagesSelected && rights.push('messages:up:r', 'messages:down:w')
+    settingsSelected && rights.push(SETTINGS)
+    devicesSelected && rights.push(DEVICES)
+    messagesSelected && rights.push(MESSAGES_UP_R, MESSAGES_DOWN_W)
 
     this.setState({ inProgress: true })
     await createAccessKeyAsync(application, { name: accessKeyName, rights })
@@ -159,6 +174,7 @@ const styles = StyleSheet.create({
   submitButton: {
     width: BUTTON_SIZE * 3.8,
     height: BUTTON_SIZE,
+    marginBottom: 15,
   },
   container: {
     marginLeft: 30,

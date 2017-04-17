@@ -1,7 +1,12 @@
 //@flow
 
 import React, { Component } from 'react'
-import { ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native'
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import ConfirmAlert from './ConfirmAlert'
@@ -9,6 +14,7 @@ import ConfirmAlert from './ConfirmAlert'
 import { RED, LIGHT_RED } from '../constants/colors'
 
 type Props = {
+  buttonTitle?: string,
   confirm?: boolean,
   inProgress?: boolean,
   itemToDeleteTitle?: string,
@@ -38,7 +44,7 @@ class DeleteButton extends Component {
     onPress && onPress()
   };
   render() {
-    const { inProgress, small, style } = this.props
+    const { inProgress, buttonTitle = 'DELETE', small, style } = this.props
     return (
       <TouchableOpacity
         style={[styles.button, small && styles.buttonSmall, style]}
@@ -51,6 +57,7 @@ class DeleteButton extends Component {
             size={small ? 10 : 30}
             style={[styles.icon, small && styles.iconSmall]}
             />}
+        {!small && <Text style={styles.text}>{buttonTitle}</Text>}
       </TouchableOpacity>
     )
   }
@@ -68,6 +75,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
   },
   buttonSmall: {
     paddingVertical: 5,
@@ -84,5 +92,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: RED,
+    marginLeft: 10,
+    fontSize: 17,
   },
 })

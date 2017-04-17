@@ -5,6 +5,12 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LEAGUE_SPARTAN } from '../constants/fonts'
+import {
+  COLLABORATORS,
+  DELETE,
+  DEVICES,
+  SETTINGS,
+} from '../constants/application'
 
 import CancelButton from '../components/CancelButton'
 import CheckBox from '../components/CheckBox'
@@ -25,9 +31,19 @@ type Props = {
   //createCollaboratorAsync:  typeof TTNApplicationActions.createCollaboratorAsync,
 };
 
+type State = {
+  username: string,
+  usernameValid: boolean,
+  inProgress: boolean,
+  deleteSelected: boolean,
+  settingsSelected: boolean,
+  devicesSelected: boolean,
+  collaboratorsSelected: boolean,
+};
+
 class CollaboratorForm extends Component {
   props: Props;
-  state = {
+  state: State = {
     username: '',
     usernameValid: false,
     inProgress: false,
@@ -61,10 +77,10 @@ class CollaboratorForm extends Component {
     } = this.state
 
     let rights = []
-    settingsSelected && rights.push('settings')
-    collaboratorsSelected && rights.push('collaborators')
-    deleteSelected && rights.push('delete')
-    devicesSelected && rights.push('devices')
+    settingsSelected && rights.push(SETTINGS)
+    collaboratorsSelected && rights.push(COLLABORATORS)
+    deleteSelected && rights.push(DELETE)
+    devicesSelected && rights.push(DEVICES)
 
     this.setState({ inProgress: true })
     await createCollaboratorAsync(application, { username, rights })

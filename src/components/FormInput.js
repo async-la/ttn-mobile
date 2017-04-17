@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
   invalidMsg: {
     color: RED,
     textAlign: 'right',
-    //height: 20,
     flexWrap: 'wrap',
   },
   invalidInput,

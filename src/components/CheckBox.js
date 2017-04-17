@@ -1,8 +1,8 @@
 //@flow
 import React from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-import { GREEN, GREY, LIGHT_GREY } from '../constants/colors'
+import { GREEN, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 
 import FormLabel from './FormLabel'
 
@@ -19,14 +19,14 @@ const CheckBox = (
 ) => {
   return (
     <TouchableOpacity style={[styles.option, style]} onPress={onPress}>
-      <View style={[styles.checkbox, selected && styles.selected]} />
+      <View style={[styles.checkbox, selected && styles.selected]}>
+        {selected && <Text style={styles.checkmark}>✓</Text>}
+      </View>
       <FormLabel primaryText={primaryText} secondaryText={secondaryText} />
     </TouchableOpacity>
   )
 }
-
 export default CheckBox
-
 const styles = StyleSheet.create({
   checkbox: {
     width: 20,
@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     marginRight: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  checkmark: {
+    color: WHITE,
+    fontSize: 15,
+    fontWeight: 'bold',
   },
   selected: {
     backgroundColor: GREEN,

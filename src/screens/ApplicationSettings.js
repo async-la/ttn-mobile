@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import {
   ActivityIndicator,
   Modal,
-  Picker,
   Platform,
   ScrollView,
   StyleSheet,
@@ -13,6 +12,7 @@ import {
   View,
 } from 'react-native'
 
+import { handlers } from '../constants/application'
 import { BLUE, DARK_GREY } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
@@ -28,6 +28,7 @@ import ContentBlock from '../components/ContentBlock'
 import DeleteButton from '../components/DeleteButton'
 import FormInput from '../components/FormInput'
 import FormLabel from '../components/FormLabel'
+import RadioButtonPanel from '../components/RadioButtonPanel'
 import SubmitButton from '../components/SubmitButton'
 import TagLabel from '../components/TagLabel'
 
@@ -45,11 +46,26 @@ type Props = {
   navigation: Object,
 };
 
+type State = {
+  accessKeyGenerateFormVisible: boolean,
+  collaboratorFormVisible: boolean,
+  description: string,
+  originalDescription: string,
+  inProgressDelete: boolean,
+  inProgressEUI: boolean,
+  inProgressGeneral: boolean,
+  inProgressSubmit: boolean,
+  isValid: boolean,
+  handler: string,
+  originalHandler: string,
+  showDeleteConfirmation: boolean,
+};
+
 const BUTTON_SIZE = 60
 
 class ApplicationSettings extends Component {
   props: Props;
-  state = {
+  state: State = {
     accessKeyGenerateFormVisible: false,
     collaboratorFormVisible: false,
     description: '',
@@ -59,8 +75,8 @@ class ApplicationSettings extends Component {
     inProgressGeneral: false,
     inProgressSubmit: false,
     isValid: true,
-    originalHandler: '',
     handler: '',
+    originalHandler: '',
     showDeleteConfirmation: false,
   };
   componentDidMount() {
@@ -233,6 +249,93 @@ class ApplicationSettings extends Component {
     return null
   }
 
+  _renderAccessKeys(accessKeys) {
+    return accessKeys.map((accessKey, i) => {
+      return (
+        <View key={i}>
+          <View style={styles.titleRow}>
+            <Text style={styles.accessKeyTitle}>
+              {accessKey.name}
+            </Text>
+          </View>
+          <View style={styles.euiRow}>
+            <ClipboardToggle
+              password
+              value={accessKey.key}
+              style={{ flex: 1, marginRight: 20 }}
+            />
+            <DeleteButton
+              small
+              itemToDeleteTitle={`Access Key ${accessKey.name}`}
+              onConfirm={() => this._deleteAccessKey(accessKey)}
+            />
+          </View>
+          <View style={styles.rightsRow}>
+            {accessKey.rights &&
+              accessKey.rights.map((accessKeyRight, j) => {
+                return (
+                  <View style={styles.tagLabel} key={j}>
+                    <TagLabel key={j}>{accessKeyRight}</TagLabel>
+                  </View>
+                )
+              })}
+          </View>
+        </View>
+      )
+    })
+  }
+
+  _renderCollaborators(collaborators) {
+    return collaborators.map((collaborator, i) => {
+      return (
+        <View key={i}>
+          <View style={styles.titleRow}>
+            <View style={styles.collaboratorName}>
+              <Ionicons
+                name={'md-contact'}
+                size={20}
+                style={{ marginRight: 20 }}
+              />
+              <Text style={styles.collaboratorTitle}>
+                {collaborator.username}
+              </Text>
+            </View>
+            <DeleteButton
+              small
+              itemToDeleteTitle={`collaborator ${collaborator.username}`}
+              onConfirm={() => this._deleteCollaborator(collaborator)}
+            />
+          </View>
+          <View style={styles.rightsRow}>
+            {collaborator.rights &&
+              collaborator.rights.map((collaboratorRight, j) => {
+                return (
+                  <View style={styles.tagLabel} key={j}>
+                    <TagLabel>{collaboratorRight}</TagLabel>
+                  </View>
+                )
+              })}
+          </View>
+        </View>
+      )
+    })
+  }
+
+  _renderEUIs(euis) {
+    return euis.map((eui, i) => {
+      return (
+        <View style={styles.euiRow} key={i}>
+          <ClipboardToggle value={eui} style={{ flex: 1, marginRight: 20 }} />
+          <DeleteButton
+            itemToDeleteTitle={`EUI ${eui}`}
+            small
+            onConfirm={() => this._deleteEui(eui)}
+          />
+        </View>
+      )
+    })
+  }
+
   render() {
     const { application } = this.props
     return (
@@ -252,34 +355,13 @@ class ApplicationSettings extends Component {
             />
 
             <FormLabel primaryText="Handler" />
-            <Picker
-              selectedValue={this.state.handler}
-              onValueChange={handler => this.setState({ handler })}
-            >
-              <Picker.Item
-                label="ttn-handler-asia-se"
-                value="ttn-handler-asia-se"
-              />
-              <Picker.Item
-                label="ttn-handler-brazil"
-                value="ttn-handler-brazil"
-              />
-              <Picker.Item
-                label="ttn-handler-us-west"
-                value="ttn-handler-us-west"
-              />
-              <Picker.Item label="ttn-handler-eu" value="ttn-handler-eu" />
-              <Picker.Item label="Do not register to a handler" value="" />
-            </Picker>
+            <RadioButtonPanel
+              buttons={Object.values(handlers)}
+              selected={this.state.handler}
+              onSelect={handler => this.setState({ handler })}
+            />
+
             <View style={styles.buttonRow}>
-              <DeleteButton
-                confirm
-                inProgress={this.state.inProgressDelete}
-                itemToDeleteTitle={`application ${application.id}`}
-                onConfirm={this._confirmDeleteApplication}
-                onDeny={this._cancelDeleteApplication}
-                style={styles.deleteButton}
-              />
               <SubmitButton
                 active={this._allInputsValid()}
                 inProgress={this.state.inProgressSubmit}
@@ -301,22 +383,9 @@ class ApplicationSettings extends Component {
               />
             }
           >
-            {application.euis &&
-              application.euis.map((eui, i) => {
-                return (
-                  <View style={styles.euiRow} key={i}>
-                    <ClipboardToggle
-                      value={eui}
-                      style={{ flex: 1, marginRight: 20 }}
-                    />
-                    <DeleteButton
-                      itemToDeleteTitle={`EUI ${eui}`}
-                      small
-                      onConfirm={() => this._deleteEui(eui)}
-                    />
-                  </View>
-                )
-              })}
+            {!application.euis
+              ? <Text style={styles.infoText}>No EUIs found</Text>
+              : this._renderEUIs(application.euis)}
           </ContentBlock>
 
           <ContentBlock
@@ -331,34 +400,9 @@ class ApplicationSettings extends Component {
               />
             }
           >
-            {application.access_keys &&
-              application.access_keys.map((accessKey, i) => {
-                return (
-                  <View key={i}>
-                    <View style={styles.titleRow}>
-                      <Text style={styles.accessKeyTitle}>
-                        {accessKey.name}
-                      </Text>
-                      <DeleteButton
-                        small
-                        itemToDeleteTitle={`Access Key ${accessKey.name}`}
-                        onConfirm={() => this._deleteAccessKey(accessKey)}
-                      />
-                    </View>
-                    <ClipboardToggle password value={accessKey.key} />
-                    <View style={styles.rightsRow}>
-                      {accessKey.rights &&
-                        accessKey.rights.map((accessKeyRight, j) => {
-                          return (
-                            <View style={styles.tagLabel} key={j}>
-                              <TagLabel key={j}>{accessKeyRight}</TagLabel>
-                            </View>
-                          )
-                        })}
-                    </View>
-                  </View>
-                )
-              })}
+            {!application.access_keys
+              ? <Text style={styles.infoText}>No access keys found</Text>
+              : this._renderAccessKeys(application.access_keys)}
           </ContentBlock>
 
           <ContentBlock
@@ -373,43 +417,20 @@ class ApplicationSettings extends Component {
               />
             }
           >
-            {application.collaborators &&
-              application.collaborators.map((collaborator, i) => {
-                return (
-                  <View key={i}>
-                    <View style={styles.titleRow}>
-                      <View style={styles.collaboratorName}>
-                        <Ionicons
-                          name={'md-contact'}
-                          size={20}
-                          style={{ marginRight: 20 }}
-                        />
-                        <Text style={styles.collaboratorTitle}>
-                          {collaborator.username}
-                        </Text>
-                      </View>
-                      <DeleteButton
-                        small
-                        itemToDeleteTitle={
-                          `collaborator ${collaborator.username}`
-                        }
-                        onConfirm={() => this._deleteCollaborator(collaborator)}
-                      />
-                    </View>
-                    <View style={styles.rightsRow}>
-                      {collaborator.rights &&
-                        collaborator.rights.map((collaboratorRight, j) => {
-                          return (
-                            <View style={styles.tagLabel} key={j}>
-                              <TagLabel>{collaboratorRight}</TagLabel>
-                            </View>
-                          )
-                        })}
-                    </View>
-                  </View>
-                )
-              })}
+            {!application.collaborators
+              ? <Text style={styles.infoText}>No collaborators found</Text>
+              : this._renderCollaborators(application.collaborators)}
           </ContentBlock>
+
+          <DeleteButton
+            buttonTitle="DELETE APPLICATION"
+            confirm
+            inProgress={this.state.inProgressDelete}
+            itemToDeleteTitle={`application ${application.id}`}
+            onConfirm={this._confirmDeleteApplication}
+            onDeny={this._cancelDeleteApplication}
+            style={styles.deleteButton}
+          />
 
         </ScrollView>
         {this.state.inProgressGeneral &&
@@ -443,6 +464,10 @@ const styles = StyleSheet.create({
     fontFamily: LATO_REGULAR,
     fontWeight: 'bold',
   },
+  clipboard: {
+    flex: 1,
+    marginRight: 20,
+  },
   collaboratorTitle: {
     color: DARK_GREY,
     fontFamily: LATO_REGULAR,
@@ -461,21 +486,28 @@ const styles = StyleSheet.create({
     top: 20,
   },
   buttonRow: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     marginHorizontal: 10,
   },
   collaboratorName: {
     flexDirection: 'row',
   },
+  container: {
+    flex: 1,
+  },
+  contentRow: {
+    flexDirection: 'row',
+  },
   submitButton: {
     width: BUTTON_SIZE * 2,
     height: BUTTON_SIZE,
+    marginBottom: 15,
   },
   deleteButton: {
-    width: BUTTON_SIZE,
+    width: BUTTON_SIZE * 4,
     height: BUTTON_SIZE,
+    alignSelf: 'center',
+    marginBottom: 15,
   },
   euiRow: {
     flexDirection: 'row',
@@ -484,12 +516,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 10,
   },
-  container: {
-    flex: 1,
-  },
   header: {
     fontSize: 30,
     color: DARK_GREY,
+  },
+  infoText: {
+    color: DARK_GREY,
+    fontFamily: LATO_REGULAR,
+    padding: 15,
   },
   tagLabel: {
     flexDirection: 'column',
