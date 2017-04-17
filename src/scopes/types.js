@@ -3,7 +3,8 @@
 import { REHYDRATE as SOURCE_REHYDRATE } from 'redux-persist/constants'
 
 import type { AuthAction } from './auth/types'
-import type { ApplicationsAction } from './content/applications/types'
+import type { TTNApplicationAction } from './content/applications/types'
+import type { DeviceAction } from './device/types'
 import type { State } from './rootReducer'
 
 const REHYDRATE = 'persist/REHYDRATE' // we need to duplicate here for typing reasons, correctness ensured on next line
@@ -17,4 +18,8 @@ type RehydrateAction = {
   payload: State,
 };
 
-export type Action = ApplicationsAction | AuthAction | RehydrateAction;
+export type Action =
+  | TTNApplicationAction
+  | AuthAction
+  | DeviceAction
+  | RehydrateAction;

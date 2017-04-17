@@ -1,15 +1,19 @@
 // @flow
+import React from 'react'
 import { TabNavigator, TabView, StackNavigator } from 'react-navigation'
 
+import ApplicationData from '../../screens/ApplicationData'
 import ApplicationList from '../../screens/ApplicationList'
-import ApplicationDetailPlaceholder
-  from '../../screens/ApplicationDetailPlaceholder'
+import ApplicationOverview from '../../screens/ApplicationOverview'
 import DeviceList from '../../screens/DeviceList'
 import DeviceDetailPlaceholder from '../../screens/DeviceDetailPlaceholder'
 import GatewayList from '../../screens/GatewayList'
 import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
 import Profile from '../../screens/Profile'
-import TestScreen from '../../screens/TestScreen'
+// import TestScreen from '../../screens/TestScreen'
+
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Zocial from 'react-native-vector-icons/Zocial'
 
 import {
   APPLICATION_DETAIL,
@@ -34,12 +38,14 @@ import {
   TRAFFIC,
   TRAFFIC_LABEL,
 } from './constants'
-import { LATO_REGULAR, LEAGUE_SPARTAN } from '../../constants/fonts'
+
+import { BLUE, WHITE } from '../../constants/colors'
+import { LATO_REGULAR } from '../../constants/fonts'
 
 const ApplicationDetail = TabNavigator(
   {
     [OVERVIEW]: {
-      screen: ApplicationDetailPlaceholder,
+      screen: ApplicationOverview,
       path: '/overview',
       navigationOptions: {
         tabBar: {
@@ -68,7 +74,7 @@ const ApplicationDetail = TabNavigator(
     // },
 
     [DATA]: {
-      screen: ApplicationDetailPlaceholder,
+      screen: ApplicationData,
       path: '/data',
       navigationOptions: {
         tabBar: {
@@ -77,7 +83,7 @@ const ApplicationDetail = TabNavigator(
       },
     },
     [SETTINGS]: {
-      screen: ApplicationDetailPlaceholder,
+      screen: Profile,
       path: '/settings',
       navigationOptions: {
         tabBar: {
@@ -91,12 +97,19 @@ const ApplicationDetail = TabNavigator(
     order: [OVERVIEW, DEVICE_LIST, DATA, SETTINGS],
     tabBarComponent: TabView.TabBarTop,
     tabBarPosition: 'top',
+    lazyLoad: true,
     animationEnabled: true,
     swipeEnabled: true,
     pressOpacity: 0.2,
     tabBarOptions: {
       labelStyle: {
         fontFamily: LATO_REGULAR,
+      },
+      style: {
+        backgroundColor: BLUE,
+      },
+      indicatorStyle: {
+        backgroundColor: WHITE,
       },
       scrollEnabled: true,
     },
@@ -131,17 +144,24 @@ const DeviceDetail = TabNavigator(
     },
   },
   {
+    animationEnabled: true,
     backBehavior: 'none',
+    lazyLoad: true,
     order: [OVERVIEW, DATA, SETTINGS],
+    scrollEnabled: true,
+    swipeEnabled: true,
     tabBarComponent: TabView.TabBarTop,
     tabBarPosition: 'top',
-    animationEnabled: true,
-    swipeEnabled: true,
     tabBarOptions: {
       labelStyle: {
         fontFamily: LATO_REGULAR,
       },
-      scrollEnabled: true,
+      style: {
+        backgroundColor: BLUE,
+      },
+      indicatorStyle: {
+        backgroundColor: WHITE,
+      },
     },
   }
 )
@@ -215,7 +235,7 @@ const Gateways = StackNavigator({
 })
 
 // Main app navigator. Define bottom tabs here
-export default (AppNavigator = TabNavigator(
+const AppNavigator = TabNavigator(
   {
     [APPLICATIONS]: {
       screen: Applications,
@@ -223,6 +243,13 @@ export default (AppNavigator = TabNavigator(
       navigationOptions: {
         tabBar: {
           label: APPLICATIONS_LABEL,
+          icon: ({ tintColor, focused }) => (
+            <Zocial
+              name="buffer"
+              size={20}
+              style={{ color: focused ? BLUE : 'grey' }}
+            />
+          ),
         },
       },
     },
@@ -232,6 +259,13 @@ export default (AppNavigator = TabNavigator(
       navigationOptions: {
         tabBar: {
           label: GATEWAYS_LABEL,
+          icon: ({ tintColor, focused }) => (
+            <MaterialIcons
+              name="router"
+              size={30}
+              style={{ color: focused ? BLUE : 'grey' }}
+            />
+          ),
         },
       },
     },
@@ -241,13 +275,27 @@ export default (AppNavigator = TabNavigator(
       navigationOptions: {
         tabBar: {
           label: PROFILE_LABEL,
+          icon: ({ tintColor, focused }) => (
+            <MaterialIcons
+              name="person"
+              size={30}
+              style={{ color: focused ? BLUE : 'grey' }}
+            />
+          ),
         },
       },
     },
   },
   {
     order: [APPLICATIONS, GATEWAYS, PROFILE],
+    lazyLoad: true,
     tabBarComponent: TabView.TabBarBottom,
     tabBarPosition: 'bottom',
+    tabBarOptions: {
+      showLabel: false,
+      showIcon: true,
+    },
   }
-))
+)
+
+export default AppNavigator

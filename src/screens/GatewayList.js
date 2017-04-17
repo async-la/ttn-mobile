@@ -1,9 +1,10 @@
 // @flow
 
 import React, { Component } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { LATO_REGULAR } from '../constants/fonts'
+import { WHITE } from '../constants/colors'
 import { GATEWAY_DETAIL, GATEWAYS_LABEL } from '../scopes/navigation/constants'
 
 export default class GatewayList extends Component {
@@ -12,9 +13,41 @@ export default class GatewayList extends Component {
       title: GATEWAYS_LABEL,
     }),
   };
+  state = {
+    modalVisible: false,
+  };
   render() {
     return (
       <View style={styles.container}>
+        <Modal
+          animationType={'slide'}
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {}}
+        >
+          <View style={{ marginTop: 40, marginLeft: 20 }}>
+            <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
+              Add Gateway
+            </Text>
+            <Text>I'm a form!</Text>
+
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#3498db',
+                padding: 20,
+                marginTop: 20,
+                width: 100,
+                borderRadius: 5,
+              }}
+              onPress={() => {
+                this.setState({ modalVisible: false })
+              }}
+            >
+              <Text style={{ color: WHITE, fontWeight: 'bold' }}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
         <Text style={styles.header}>GATEWAY LIST</Text>
         <TouchableOpacity
           style={{ backgroundColor: '#FF00FF' }}
@@ -59,9 +92,9 @@ export default class GatewayList extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}
-          onPress={() => alert("I'm a form!")}
+          onPress={() => this.setState({ modalVisible: true })}
         >
-          <Text style={{ fontWeight: 'bold', fontSize: 25, color: 'white' }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 25, color: WHITE }}>
             +
           </Text>
         </TouchableOpacity>

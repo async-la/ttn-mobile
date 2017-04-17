@@ -12,13 +12,16 @@ globals:
 extends:
 - plugin:eslint-plugin-import/warnings
 - plugin:eslint-plugin-import/errors
+- standard-react
 
 plugins:
+- react
 - flowtype
 
 rules:
-  semi: [2, "never"]
   flowtype/require-valid-file-annotation: [2, "always"]
   flowtype/boolean-style: [2, "boolean"]
   flowtype/use-flow-type: 2
-
+  no-unused-vars: [2, {vars: all, args: none}]
+  jsx-quotes: [2, "prefer-double"]
+  react/prop-types: [2, { skipUndeclared: true }]

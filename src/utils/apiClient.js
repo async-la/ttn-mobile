@@ -1,19 +1,30 @@
 // @flow
+import { refreshAccessTokenAsync } from '../scopes/auth/actions'
 
 let singletonStore = null
+
+type APIOptions = {
+  body?: Object,
+};
 
 export function initializeClient(store: Object) {
   singletonStore = store
 }
 
-function getToken() {
+async function getToken() {
   if (!singletonStore) throw new Error('API Client is not initialized')
-  return singletonStore.getState().auth.accessToken
+  const auth = singletonStore.getState().auth
+
+  if (auth.accessTokenExpiresAt < Date.now()) {
+    await singletonStore.dispatch(refreshAccessTokenAsync())
+    return singletonStore.getState().auth.accessToken
+  } else {
+    return auth.accessToken
+  }
 }
 
-async function getRequest(endpoint: String, options?: Object) {
-  const token = getToken()
-
+async function getRequest(endpoint: string) {
+  const token = await getToken()
   try {
     const response = await fetch(endpoint, {
       method: 'GET',
@@ -24,15 +35,14 @@ async function getRequest(endpoint: String, options?: Object) {
     })
 
     const json = await response.json()
-
     return json
   } catch (err) {
     throw err
   }
 }
 
-async function postRequest(endpoint: String, options?: Object) {
-  const token = getToken()
+async function postRequest(endpoint: string, options?: APIOptions = {}) {
+  const token = await getToken()
   const { body } = options
 
   try {
@@ -53,8 +63,8 @@ async function postRequest(endpoint: String, options?: Object) {
   }
 }
 
-async function putRequest(endpoint: String, options?: Object) {
-  const token = getToken()
+async function putRequest(endpoint: string, options: APIOptions = {}) {
+  const token = await getToken()
   const { body } = options
 
   try {
@@ -66,18 +76,16 @@ async function putRequest(endpoint: String, options?: Object) {
       },
       body: JSON.stringify(body),
     })
-
-    const json = await response.json()
-
+    //@NOTE: 204 status fails on calling toJSON
+    const json = response.status !== 204 && (await response.json())
     return json
   } catch (err) {
     throw err
   }
 }
 
-async function deleteRequest(endpoint: String, options?: Object) {
-  const token = getToken()
-  const { body } = options
+async function deleteRequest(endpoint: string, options?: APIOptions) {
+  const token = await getToken()
 
   try {
     const response = await fetch(endpoint, {

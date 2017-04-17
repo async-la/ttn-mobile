@@ -22,6 +22,12 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+# Cocoapods
+ios/Pods
+*.sublime-project
+*.sublime-workspace
+
+
 # Android/IntelliJ
 #
 build/
@@ -51,3 +57,7 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
+
+# Misc
+.happypack
+haul-debug.log

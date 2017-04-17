@@ -1,83 +1,117 @@
 // @flow
 import React, { Component } from 'react'
-import { Linking, Text, View } from 'react-native'
-
-import { injectAuthActions, type AuthActions } from '../scopes/auth/injects'
 import {
-  injectApplicationActions,
-  type ApplicationActions,
-} from '../scopes/content/applications/injects'
+  ActivityIndicator,
+  Image,
+  Linking,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 
-import base64 from 'base-64'
-import queryString from 'query-string'
+import SafariView from 'react-native-safari-view'
+import { FormattedMessage } from 'react-intl'
+import { connect } from 'react-redux'
+
+import { BLUE, WHITE } from '../constants/colors'
+import { LATO_REGULAR } from '../constants/fonts'
+import * as authActions from '../scopes/auth/actions'
 
 type Props = {
-  authActions: AuthActions,
-  applicationActions: ApplicationActions,
-};
+  getAccessTokenAsync: typeof authActions.getAccessTokenAsync,
+}
+
+type State = {
+  loading: boolean,
+}
 
 class SplashHome extends Component {
-  props: Props;
+  props: Props
+  state: State = {
+    loading: false,
+  }
+
   componentDidMount() {
     Linking.addEventListener('url', this._handleOpenURL)
   }
 
   componentWillUnmount() {
     Linking.removeEventListener('url', this._handleOpenURL)
+    this.setState({ loading: false })
   }
 
-  _authorize() {
-    Linking.openURL(
+  _authorize = () => {
+    const url =
       'https://account.thethingsnetwork.org/users/authorize?client_id=async-llc&redirect_uri=ttn://oauth&response_type=code'
-    )
+
+    if (Platform.OS === 'ios') {
+      SafariView.show({ url, fromBottom: true })
+    } else {
+      Linking.openURL(url)
+    }
   }
 
-  _handleOpenURL = async event => {
-    console.log('event', event)
-    let params = event.url.split('?')[1]
-    let query = queryString.parse(params)
-    console.log('query', query.code)
+  _handleOpenURL = async (event: { url: string }) => {
+    try {
+      SafariView.dismiss()
+      this.setState({ loading: true })
+      await this.props.getAccessTokenAsync(event)
+    } catch (err) {
+      this.setState({ loading: false })
+      throw err
+    }
+  }
 
-    const result = await fetch(
-      'https://account.thethingsnetwork.org/users/token',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Basic ${base64.encode('async-llc:1f1f78bf32611b4f22a12e2bc040c2afbd161dffa683a0a3d049292425cd99d2')}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          grant_type: 'authorization_code',
-          code: query.code,
-          redirect_uri: 'ttn://oauth',
-        }),
-      }
-    )
-
-    const json = await result.json()
-    console.log('receiveAuth', json)
-
-    this.props.receiveAuth({
-      accessToken: json.access_token,
-      accessTokenExpiresAt: Date.now() + json.expires_in * 1000,
-      refreshToken: json.refresh_token,
-      tokenType: json.token_type,
-    })
-
-    const applications = await this.props.applicationActions.getApplications(
-      123
-    )
-    console.log(applications)
-  };
   render() {
     return (
-      <View>
-        <Text onPress={this._authorize}>
-          <FormattedMessage id="app.general.login" defaultMessage="Login" />
-        </Text>
+      <View style={styles.container}>
+        <Image
+          resizeMode="contain"
+          source={require('../assets/brand/logo.png')}
+          style={styles.logo}
+        />
+        {this.state.loading
+          ? <ActivityIndicator size="large" color={BLUE} />
+          : <TouchableOpacity style={styles.button} onPress={this._authorize}>
+              <Text style={styles.buttonText}>
+                <FormattedMessage
+                  id="app.general.login"
+                  defaultMessage="LOGIN"
+                />
+              </Text>
+            </TouchableOpacity>}
       </View>
     )
   }
 }
 
-export default injectApplicationActions(injectAuthActions(SplashHome))
+export default connect(null, authActions)(SplashHome)
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: '30%',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  logo: {
+    height: 150,
+    marginBottom: 40,
+  },
+  button: {
+    width: '50%',
+    backgroundColor: BLUE,
+    borderWidth: 20,
+    borderColor: BLUE,
+    borderRadius: 15,
+  },
+  buttonText: {
+    fontFamily: LATO_REGULAR,
+    color: WHITE,
+    fontSize: 16,
+    textAlign: 'center',
+    letterSpacing: 2,
+  },
+})

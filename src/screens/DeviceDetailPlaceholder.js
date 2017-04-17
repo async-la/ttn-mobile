@@ -7,7 +7,7 @@ import { LATO_REGULAR } from '../constants/fonts'
 
 export default class DeviceDetailPlaceholder extends Component {
   static navigationOptions = {
-    title: ({ state }) => state.params.deviceName,
+    title: ({ state }) => state.params.deviceId,
   };
   render() {
     return (
