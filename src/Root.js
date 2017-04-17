@@ -15,6 +15,9 @@ import configureStore from './store/configureStore'
 import { initializeClient } from './utils/apiClient'
 import { LanguageProvider, translations } from './i18n'
 
+import configureSentry from './utils/configureSentry'
+configureSentry()
+
 const { store } = configureStore()
 initializeClient(store)
 

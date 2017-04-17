@@ -13,6 +13,8 @@
 #import <React/RCTLinkingManager.h>
 #import <React/RCTRootView.h>
 
+#import <React/RNSentry.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -31,13 +33,17 @@
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
+
+  // Install Sentry Native Crash Reporter
+  [RNSentry installWithRootView:rootView];
+  
   [self.window makeKeyAndVisible];
   return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{ 
+{
   return [RCTLinkingManager application:application openURL:url
                       sourceApplication:sourceApplication annotation:annotation];
 }
