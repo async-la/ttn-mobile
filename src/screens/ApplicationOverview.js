@@ -8,9 +8,10 @@ import {
   StyleSheet,
   Text,
 } from 'react-native'
+import { connect } from 'react-redux'
 
 import { LATO_REGULAR } from '../constants/fonts'
-import { connect } from 'react-redux'
+import headerLabel from '../components/navigation/headerLabel'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import type { TTNApplication } from '../scopes/content/applications/types'
@@ -30,7 +31,9 @@ type State = {
 
 class ApplicationDetail extends Component {
   static navigationOptions = {
-    title: ({ state }) => state.params.appName,
+    header: ({ state }) => ({
+      title: headerLabel(state.params.appName),
+    }),
   };
 
   props: Props;

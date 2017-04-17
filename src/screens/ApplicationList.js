@@ -10,16 +10,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { connect } from 'react-redux'
 
 import AddButton from '../components/AddButton'
 import ApplicationListItem from '../components/ApplicationListItem'
+import headerLabel from '../components/navigation/headerLabel'
 
 import { APPLICATIONS_LABEL } from '../scopes/navigation/constants'
 import { LIGHT_GREY } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
-import { connect } from 'react-redux'
 
 type Props = {
   applications: Object,
@@ -36,7 +37,7 @@ type State = {
 class ApplicationsList extends Component {
   static navigationOptions = {
     header: ({ state }) => ({
-      title: APPLICATIONS_LABEL,
+      title: headerLabel(APPLICATIONS_LABEL),
     }),
   };
 
