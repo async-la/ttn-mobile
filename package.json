@@ -59,7 +59,8 @@
     "jest": "^19.0.2",
     "lint-staged": "^3.4.0",
     "prettier": "^1.1.0",
-    "react-test-renderer": "~15.4.1"
+    "react-test-renderer": "~15.4.1",
+    "sentry-cli-binary": "^1.4.1"
   },
   "jest": {
     "preset": "react-native"
