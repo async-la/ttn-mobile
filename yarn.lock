@@ -4723,6 +4723,12 @@ range-parser@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.0.3.tgz#6872823535c692e2c2a0103826afd82c2e0ff175"
 
+raven-js@3.12.1:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.12.1.tgz#bec1aebbc0b14fbfe651ffff4c5692931065d418"
+  dependencies:
+    json-stringify-safe "^5.0.1"
+
 raw-body@~2.1.2:
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.1.7.tgz#adfeace2e4fb3098058014d08c072dcc59758774"
@@ -4788,6 +4794,12 @@ react-native-drawer-layout@~1.1.3:
 react-native-safari-view@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-safari-view/-/react-native-safari-view-2.0.0.tgz#3aeb40693b0765df16b9beaf8654b60c7ff1d7ed"
+
+react-native-sentry@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-sentry/-/react-native-sentry-0.6.0.tgz#390bc194e79095e74cc1649462f869d57175d1b3"
+  dependencies:
+    raven-js "3.12.1"
 
 react-native-tab-view@^0.0.57:
   version "0.0.57"
