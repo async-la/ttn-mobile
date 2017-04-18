@@ -11,10 +11,10 @@ import DeviceDetailPlaceholder from '../../screens/DeviceDetailPlaceholder'
 import GatewayList from '../../screens/GatewayList'
 import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
 import Profile from '../../screens/Profile'
-// import TestScreen from '../../screens/TestScreen'
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import Zocial from 'react-native-vector-icons/Zocial'
+import IconAccount from '../../components/IconAccount'
+import IconApplications from '../../components/IconApplications'
+import IconGateways from '../../components/IconGateways'
 
 import {
   APPLICATION_DETAIL,
@@ -40,7 +40,7 @@ import {
   TRAFFIC_LABEL,
 } from './constants'
 
-import { BLUE, WHITE } from '../../constants/colors'
+import { BLUE, LIGHT_BLUE, GREY, WHITE } from '../../constants/colors'
 import { LATO_REGULAR } from '../../constants/fonts'
 
 const ApplicationDetail = TabNavigator(
@@ -245,11 +245,7 @@ const AppNavigator = TabNavigator(
         tabBar: {
           label: APPLICATIONS_LABEL,
           icon: ({ tintColor, focused }) => (
-            <Zocial
-              name="buffer"
-              size={20}
-              style={{ color: focused ? BLUE : 'grey' }}
-            />
+            <IconApplications fill={focused ? LIGHT_BLUE : GREY} />
           ),
         },
       },
@@ -261,11 +257,7 @@ const AppNavigator = TabNavigator(
         tabBar: {
           label: GATEWAYS_LABEL,
           icon: ({ tintColor, focused }) => (
-            <MaterialIcons
-              name="router"
-              size={30}
-              style={{ color: focused ? BLUE : 'grey' }}
-            />
+            <IconGateways fill={focused ? LIGHT_BLUE : GREY} />
           ),
         },
       },
@@ -277,11 +269,7 @@ const AppNavigator = TabNavigator(
         tabBar: {
           label: PROFILE_LABEL,
           icon: ({ tintColor, focused }) => (
-            <MaterialIcons
-              name="person"
-              size={30}
-              style={{ color: focused ? BLUE : 'grey' }}
-            />
+            <IconAccount fill={focused ? LIGHT_BLUE : GREY} />
           ),
         },
       },
