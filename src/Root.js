@@ -15,8 +15,11 @@ import configureStore from './store/configureStore'
 import { initializeClient } from './utils/apiClient'
 import { LanguageProvider, translations } from './i18n'
 
-import configureSentry from './utils/configureSentry'
-configureSentry()
+import Raven from 'raven-js'
+require('raven-js/plugins/react-native')(Raven)
+Raven.config(
+  'https://c301d1166c6d4a5ba1984df20f5a2160@sentry.io/159098'
+).install()
 
 const { store } = configureStore()
 initializeClient(store)

@@ -13,8 +13,6 @@
 #import <React/RCTLinkingManager.h>
 #import <React/RCTRootView.h>
 
-#import <React/RNSentry.h>
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -34,9 +32,6 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
 
-  // Install Sentry Native Crash Reporter
-  [RNSentry installWithRootView:rootView];
-  
   [self.window makeKeyAndVisible];
   return YES;
 }
