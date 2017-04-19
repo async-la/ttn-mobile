@@ -1143,7 +1143,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_ORG=async-kw\nexport SENTRY_PROJECT=ttn-console\nexport SENTRY_AUTH_TOKEN=78544ac4541f4450a8a159ce81fe7298b80fb35009f24cf49435ab43d4b231af\nexport NODE_BINARY=node\n../node_modules/react-native-sentry/bin/bundle-frameworks\n(cd ../ yarn sentry-cli react-native-xcode ../node_modules/react-native/packager/react-native-xcode.sh)\n(cd ../ yarn sentry-cli upload-dsym)";
+			shellScript = "export SENTRY_ORG=async-kw\nexport SENTRY_PROJECT=ttn-console\nexport SENTRY_AUTH_TOKEN=78544ac4541f4450a8a159ce81fe7298b80fb35009f24cf49435ab43d4b231af\nexport NODE_BINARY=node\n../node_modules/react-native-sentry/bin/bundle-frameworks\nsentry-cli react-native-xcode ../node_modules/react-native/packager/react-native-xcode.sh\nsentry-cli upload-dsym";
 		};
 		14D0DF88490900F1956B588C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
