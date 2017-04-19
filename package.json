@@ -26,6 +26,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "query-string": "^4.3.2",
+    "raven-js": "^3.14.2",
     "react": "16.0.0-alpha.4",
     "react-intl": "^2.2.3",
     "react-native": "0.43.0-rc.4",
