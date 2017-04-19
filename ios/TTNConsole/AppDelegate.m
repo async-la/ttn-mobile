@@ -34,9 +34,11 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
 
-  // Install Sentry Native Crash Reporter
-  [RNSentry installWithRootView:rootView];
-  
+  // Install Sentry Native Crash Reporter in Release
+  #if !RCT_DEV
+    [RNSentry installWithRootView:rootView];
+  #endif
+
   [self.window makeKeyAndVisible];
   return YES;
 }
