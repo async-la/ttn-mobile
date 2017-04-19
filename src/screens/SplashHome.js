@@ -32,7 +32,6 @@ class SplashHome extends Component {
   state: State = {
     loading: false,
   }
-
   componentDidMount() {
     Linking.addEventListener('url', this._handleOpenURL)
   }
@@ -52,10 +51,10 @@ class SplashHome extends Component {
       Linking.openURL(url)
     }
   }
-
   _handleOpenURL = async (event: { url: string }) => {
     try {
-      SafariView.dismiss()
+      if (Platform.OS === 'ios') SafariView.dismiss()
+
       this.setState({ loading: true })
       await this.props.getAccessTokenAsync(event)
     } catch (err) {
@@ -63,7 +62,6 @@ class SplashHome extends Component {
       throw err
     }
   }
-
   render() {
     return (
       <View style={styles.container}>
