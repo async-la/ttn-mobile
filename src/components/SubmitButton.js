@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 
 import { MID_GREY, GREEN, GREY, WHITE } from '../constants/colors'
+import { LATO_REGULAR } from '../constants/fonts'
 
 type Props = {
   active: boolean,
@@ -16,7 +17,7 @@ type Props = {
   onPress: () => void,
   style?: Object,
   title: string,
-};
+}
 
 const SubmitButton = ({ active, inProgress, onPress, style, title }: Props) => {
   return (
@@ -27,8 +28,8 @@ const SubmitButton = ({ active, inProgress, onPress, style, title }: Props) => {
       {inProgress
         ? <ActivityIndicator color={WHITE} />
         : <Text style={[styles.text, !active && styles.inactiveText]}>
-          {title}
-        </Text>}
+            {title}
+          </Text>}
     </TouchableOpacity>
   )
 }
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: WHITE,
+    fontFamily: LATO_REGULAR,
     fontWeight: 'bold',
   },
 })
