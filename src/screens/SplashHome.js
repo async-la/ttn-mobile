@@ -6,17 +6,14 @@ import {
   Linking,
   Platform,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native'
 
 import SafariView from 'react-native-safari-view'
-import { FormattedMessage } from 'react-intl'
+import SubmitButton from '../components/SubmitButton'
 import { connect } from 'react-redux'
 
-import { BLUE, WHITE } from '../constants/colors'
-import { LATO_REGULAR } from '../constants/fonts'
+import { AUTHORIZATION_URI } from '../constants/apiEndpoints'
 import * as authActions from '../scopes/auth/actions'
 
 type Props = {
@@ -42,13 +39,10 @@ class SplashHome extends Component {
   }
 
   _authorize = () => {
-    const url =
-      'https://account.thethingsnetwork.org/users/authorize?client_id=async-llc&redirect_uri=ttn://oauth&response_type=code'
-
     if (Platform.OS === 'ios') {
-      SafariView.show({ url, fromBottom: true })
+      SafariView.show({ url: AUTHORIZATION_URI, fromBottom: true })
     } else {
-      Linking.openURL(url)
+      Linking.openURL(AUTHORIZATION_URI)
     }
   }
   _handleOpenURL = async (event: { url: string }) => {
@@ -71,15 +65,8 @@ class SplashHome extends Component {
           style={styles.logo}
         />
         {this.state.loading
-          ? <ActivityIndicator size="large" color={BLUE} />
-          : <TouchableOpacity style={styles.button} onPress={this._authorize}>
-              <Text style={styles.buttonText}>
-                <FormattedMessage
-                  id="app.general.login"
-                  defaultMessage="LOGIN"
-                />
-              </Text>
-            </TouchableOpacity>}
+          ? <ActivityIndicator size="large" />
+          : <SubmitButton active onPress={this._authorize} title="LOGIN" />}
       </View>
     )
   }
@@ -97,19 +84,5 @@ const styles = StyleSheet.create({
   logo: {
     height: 150,
     marginBottom: 40,
-  },
-  button: {
-    width: '50%',
-    backgroundColor: BLUE,
-    borderWidth: 20,
-    borderColor: BLUE,
-    borderRadius: 15,
-  },
-  buttonText: {
-    fontFamily: LATO_REGULAR,
-    color: WHITE,
-    fontSize: 16,
-    textAlign: 'center',
-    letterSpacing: 2,
   },
 })

@@ -16,7 +16,7 @@ const path = `M43.7,46.6l-9.6-4.8c-0.9-0.5-1.5-1.4-1.5-2.4V36c0.2-0.3,0.5-0.6,0.
 const IconApplications = (props: Props) => {
   return (
     <SVG height="35" width="30">
-      <G scale=".5">
+      <G scale=".5" y={2}>
         <Path stroke={BLUE} strokeWidth={3} fill={props.fill} d={path} />
       </G>
     </SVG>
