@@ -1,3 +1,8 @@
+### Setup ###
+- standard react-native setup
+- recommended to have eslint + flow ide plugins
+- requires globally installed [sentry-cli](https://github.com/getsentry/sentry-cli)
+
 ### Internationalization ###
 We're using [react-intl](https://github.com/yahoo/react-intl). It provides React components and an API to format dates, numbers, and strings, including pluralization and handling translations.
 
