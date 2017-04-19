@@ -44,7 +44,7 @@ type Props = {
   deleteEUIAsync: typeof TTNApplicationActions.deleteEUIAsync,
   updateApplicationAsync: typeof TTNApplicationActions.updateApplicationAsync,
   navigation: Object,
-};
+}
 
 type State = {
   accessKeyGenerateFormVisible: boolean,
@@ -59,12 +59,16 @@ type State = {
   handler: string,
   originalHandler: string,
   showDeleteConfirmation: boolean,
-};
+}
 
 const BUTTON_SIZE = 60
 
 class ApplicationSettings extends Component {
-  props: Props;
+  static navigationOptions = {
+    title: ({ state }) => state.params.appName,
+  }
+
+  props: Props
   state: State = {
     accessKeyGenerateFormVisible: false,
     collaboratorFormVisible: false,
@@ -78,7 +82,7 @@ class ApplicationSettings extends Component {
     handler: '',
     originalHandler: '',
     showDeleteConfirmation: false,
-  };
+  }
   componentDidMount() {
     const { application } = this.props
     this.setState({
@@ -109,18 +113,18 @@ class ApplicationSettings extends Component {
   }
 
   _allInputsValid() {
-    const descriptionHasChanged = this.state.description !==
-      this.state.originalDescription
+    const descriptionHasChanged =
+      this.state.description !== this.state.originalDescription
     const handlerHasChanged = this.state.handler !== this.state.originalHandler
     return this.state.isValid && (handlerHasChanged || descriptionHasChanged)
   }
 
   _onChangeText = text => {
     this.setState({ description: text })
-  };
+  }
   _onValidate = isValid => {
     this.setState({ isValid })
-  };
+  }
   _onSubmit = async () => {
     const { application } = this.props
     const { description, handler } = this.state
@@ -155,13 +159,13 @@ class ApplicationSettings extends Component {
     } else {
       this._updateApplication(body)
     }
-  };
+  }
   _updateApplication = async body => {
     const { updateApplicationAsync } = this.props
     this.setState({ inProgressSubmit: true })
     await updateApplicationAsync(body)
     this.setState({ inProgressSubmit: false })
-  };
+  }
 
   _confirmDeleteApplication = async () => {
     const { deleteApplicationAsync } = this.props
@@ -169,12 +173,12 @@ class ApplicationSettings extends Component {
     await deleteApplicationAsync(this.props.application)
     this.setState({ inProgressDelete: false })
     this.props.navigation.goBack(null)
-  };
+  }
 
   _cancelDeleteApplication = () => {
     if (Platform.OS === 'android')
       ToastAndroid.show('Application delete cancelled', ToastAndroid.SHORT)
-  };
+  }
 
   _addEUI = async () => {
     console.log('ADDING EUI!!')
@@ -182,13 +186,13 @@ class ApplicationSettings extends Component {
     this.setState({ inProgressEUI: true })
     await createEUIAsync(application)
     this.setState({ inProgressEUI: false })
-  };
+  }
   _deleteEui = async eui => {
     const { application, deleteEUIAsync } = this.props
     this.setState({ inProgressGeneral: true })
     await deleteEUIAsync(application, eui)
     this.setState({ inProgressGeneral: false })
-  };
+  }
   _renderAccessKeyGenerateForm = () => {
     return (
       <Modal
@@ -204,7 +208,7 @@ class ApplicationSettings extends Component {
         />
       </Modal>
     )
-  };
+  }
   _renderCollaboratorForm = () => {
     return (
       <Modal
@@ -220,31 +224,31 @@ class ApplicationSettings extends Component {
         />
       </Modal>
     )
-  };
+  }
   _showAccessKeyForm = () => {
     this.setState({ accessKeyGenerateFormVisible: true })
-  };
+  }
   _dismissAccessKeyForm = () => {
     this.setState({ accessKeyGenerateFormVisible: false })
-  };
+  }
   _showCollaboratorForm = () => {
     this.setState({ collaboratorFormVisible: true })
-  };
+  }
   _dismissCollaboratorForm = () => {
     this.setState({ collaboratorFormVisible: false })
-  };
+  }
   _deleteAccessKey = async accessKey => {
     const { application, deleteAccessKeyAsync } = this.props
     this.setState({ inProgressGeneral: true })
     await deleteAccessKeyAsync(application, accessKey)
     this.setState({ inProgressGeneral: false })
-  };
+  }
   _deleteCollaborator = async collaborator => {
     const { application, deleteCollaboratorAsync } = this.props
     this.setState({ inProgressGeneral: true })
     await deleteCollaboratorAsync(application, collaborator)
     this.setState({ inProgressGeneral: false })
-  };
+  }
   _noop() {
     return null
   }
