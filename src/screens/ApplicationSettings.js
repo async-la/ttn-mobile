@@ -347,7 +347,7 @@ class ApplicationSettings extends Component {
         {this._renderAccessKeyGenerateForm()}
         {this._renderCollaboratorForm()}
         <ScrollView>
-          <ContentBlock heading={application.id.toUpperCase()}>
+          <ContentBlock heading="GENERAL">
 
             <FormLabel primaryText="Description" />
             <FormInput
