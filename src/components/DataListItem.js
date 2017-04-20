@@ -8,15 +8,15 @@ import TagLabel from '../components/TagLabel'
 
 import { BLUE, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
-import { base64toHEX } from '../utils/payloadConverstion'
+import { base64toHEX } from '../utils/payloadConversion'
 import moment from 'moment'
 
 type Props = {
   data: Object,
-};
+}
 
 export default class DataListItem extends Component {
-  props: Props;
+  props: Props
 
   render() {
     const { data } = this.props

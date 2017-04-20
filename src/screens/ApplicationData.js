@@ -23,7 +23,10 @@ import { LATO_REGULAR } from '../constants/fonts'
 
 import { connect } from 'react-redux'
 import { getApplicationMQTTHost } from '../utils/dataMonitor'
-import { getMessageUplinkPermission } from '../utils/permissionCheck'
+import {
+  hasDevicesRights,
+  getMessageUplinkPermission,
+} from '../utils/permissionCheck'
 
 import type { TTNApplication } from '../scopes/content/applications/types'
 
@@ -32,31 +35,34 @@ const TTNMQTTManagerEmitter = new NativeEventEmitter(TTNMQTT)
 
 type Props = {
   application: TTNApplication,
-};
+}
 
 type State = {
   connectionStatus: string,
   data: Array<Object>,
-};
+}
 
 class ApplicationData extends Component {
-  _subscription = () => {};
+  _subscriptionNewMessage = null
+  _subscriptionConnectionLoss = null
+
   static navigationOptions = {
     header: ({ state }) => ({
       title: state.params.appName,
     }),
-  };
+  }
 
-  props: Props;
+  props: Props
   state: State = {
     connectionStatus: '',
     data: [],
-  };
+  }
 
   componentDidMount() {
     const { application } = this.props
     //TODO: Notify user to set handler
     if (!application.handler) return
+    if (!hasDevicesRights(application)) return
 
     const messageUplinkPermission = getMessageUplinkPermission(application)
     if (messageUplinkPermission) {
@@ -70,7 +76,10 @@ class ApplicationData extends Component {
   componentWillUnmount() {
     //@NOTE: The following check is necessary when deleting an application
     if (!this.props.application || !this.props.application.handler) return
-    this._subscription && this._subscription.remove()
+    this._subscriptionNewMessage && this._subscriptionNewMessage.remove()
+    this._subscriptionConnectionLoss &&
+      this._subscriptionConnectionLoss.remove()
+
     TTNMQTT.destroySessionAsync()
   }
 
@@ -87,32 +96,32 @@ class ApplicationData extends Component {
     }
     TTNMQTT.subscribeAsync(`${application.id}/devices/+/up`)
     TTNMQTT.getSessionStatus(this._handleSessionStatusCheck)
-    this._subscription = TTNMQTTManagerEmitter.addListener(
+    this._subscriptionNewMessage = TTNMQTTManagerEmitter.addListener(
       'newMessage',
       this._handleIncommingMessage
     )
-    this._subscription = TTNMQTTManagerEmitter.addListener(
+    this._subscriptionConnectionLoss = TTNMQTTManagerEmitter.addListener(
       'connectionLost',
       this._handleConnectionLoss
     )
-  };
+  }
   _clearData = () => {
     this.setState({ data: [] })
-  };
+  }
 
   _handleConnectionLoss = () => {
     this.setState({ connectionStatus: CLOSED })
-  };
+  }
   _handleSessionStatusCheck = (error, status) => {
     this.setState({ connectionStatus: status })
-  };
+  }
   _handleIncommingMessage = message => {
     let data = this.state.data
     let parsedMessage = JSON.parse(message)
 
     data.unshift(parsedMessage)
     this.setState({ data })
-  };
+  }
   _renderContent = () => {
     if (
       this.state.data.length === 0 && this.state.connectionStatus === CONNECTED
@@ -130,7 +139,7 @@ class ApplicationData extends Component {
         />
       )
     }
-  };
+  }
   render() {
     return (
       <View style={styles.container}>

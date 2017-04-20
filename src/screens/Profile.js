@@ -2,8 +2,10 @@
 
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { FormattedMessage } from 'react-intl'
+
 import { connect } from 'react-redux'
+import copy from '../constants/copy'
+
 import * as authActions from '../scopes/auth/actions'
 
 const randomColorValue = () => Math.floor(Math.random() * 255)
@@ -21,7 +23,7 @@ class Profile extends Component {
         }}
       >
         <Text onPress={this.props.resetAuth}>
-          <FormattedMessage id="app.action.logout" defaultMessage="Logout" />
+          {copy.LOGOUT}
         </Text>
       </View>
     )

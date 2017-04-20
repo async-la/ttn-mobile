@@ -23,6 +23,7 @@ import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { connect } from 'react-redux'
+import { hasDevicesRights } from '../utils/permissionCheck'
 
 type Props = {
   application: Object,
@@ -32,6 +33,7 @@ type Props = {
 
 type State = {
   addButtonDisabled: boolean,
+  authorized: boolean,
   devices: Array<Object>,
   initialLoad: boolean,
   modalVisible: boolean,
@@ -41,28 +43,32 @@ type State = {
 class DevicesList extends Component {
   props: Props
   state: State = {
+    authorized: false,
     addButtonDisabled: false,
     devices: [],
     initialLoad: false,
     modalVisible: false,
     isRefreshing: false,
   }
-
   static navigationOptions = {
     title: ({ state }) => state.params.appName,
   }
+  componentWillMount() {
+    const { application } = this.props
 
-  componentDidMount() {
-    if (!this.props.application.handler)
+    if (hasDevicesRights(application)) {
+      this.setState({ authorized: true })
+    } else if (!application.handler) {
       this.setState({ addButtonDisabled: true })
+    }
+
     this._fetchApplicationDevices(true)
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.application.handler && !this.state.addButtonDisabled)
+    if (!this.state.authorized || !nextProps.application.handler)
       this.setState({ addButtonDisabled: true })
-    else if (this.state.addButtonDisabled)
-      this.setState({ addButtonDisabled: false })
+    else this.setState({ addButtonDisabled: false })
   }
 
   _fetchApplicationDevices = async (initialLoad = false) => {
@@ -79,7 +85,6 @@ class DevicesList extends Component {
       this.setState({ initialLoad: true, devices })
     }
   }
-
   _renderDeviceRow(device) {
     return <DeviceListItem device={device} navigation={this.props.navigation} />
   }
@@ -134,7 +139,11 @@ class DevicesList extends Component {
   _renderContent = () => {
     if (!this.state.initialLoad) {
       return <ActivityIndicator size="large" />
-    } else if (this.state.initialLoad && this.state.devices.length === 0) {
+    } else if (
+      this.state.initialLoad &&
+      this.state.devices &&
+      this.state.devices.length === 0
+    ) {
       return (
         <TouchableOpacity onPress={this._fetchApplicationDevices}>
           <Text>No Devices found. Tap here to refresh</Text>
@@ -144,7 +153,7 @@ class DevicesList extends Component {
       return (
         <FlatList
           data={this.state.devices}
-          initialListSize={this.state.devices.length}
+          initialListSize={this.state.devices ? this.state.devices.length : 0}
           keyExtractor={item => item.dev_id}
           renderItem={({ item }) => this._renderDeviceRow(item)}
           ItemSeparatorComponent={Separator}
@@ -160,7 +169,7 @@ class DevicesList extends Component {
       <View style={styles.container}>
         {this._renderContent()}
         {this._renderModal()}
-        {this._renderModalToggle()}
+        {this.state.authorized && this._renderModalToggle()}
       </View>
     )
   }

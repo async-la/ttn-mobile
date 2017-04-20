@@ -35,6 +35,7 @@ export type TTNApplication = {
   created?: string,
   collaborators?: Array<Collaborator>,
   handler?: string,
+  rights?: Array<string>,
 }
 
 export const RECEIVE_TTN_APPLICATION = 'content/RECEIVE_TTN_APPLICATION'
