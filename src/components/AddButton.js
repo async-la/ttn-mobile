@@ -6,28 +6,35 @@ import { ActivityIndicator, Platform, TouchableOpacity } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { BLUE, GREY, WHITE } from '../constants/colors'
 
-const AddButton = (props: Object) => {
+const AddButton = ({
+  disabled,
+  header,
+  inProgress,
+  shadow = true,
+  onPress,
+}: Object) => {
   return (
     <TouchableOpacity
       style={[
         styles.button,
-        props.header && styles.isHeader,
-        props.disabled && styles.inactive,
+        shadow && styles.shadow,
+        header && styles.isHeader,
+        disabled && styles.inactive,
+        header && shadow && styles.headerShadow,
       ]}
-      onPress={props.onPress}
+      onPress={onPress}
     >
-      {props.inProgress
+      {inProgress
         ? <ActivityIndicator color={BLUE} />
         : <Ionicons
-          name="ios-add"
-          size={props.header ? 25 : 35}
-          style={[
+            name="ios-add"
+            size={header ? 25 : 35}
+            style={[
               styles.icon,
-              props.header && styles.iconHeader,
-              props.disabled && styles.inactiveIcon,
+              header && styles.iconHeader,
+              disabled && styles.inactiveIcon,
             ]}
           />}
-
     </TouchableOpacity>
   )
 }
@@ -70,5 +77,25 @@ const styles = {
   },
   iconHeader: {
     color: BLUE,
+  },
+  shadow: {
+    elevation: 5,
+    shadowOffset: {
+      width: 1,
+      height: 3,
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+  },
+  headerShadow: {
+    elevation: 3,
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
 }

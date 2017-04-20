@@ -8,6 +8,7 @@ import type {
   AccessKey,
   AccessKeyOptions,
   Collaborator,
+  Device,
   TTNApplication,
 } from './types'
 import type { Dispatch, GetState } from '../../../types/redux'
@@ -15,6 +16,7 @@ import type { Dispatch, GetState } from '../../../types/redux'
 /**
  * Fetch ALL Applications
  */
+
 export function getApplicationsAsync() {
   return async (dispatch: Dispatch, getState: GetState) => {
     const payload: Array<TTNApplication> = await apiClient.get(APPLICATIONS)
@@ -25,34 +27,12 @@ export function getApplicationsAsync() {
 /**
  * Fetch Application by ID
  */
+
 export function getApplicationAsync(application: TTNApplication) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
     const payload: TTNApplication = await apiClient.get(APPLICATIONS + id)
     return dispatch({ type: RECEIVE_TTN_APPLICATION, payload })
-  }
-}
-
-/**
- * Fetch Devices for Application
- */
-export function getApplicationDevicesAsync(application: TTNApplication) {
-  const { id } = application
-  return async (dispatch: Dispatch, getState: GetState) => {
-    if (!application.handler) {
-      console.warn(
-        'Attempting to get devices with no handler registered, returning empty array'
-      )
-      return []
-    }
-    try {
-      const payload: Array<TTNApplication> = await apiClient.get(
-        APPLICATIONS + id + '/devices/'
-      )
-      return payload
-    } catch (err) {
-      console.log('## getApplicationDevicesAsync error', err)
-    }
   }
 }
 
@@ -86,6 +66,101 @@ export function updateApplicationAsync(application: TTNApplication) {
       await dispatch(getApplicationAsync(application))
     } catch (err) {
       console.log('## updateApplicationAsync error', err)
+    }
+  }
+}
+
+/**
+ * Fetch Devices for Application
+ */
+
+export function getApplicationDevicesAsync(application: TTNApplication) {
+  const { id } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    if (!application.handler) {
+      console.warn(
+        'Attempting to get devices with no handler registered, returning empty array'
+      )
+      return []
+    }
+    try {
+      const payload: Array<TTNApplication> = await apiClient.get(
+        APPLICATIONS + id + '/devices/'
+      )
+      return payload
+    } catch (err) {
+      console.log('## getApplicationDevicesAsync error', err)
+    }
+  }
+}
+
+/**
+ * Fetch Single Device
+ */
+
+export function getDeviceAsync(application: TTNApplication, deviceId: string) {
+  const { id } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      const payload = await apiClient.get(
+        APPLICATIONS + id + '/devices/' + deviceId
+      )
+      return payload
+    } catch (err) {
+      console.log('## getDeviceAsync error', err)
+    }
+  }
+}
+
+/**
+  * Add Device
+  */
+
+export function addDeviceAsync(application: TTNApplication, device: Device) {
+  const { id } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.post(APPLICATIONS + id + '/devices', { body: device })
+    } catch (err) {
+      console.log('## addDeviceAsync error', err)
+    }
+  }
+}
+
+/**
+ * Update Device
+ */
+
+export function updateDeviceAsync(
+  application: TTNApplication,
+  deviceId: string,
+  device: Device
+) {
+  const { id } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      const payload = await apiClient.patch(
+        APPLICATIONS + id + '/devices/' + deviceId,
+        { body: device }
+      )
+      return payload
+    } catch (err) {
+      console.log('## updateDeviceAsync error', err)
+    }
+  }
+}
+
+/**
+ * Delete Device
+ */
+
+export function deleteDeviceAsync(application: TTNApplication, device: Device) {
+  const { id } = application
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.delete(APPLICATIONS + id + '/devices/' + device.dev_id)
+    } catch (err) {
+      console.log('## deleteDeviceAsync error', err)
     }
   }
 }

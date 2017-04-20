@@ -17,7 +17,7 @@ import { DARK_GREY, LIGHT_GREY, GREY } from '../constants/colors'
 type Props = {
   type: 'password' | 'hex',
   value: string,
-};
+}
 
 type State = {
   currentState: {
@@ -26,11 +26,11 @@ type State = {
   },
   copied: boolean,
   passwordVisible: boolean,
-};
+}
 
 export default class ClipboardToggle extends Component {
-  prop: Props;
-  state: State;
+  prop: Props
+  state: State
 
   state = {
     type: 'hex',
@@ -40,14 +40,25 @@ export default class ClipboardToggle extends Component {
     },
     copied: false,
     passwordVisible: false,
-  };
+  }
   componentDidMount() {
     !this.props.password && this._toggleKeyFormat()
   }
 
+  componentWillReceiveProps(nextProps: Props) {
+    if (this.props.value !== nextProps.value) {
+      this.setState({
+        currentState: {
+          type: 'hex',
+          value: splitHex(nextProps.value),
+        },
+      })
+    }
+  }
+
   _togglePassword = () => {
     this.setState({ passwordVisible: !this.state.passwordVisible })
-  };
+  }
   _toggleKeyFormat = () => {
     switch (this.state.currentState.type) {
       case 'hex':
@@ -83,7 +94,7 @@ export default class ClipboardToggle extends Component {
         })
         break
     }
-  };
+  }
   _copyToClipboard = () => {
     if (this.props.password) {
       Clipboard.setString(this.props.value)
@@ -93,15 +104,12 @@ export default class ClipboardToggle extends Component {
 
     this.setState({ copied: true })
     this._clearClipboard()
-  };
+  }
   _clearClipboard = () => {
-    return setTimeout(
-      () => {
-        this.setState({ copied: false })
-      },
-      2000
-    )
-  };
+    return setTimeout(() => {
+      this.setState({ copied: false })
+    }, 2000)
+  }
 
   _renderHexkeyClipboard = () => {
     return (
@@ -134,7 +142,7 @@ export default class ClipboardToggle extends Component {
         </View>
       </View>
     )
-  };
+  }
   _renderPasswordClipboard() {
     return (
       <View style={[styles.container, { ...this.props.style }]}>

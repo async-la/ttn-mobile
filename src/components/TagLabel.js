@@ -5,6 +5,9 @@ import { Text, View } from 'react-native'
 
 import {
   BLUE,
+  MID_GREY,
+  GREY,
+  LIGHT_GREY,
   DARK_ORANGE,
   LIGHT_BLUE,
   LIGHT_ORANGE,
@@ -16,17 +19,34 @@ import { LATO_REGULAR } from '../constants/fonts'
 type Props = {
   center?: boolean,
   children?: React.Element<any>,
+  grey?: boolean,
   orange?: boolean,
-};
+}
 
 const TagLabel = (props: Props) => {
+  let labelColor = {}
+  if (props.grey) {
+    labelColor.backgroundColor = LIGHT_GREY
+    labelColor.borderBottomColor = GREY
+  } else if (props.orange) {
+    labelColor.backgroundColor = LIGHT_ORANGE
+    labelColor.borderBottomColor = ORANGE
+  } else {
+    labelColor.backgroundColor = LIGHT_BLUE
+    labelColor.borderBottomColor = BLUE
+  }
+
+  let textColor
+  if (props.grey) textColor = MID_GREY
+  else if (props.orange) textColor = DARK_ORANGE
+  else textColor = BLUE
+
   return (
     <View
       style={[
         styles.container,
         {
-          backgroundColor: props.orange ? LIGHT_ORANGE : LIGHT_BLUE,
-          borderBottomColor: props.orange ? ORANGE : BLUE,
+          ...labelColor,
           alignSelf: props.center ? 'center' : 'flex-start',
         },
       ]}
@@ -34,7 +54,7 @@ const TagLabel = (props: Props) => {
       <Text
         style={{
           fontFamily: LATO_REGULAR,
-          color: props.orange ? DARK_ORANGE : BLUE,
+          color: textColor,
         }}
       >
         {props.children}

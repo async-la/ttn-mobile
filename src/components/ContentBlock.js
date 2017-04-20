@@ -10,13 +10,17 @@ type Props = {
   heading: React.Element<any>,
   headingRight?: React.Element<any>,
   children?: React.Element<any>,
-};
+}
 
 const ContentBlock = (props: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>{props.heading}</Text>
+        <Text style={styles.headingText}>
+          {typeof props.heading === 'string'
+            ? props.heading.toUpperCase()
+            : props.heading}
+        </Text>
         {props.headingRight}
       </View>
       <View style={styles.content}>

@@ -7,6 +7,8 @@ import ApplicationList from '../../screens/ApplicationList'
 import ApplicationOverview from '../../screens/ApplicationOverview'
 import ApplicationSettings from '../../screens/ApplicationSettings'
 import DeviceList from '../../screens/DeviceList'
+import DeviceOverview from '../../screens/DeviceOverview'
+import DeviceSettings from '../../screens/DeviceSettings'
 import DeviceDetailPlaceholder from '../../screens/DeviceDetailPlaceholder'
 import GatewayList from '../../screens/GatewayList'
 import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
@@ -120,7 +122,7 @@ const ApplicationDetail = TabNavigator(
 const DeviceDetail = TabNavigator(
   {
     [OVERVIEW]: {
-      screen: DeviceDetailPlaceholder,
+      screen: DeviceOverview,
       navigationOptions: {
         tabBar: {
           label: OVERVIEW_LABEL,
@@ -136,7 +138,7 @@ const DeviceDetail = TabNavigator(
       },
     },
     [SETTINGS]: {
-      screen: DeviceDetailPlaceholder,
+      screen: DeviceSettings,
       navigationOptions: {
         tabBar: {
           label: SETTINGS_LABEL,
