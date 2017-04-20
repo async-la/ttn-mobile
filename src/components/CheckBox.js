@@ -12,17 +12,25 @@ type Props = {
   secondaryText?: string,
   onPress?: Function,
   style?: Object,
-};
+}
 
-const CheckBox = (
-  { selected, primaryText, secondaryText, onPress, style }: Props
-) => {
+const CheckBox = ({
+  selected,
+  primaryText,
+  secondaryText,
+  onPress,
+  style,
+}: Props) => {
   return (
     <TouchableOpacity style={[styles.option, style]} onPress={onPress}>
       <View style={[styles.checkbox, selected && styles.selected]}>
         {selected && <Text style={styles.checkmark}>✓</Text>}
       </View>
-      <FormLabel primaryText={primaryText} secondaryText={secondaryText} />
+      <FormLabel
+        primaryText={primaryText}
+        secondaryText={secondaryText}
+        style={!secondaryText ? styles.oneLine : {}}
+      />
     </TouchableOpacity>
   )
 }
@@ -46,6 +54,9 @@ const styles = StyleSheet.create({
   },
   selected: {
     backgroundColor: GREEN,
+  },
+  oneLine: {
+    marginTop: undefined,
   },
   option: {
     padding: 10,

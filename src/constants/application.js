@@ -8,6 +8,10 @@ export const MESSAGES_DOWN_W = 'messages:down:w'
 export const MESSAGES_UP_R = 'messages:up:r'
 export const SETTINGS = 'settings'
 
+// settings
+export const OTAA = 'OTAA'
+export const ABP = 'ABP'
+
 // Handlers
 export const ASIA_SE = {
   label: 'ttn-handler-asia-se',

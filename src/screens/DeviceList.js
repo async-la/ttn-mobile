@@ -15,6 +15,7 @@ import {
 } from 'react-native'
 
 import AddButton from '../components/AddButton'
+import DeviceForm from '../components/DeviceForm'
 import DeviceListItem from '../components/DeviceListItem'
 
 import { LIGHT_GREY, WHITE } from '../constants/colors'
@@ -27,7 +28,7 @@ type Props = {
   application: Object,
   getApplicationDevicesAsync: typeof TTNApplicationActions.getApplicationDevicesAsync,
   navigation: Object,
-};
+}
 
 type State = {
   addButtonDisabled: boolean,
@@ -35,21 +36,21 @@ type State = {
   initialLoad: boolean,
   modalVisible: boolean,
   isRefreshing: boolean,
-};
+}
 
 class DevicesList extends Component {
-  props: Props;
+  props: Props
   state: State = {
     addButtonDisabled: false,
     devices: [],
     initialLoad: false,
     modalVisible: false,
     isRefreshing: false,
-  };
+  }
 
   static navigationOptions = {
     title: ({ state }) => state.params.appName,
-  };
+  }
 
   componentDidMount() {
     if (!this.props.application.handler)
@@ -77,47 +78,35 @@ class DevicesList extends Component {
     } else {
       this.setState({ initialLoad: true, devices })
     }
-  };
-
-  _renderDeviceRow(device) {
-    return (
-      <DeviceListItem device={device} navigation={this.props.navigation} />
-    )
   }
 
-  _renderModal() {
+  _renderDeviceRow(device) {
+    return <DeviceListItem device={device} navigation={this.props.navigation} />
+  }
+
+  _dismissModal = () => {
+    this.setState({ modalVisible: false })
+  }
+  _submitForm = () => {
+    this._dismissModal()
+    this._fetchApplicationDevices()
+  }
+  _renderModal = () => {
     return (
       <Modal
-        animationType={'slide'}
+        animationType="slide"
         transparent={false}
         visible={this.state.modalVisible}
         onRequestClose={() => {}}
       >
-        <View style={{ marginTop: 40, marginLeft: 20 }}>
-          <Text style={{ fontSize: 25, fontWeight: 'bold' }}>
-            Add Application
-          </Text>
-          <Text>I'm a form!</Text>
-
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#3498db',
-              padding: 20,
-              marginTop: 20,
-              width: 100,
-              borderRadius: 5,
-            }}
-            onPress={() => {
-              this.setState({ modalVisible: false })
-            }}
-          >
-            <Text style={{ color: WHITE, fontWeight: 'bold' }}>Cancel</Text>
-          </TouchableOpacity>
-        </View>
+        <DeviceForm
+          application={this.props.navigation.state.params.application}
+          onCancel={this._dismissModal}
+          onSubmit={this._submitForm}
+        />
       </Modal>
     )
   }
-
   _renderModalToggle() {
     return (
       <AddButton
@@ -131,7 +120,7 @@ class DevicesList extends Component {
 
   _displayModal = () => {
     this.setState({ modalVisible: true })
-  };
+  }
   _preventModal = () => {
     if (Platform.OS === 'android')
       ToastAndroid.show(
@@ -139,12 +128,9 @@ class DevicesList extends Component {
         ToastAndroid.SHORT
       )
     else {
-      Alert.alert(
-        'Alert',
-        'You must register a handler before adding a device'
-      )
+      Alert.alert('Alert', 'You must register a handler before adding a device')
     }
-  };
+  }
   _renderContent = () => {
     if (!this.state.initialLoad) {
       return <ActivityIndicator size="large" />
@@ -168,7 +154,7 @@ class DevicesList extends Component {
         />
       )
     }
-  };
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -196,7 +182,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: LIGHT_GREY,
+    backgroundColor: WHITE,
   },
   header: {
     fontFamily: LATO_REGULAR,

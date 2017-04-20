@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -23,10 +24,10 @@ type Props = {
   onPress?: () => void,
   small?: boolean,
   style?: Object,
-};
+}
 
 class DeleteButton extends Component {
-  props: Props;
+  props: Props
   _showDeleteConfirmation = () => {
     const { itemToDeleteTitle = 'this item', onConfirm, onDeny } = this.props
     ConfirmAlert({
@@ -37,12 +38,12 @@ class DeleteButton extends Component {
       onConfirm,
       onDeny,
     })
-  };
+  }
   _onPress = () => {
     const { confirm = true, onPress } = this.props
     if (confirm) this._showDeleteConfirmation()
     onPress && onPress()
-  };
+  }
   render() {
     const { inProgress, buttonTitle = 'DELETE', small, style } = this.props
     return (
@@ -51,13 +52,19 @@ class DeleteButton extends Component {
         onPress={this._onPress}
       >
         {inProgress
-          ? <ActivityIndicator color={RED} />
-          : <Ionicons
-            name={small ? 'md-remove' : 'ios-trash-outline'}
-            size={small ? 10 : 30}
-            style={[styles.icon, small && styles.iconSmall]}
-            />}
-        {!small && <Text style={styles.text}>{buttonTitle}</Text>}
+          ? <ActivityIndicator color={RED} style={{ width: 30, height: 30 }} />
+          : <View style={!small && styles.buttonRow}>
+              <Ionicons
+                name={small ? 'md-remove' : 'ios-trash-outline'}
+                size={small ? 10 : 30}
+                style={[
+                  styles.icon,
+                  small ? styles.iconSmall : styles.iconLarge,
+                ]}
+              />
+              {!small && <Text style={styles.text}>{buttonTitle}</Text>}
+            </View>}
+
       </TouchableOpacity>
     )
   }
@@ -77,6 +84,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   buttonSmall: {
     paddingVertical: 5,
     paddingHorizontal: 5,
@@ -86,6 +98,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: RED,
+  },
+  iconLarge: {
+    width: 30,
+    height: 30,
   },
   iconSmall: {
     color: LIGHT_RED,

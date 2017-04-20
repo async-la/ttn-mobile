@@ -32,25 +32,25 @@ type Props = {
   application: TTNApplication,
   getApplicationDevicesAsync: Function,
   getApplicationAsync: typeof TTNApplicationActions.getApplicationAsync,
-};
+}
 
 type State = {
   devices: Array<Object>,
   initialLoad: boolean,
   isRefreshing: boolean,
-};
+}
 
 class ApplicationDetail extends Component {
   static navigationOptions = {
     title: ({ state }) => state.params.appName,
-  };
+  }
 
-  props: Props;
+  props: Props
   state: State = {
     devices: [],
     initialLoad: false,
     isRefreshing: false,
-  };
+  }
 
   componentDidMount() {
     this._fetchApplication(true)
@@ -72,13 +72,13 @@ class ApplicationDetail extends Component {
     } else {
       this.setState({ initialLoad: true, devices })
     }
-  };
+  }
 
   _navigateToDevices = () => {
     this.props.navigation.navigate(DEVICE_LIST, {
       appId: this.props.application.id,
     })
-  };
+  }
   _renderCollaborators(collaborators) {
     return (
       <ContentBlock
@@ -211,7 +211,8 @@ class ApplicationDetail extends Component {
               <Text style={styles.deviceButtonText}>
                 {this.state.devices.length}
               </Text>
-              <Text>registered devices</Text>
+              <Text
+              >{`registered ${this.state.devices.length === 1 ? 'device' : 'devices'}`}</Text>
             </TouchableOpacity>
           </ContentBlock>
 
