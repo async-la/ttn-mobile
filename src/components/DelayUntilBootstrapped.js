@@ -6,7 +6,7 @@ import { ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 
 export default connect(state => ({
-  bootstrapped: state.app.bootstrapped,
+  bootstrapped: state._persist.rehydrated,
 }))(props => {
   return props.bootstrapped
     ? props.children
