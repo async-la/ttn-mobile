@@ -6,9 +6,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { LATO_REGULAR } from '../constants/fonts'
 
 export default class DeviceDetailPlaceholder extends Component {
-  static navigationOptions = {
-    title: ({ state }) => state.params.deviceId,
-  };
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.deviceId,
+  })
   render() {
     return (
       <View style={styles.container}>

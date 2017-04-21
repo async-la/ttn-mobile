@@ -37,10 +37,9 @@ class DeviceOverview extends Component {
     },
     isRefreshing: false,
   }
-  static navigationOptions = {
-    title: ({ state }) => state.params.device.dev_id,
-  }
-
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.device.dev_id,
+  })
   componentDidMount() {
     this._getDevice()
   }

@@ -25,27 +25,25 @@ type Props = {
   applications: Object,
   getApplicationsAsync: typeof TTNApplicationActions.getApplicationsAsync,
   navigation: Object,
-};
+}
 
 type State = {
   initialLoad: boolean,
   modalVisible: boolean,
   isRefreshing: boolean,
-};
+}
 
 class ApplicationsList extends Component {
   static navigationOptions = {
-    header: ({ state }) => ({
-      title: APPLICATIONS_LABEL,
-    }),
-  };
+    title: APPLICATIONS_LABEL,
+  }
 
-  props: Props;
+  props: Props
   state: State = {
     initialLoad: false,
     modalVisible: false,
     isRefreshing: false,
-  };
+  }
 
   componentDidMount() {
     this._fetchApplications(true)
@@ -61,7 +59,7 @@ class ApplicationsList extends Component {
     } else {
       this.setState({ initialLoad: true })
     }
-  };
+  }
 
   _renderApplicationRow(id) {
     const application = this.props.applications.dictionary[id]
@@ -91,7 +89,7 @@ class ApplicationsList extends Component {
 
   _dismissModal = () => {
     this.setState({ modalVisible: false })
-  };
+  }
   _renderModalToggle() {
     return <AddButton onPress={() => this.setState({ modalVisible: true })} />
   }
@@ -119,7 +117,7 @@ class ApplicationsList extends Component {
         />
       )
     }
-  };
+  }
   render() {
     return (
       <View style={styles.container}>

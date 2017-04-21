@@ -65,9 +65,9 @@ type State = {
 const BUTTON_SIZE = 60
 
 class ApplicationSettings extends Component {
-  static navigationOptions = {
-    title: ({ state }) => state.params.appName,
-  }
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.appName,
+  })
   props: Props
   state: State = {
     accessKeyGenerateFormVisible: false,

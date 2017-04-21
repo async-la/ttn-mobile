@@ -46,12 +46,10 @@ class ApplicationData extends Component {
   _subscriptionNewMessage = null
   _subscriptionConnectionLoss = null
 
-  static navigationOptions = {
-    header: ({ state }) => ({
-      title: state.params.appName,
-    }),
-  }
-
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    title: navigation.state.params.appName,
+  })
+  
   props: Props
   state: State = {
     connectionStatus: '',
@@ -124,7 +122,8 @@ class ApplicationData extends Component {
   }
   _renderContent = () => {
     if (
-      this.state.data.length === 0 && this.state.connectionStatus === CONNECTED
+      this.state.data.length === 0 &&
+      this.state.connectionStatus === CONNECTED
     ) {
       return <Text>Listening to Data</Text>
     } else {
