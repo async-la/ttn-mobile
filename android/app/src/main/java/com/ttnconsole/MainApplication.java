@@ -1,8 +1,13 @@
 package com.ttnconsole;
 
 import android.app.Application;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.microsoft.codepush.react.CodePush;
 import com.horcrux.svg.SvgPackage;
 import io.sentry.RNSentryPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -17,6 +22,12 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
+    @Override
+    protected String getJSBundleFile() {
+      return CodePush.getJSBundleFile();
+    }
+
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -24,8 +35,20 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
+
+      Bundle metaData = new Bundle();
+      try {
+        ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+        metaData = ai.metaData;
+      } catch (PackageManager.NameNotFoundException e) {
+        Log.e("ReactNative", "Failed to load meta-data, NameNotFound: " + e.getMessage());
+      } catch (NullPointerException e) {
+        Log.e("ReactNative", "Failed to load meta-data, NullPointer: " + e.getMessage());
+      }
+
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new CodePush(metaData.getString("com.ttnconsole.codePushKey"), getApplicationContext(), BuildConfig.DEBUG),
           new SvgPackage(),
           new RNSentryPackage(),
           new TTNMQTTPackage(),
