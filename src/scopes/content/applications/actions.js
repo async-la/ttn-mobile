@@ -158,7 +158,9 @@ export function deleteDeviceAsync(application: TTNApplication, device: Device) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
-      await apiClient.delete(APPLICATIONS + id + '/devices/' + device.dev_id)
+      await apiClient.delete(
+        APPLICATIONS + id + '/devices/' + (device.dev_id || '')
+      )
     } catch (err) {
       console.log('## deleteDeviceAsync error', err)
     }
