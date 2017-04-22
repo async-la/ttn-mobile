@@ -51,7 +51,7 @@ async function processResponse(response = {}) {
   }
 }
 
-async function getRequest(endpoint: string) {
+async function getRequest(endpoint: string): any {
   try {
     const response = await makeRequestAsync('GET', endpoint)
     return processResponse(response)
@@ -60,7 +60,7 @@ async function getRequest(endpoint: string) {
   }
 }
 
-async function patchRequest(endpoint: string, options?: APIOptions = {}) {
+async function patchRequest(endpoint: string, options?: APIOptions = {}): any {
   try {
     const response = await makeRequestAsync('PATCH', endpoint, options)
     return processResponse(response)
@@ -69,7 +69,7 @@ async function patchRequest(endpoint: string, options?: APIOptions = {}) {
   }
 }
 
-async function postRequest(endpoint: string, options?: APIOptions = {}) {
+async function postRequest(endpoint: string, options?: APIOptions = {}): any {
   try {
     const response = await makeRequestAsync('POST', endpoint, options)
     return processResponse(response)
@@ -78,7 +78,7 @@ async function postRequest(endpoint: string, options?: APIOptions = {}) {
   }
 }
 
-async function putRequest(endpoint: string, options?: APIOptions = {}) {
+async function putRequest(endpoint: string, options?: APIOptions = {}): any {
   try {
     const response = await makeRequestAsync('PUT', endpoint, options)
     return processResponse(response)
@@ -87,7 +87,7 @@ async function putRequest(endpoint: string, options?: APIOptions = {}) {
   }
 }
 
-async function deleteRequest(endpoint: string, options?: APIOptions) {
+async function deleteRequest(endpoint: string, options?: APIOptions): any {
   try {
     const response = await makeRequestAsync('DELETE', endpoint, options)
     return processResponse(response)
