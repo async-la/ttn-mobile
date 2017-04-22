@@ -31,8 +31,9 @@ const BUTTON_SIZE = 60
 
 type Props = {
   navigation: Object,
-  //deleteDeviceAsync: typeof TTNApplicationActions.deleteDeviceAsync
-  //updateDeviceAsync: typeof TTNApplicationActions.updateDeviceAsync
+  getDeviceAsync: Function,
+  deleteDeviceAsync: Function,
+  updateDeviceAsync: Function,
 }
 
 type State = {
@@ -272,7 +273,7 @@ class DeviceSettings extends Component {
                 buttonTitle={`${copy.DELETE} ${copy.DEVICE}`.toUpperCase()}
                 confirm
                 inProgress={this.state.inProgressDelete}
-                itemToDeleteTitle={`${copy.DEVICE} ${device.dev_id}`}
+                itemToDeleteTitle={`${copy.DEVICE} ${device.dev_id || ''}`}
                 onConfirm={this._deleteDevice}
                 onDeny={this._cancelDeleteDevice}
                 style={styles.deleteDeviceButton}

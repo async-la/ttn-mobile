@@ -18,12 +18,19 @@ export type Collaborator = {
 
 export type Device = {
   app_eui: ?string,
+  app_id?: string,
   app_key?: string,
+  app_skey?: string,
   description?: ?string,
+  dev_addr?: string,
   dev_eui?: string,
   dev_id: ?string,
   disable_fcnt_check?: boolean,
+  fcnt_down?: string,
+  fcnt_up?: string,
+  last_seen?: string,
   method?: string,
+  nwk_skey?: string,
   uses_32bit_fcnt?: boolean,
 }
 

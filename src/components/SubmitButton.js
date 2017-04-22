@@ -14,7 +14,7 @@ import { LATO_REGULAR } from '../constants/fonts'
 type Props = {
   active: boolean,
   inProgress?: boolean,
-  onPress: () => void,
+  onPress: () => any,
   style?: Object,
   title: string,
 }
