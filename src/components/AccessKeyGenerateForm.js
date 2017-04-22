@@ -28,8 +28,8 @@ type Props = {
   application: TTNApplication,
   onCancel: () => void,
   onSubmit: () => void,
-  //createAccessKeyAsync:  typeof TTNApplicationActions.createAccessKeyAsync,
-};
+  createAccessKeyAsync: Function,
+}
 
 type State = {
   accessKeyName: string,
@@ -38,10 +38,10 @@ type State = {
   settingsSelected: boolean,
   messagesSelected: boolean,
   devicesSelected: boolean,
-};
+}
 
 class AccessKeyGenerateForm extends Component {
-  props: Props;
+  props: Props
   state: State = {
     accessKeyName: '',
     accessKeyNameValid: false,
@@ -49,21 +49,21 @@ class AccessKeyGenerateForm extends Component {
     settingsSelected: false,
     messagesSelected: false,
     devicesSelected: false,
-  };
+  }
   _onChangeText = (text, formInputId) => {
     switch (formInputId) {
       case 'accessKeyName':
         this.setState({ accessKeyName: text })
         break
     }
-  };
+  }
   _onValidate = (isValid, formInputId) => {
     switch (formInputId) {
       case 'accessKeyName':
         this.setState({ accessKeyNameValid: isValid })
         break
     }
-  };
+  }
   _onSubmit = async () => {
     const { application, createAccessKeyAsync, onSubmit } = this.props
     const {
@@ -82,7 +82,7 @@ class AccessKeyGenerateForm extends Component {
     await createAccessKeyAsync(application, { name: accessKeyName, rights })
     this.setState({ inProgress: false })
     onSubmit && onSubmit()
-  };
+  }
   _allInputsValid() {
     const {
       accessKeyNameValid,
@@ -90,8 +90,10 @@ class AccessKeyGenerateForm extends Component {
       messagesSelected,
       settingsSelected,
     } = this.state
-    return accessKeyNameValid &&
+    return (
+      accessKeyNameValid &&
       (devicesSelected || messagesSelected || settingsSelected)
+    )
   }
 
   render() {
