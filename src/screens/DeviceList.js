@@ -27,7 +27,7 @@ import { hasDevicesRights } from '../utils/permissionCheck'
 
 type Props = {
   application: Object,
-  getApplicationDevicesAsync: typeof TTNApplicationActions.getApplicationDevicesAsync,
+  getApplicationDevicesAsync: Function,
   navigation: Object,
 }
 

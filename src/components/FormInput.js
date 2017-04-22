@@ -14,13 +14,17 @@ import {
 import ErrorText from './ErrorText'
 
 type Props = {
-  id: any,
+  id?: any,
   multiline?: boolean,
-  onChangeText: (text: string, formInputId: any) => void,
-  onValidate: (isValid: boolean, formInputId: any) => void,
+  onChangeText: (text: string, formInputId: any) => any,
+  onValidate: (isValid: boolean, formInputId: any) => any,
   required?: boolean,
-  validationType: 'email' | 'applicationId' | 'applicationDescription' | 'none',
-  value: string,
+  validationType?:
+    | 'email'
+    | 'applicationId'
+    | 'applicationDescription'
+    | 'none',
+  value: ?string,
 }
 
 class FormInput extends Component {
@@ -67,7 +71,7 @@ class FormInput extends Component {
         break
       case 'email':
       default:
-        isInvalid = required ? !value.length : false
+        isInvalid = required ? !value || !value.length : false
         validationMsg = 'Field cannot be blank'
     }
 

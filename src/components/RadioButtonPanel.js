@@ -8,14 +8,13 @@ import RadioButton from './RadioButton'
 type RadioOption = {
   label: string,
   value: string,
-};
+}
 
 type Props = {
-  // $FlowIssue Object.values is not type inferred by flow (at render site)
   buttons: Array<RadioOption>,
   onSelect: Function,
-  selected: string,
-};
+  selected: ?string,
+}
 
 const RadioButtonPanel = ({ buttons, onSelect, selected }: Props) => {
   return (
