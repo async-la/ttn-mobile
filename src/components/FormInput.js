@@ -20,10 +20,13 @@ type Props = {
   onValidate: (isValid: boolean, formInputId: any) => any,
   required?: boolean,
   validationType?:
-    | 'email'
+    | 'accessKey'
     | 'applicationId'
     | 'applicationDescription'
-    | 'none',
+    | 'deviceId'
+    | 'email'
+    | 'none'
+    | 'username',
   value: ?string,
 }
 

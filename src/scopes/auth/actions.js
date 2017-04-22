@@ -6,14 +6,14 @@ import queryString from 'query-string'
 import { ACCESS_TOKEN_URI } from '../../constants/apiEndpoints'
 import { RECEIVE_AUTH, RESET_AUTH } from './types'
 
-import type { AuthPayload, ReceiveAuthAction } from './types'
+import type { AuthPayload, ReceiveAuthAction, ResetAuthAction } from './types'
 import type { Dispatch, GetState } from '../../types/redux'
 
 export function receiveAuth(payload: AuthPayload): ReceiveAuthAction {
   return { type: RECEIVE_AUTH, payload: payload }
 }
 
-export function resetAuth(): resetAuth {
+export function resetAuth(): ResetAuthAction {
   return { type: RESET_AUTH }
 }
 

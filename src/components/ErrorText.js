@@ -6,8 +6,8 @@ import { RED } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 type Props = {
-  children: string,
-  style: Object,
+  children?: string,
+  style?: Object,
 }
 
 export default ({ children, style }: Props) => {
