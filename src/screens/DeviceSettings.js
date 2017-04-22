@@ -52,9 +52,9 @@ type State = {
 }
 
 class DeviceSettings extends Component {
-  static navigationOptions = {
-    title: ({ state }) => state.params.deviceId,
-  }
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.deviceId,
+  })
   props: Props
   state: State = {
     activationMethod: OTAA,
@@ -100,7 +100,6 @@ class DeviceSettings extends Component {
   _onValidate = isValid => {
     this.setState({ isValid })
   }
-
   _deleteDevice = async () => {
     const { application, device } = this.props.navigation.state.params
     const { deleteDeviceAsync } = this.props

@@ -51,18 +51,14 @@ const ApplicationDetail = TabNavigator(
       screen: ApplicationOverview,
       path: '/overview',
       navigationOptions: {
-        tabBar: {
-          label: OVERVIEW_LABEL,
-        },
+        tabBarLabel: OVERVIEW_LABEL,
       },
     },
     [DEVICE_LIST]: {
       screen: DeviceList,
       path: '/devices',
       navigationOptions: {
-        tabBar: {
-          label: DEVICES_LABEL,
-        },
+        tabBarLabel: DEVICES_LABEL,
       },
     },
 
@@ -80,18 +76,14 @@ const ApplicationDetail = TabNavigator(
       screen: ApplicationData,
       path: '/data',
       navigationOptions: {
-        tabBar: {
-          label: DATA_LABEL,
-        },
+        tabBarLabel: DATA_LABEL,
       },
     },
     [SETTINGS]: {
       screen: ApplicationSettings,
       path: '/settings',
       navigationOptions: {
-        tabBar: {
-          label: SETTINGS_LABEL,
-        },
+        tabBarLabel: SETTINGS_LABEL,
       },
     },
   },
@@ -124,25 +116,19 @@ const DeviceDetail = TabNavigator(
     [OVERVIEW]: {
       screen: DeviceOverview,
       navigationOptions: {
-        tabBar: {
-          label: OVERVIEW_LABEL,
-        },
+        tabBarLabel: OVERVIEW_LABEL,
       },
     },
     [DATA]: {
       screen: DeviceDetailPlaceholder,
       navigationOptions: {
-        tabBar: {
-          label: DATA_LABEL,
-        },
+        tabBarLabel: DATA_LABEL,
       },
     },
     [SETTINGS]: {
       screen: DeviceSettings,
       navigationOptions: {
-        tabBar: {
-          label: SETTINGS_LABEL,
-        },
+        tabBarLabel: SETTINGS_LABEL,
       },
     },
   },
@@ -187,25 +173,19 @@ const GatewayDetail = TabNavigator(
     [OVERVIEW]: {
       screen: GatewayDetailPlaceholder,
       navigationOptions: {
-        tabBar: {
-          label: OVERVIEW_LABEL,
-        },
+        tabBarLabel: OVERVIEW_LABEL,
       },
     },
     [TRAFFIC]: {
       screen: GatewayDetailPlaceholder,
       navigationOptions: {
-        tabBar: {
-          label: TRAFFIC_LABEL,
-        },
+        tabBarLabel: TRAFFIC_LABEL,
       },
     },
     [SETTINGS]: {
       screen: GatewayDetailPlaceholder,
       navigationOptions: {
-        tabBar: {
-          label: SETTINGS_LABEL,
-        },
+        tabBarLabel: SETTINGS_LABEL,
       },
     },
   },
@@ -244,36 +224,30 @@ const AppNavigator = TabNavigator(
       screen: Applications,
       path: '/',
       navigationOptions: {
-        tabBar: {
-          label: APPLICATIONS_LABEL,
-          icon: ({ tintColor, focused }) => (
-            <IconApplications fill={focused ? LIGHT_BLUE : GREY} />
-          ),
-        },
+        tabBarLabel: APPLICATIONS_LABEL,
+        tabBarIcon: ({ tintColor, focused }) => (
+          <IconApplications fill={focused ? LIGHT_BLUE : GREY} />
+        ),
       },
     },
     [GATEWAYS]: {
       screen: Gateways,
       path: '/gateways',
       navigationOptions: {
-        tabBar: {
-          label: GATEWAYS_LABEL,
-          icon: ({ tintColor, focused }) => (
-            <IconGateways fill={focused ? LIGHT_BLUE : GREY} />
-          ),
-        },
+        tabBarLabel: GATEWAYS_LABEL,
+        tabBarIcon: ({ tintColor, focused }) => (
+          <IconGateways fill={focused ? LIGHT_BLUE : GREY} />
+        ),
       },
     },
     [PROFILE]: {
       screen: Profile,
       path: '/profile',
       navigationOptions: {
-        tabBar: {
-          label: PROFILE_LABEL,
-          icon: ({ tintColor, focused }) => (
-            <IconAccount fill={focused ? LIGHT_BLUE : GREY} />
-          ),
-        },
+        tabBarLabel: PROFILE_LABEL,
+        tabBarIcon: ({ tintColor, focused }) => (
+          <IconAccount fill={focused ? LIGHT_BLUE : GREY} />
+        ),
       },
     },
   },

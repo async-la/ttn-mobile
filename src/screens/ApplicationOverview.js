@@ -42,9 +42,9 @@ type State = {
 }
 
 class ApplicationOverview extends Component {
-  static navigationOptions = {
-    title: ({ state }) => state.params.appName,
-  }
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.appName,
+  })
   props: Props
   state: State = {
     devices: [],

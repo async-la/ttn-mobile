@@ -50,9 +50,9 @@ class DevicesList extends Component {
     modalVisible: false,
     isRefreshing: false,
   }
-  static navigationOptions = {
-    title: ({ state }) => state.params.appName,
-  }
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.state.params.appName,
+  })
   componentWillMount() {
     const { application } = this.props
 

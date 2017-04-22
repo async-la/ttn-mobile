@@ -9,13 +9,11 @@ import { GATEWAY_DETAIL, GATEWAYS_LABEL } from '../scopes/navigation/constants'
 
 export default class GatewayList extends Component {
   static navigationOptions = {
-    header: ({ state }) => ({
-      title: GATEWAYS_LABEL,
-    }),
-  };
+    title: GATEWAYS_LABEL,
+  }
   state = {
     modalVisible: false,
-  };
+  }
   render() {
     return (
       <View style={styles.container}>
