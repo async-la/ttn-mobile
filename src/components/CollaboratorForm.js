@@ -30,7 +30,7 @@ type Props = {
   application: TTNApplication,
   onCancel: () => void,
   onSubmit: () => void,
-  //createCollaboratorAsync:  typeof TTNApplicationActions.createCollaboratorAsync,
+  createCollaboratorAsync: Function,
 }
 
 type State = {

@@ -30,8 +30,8 @@ type Props = {
   application: TTNApplication,
   onCancel: () => void,
   onSubmit: () => void,
-  //addDeviceAsync:  typeof TTNApplicationActions.addDeviceAsync,
-  //createEUIAsync:  typeof TTNApplicationActions.createEUIAsync,
+  addDeviceAsync: Function,
+  createEUIAsync: Function,
 }
 
 type State = {
@@ -51,7 +51,6 @@ class ApplicationForm extends Component {
     inProgress: false,
     inProgressEUI: false,
   }
-
   componentDidMount() {
     const { application } = this.props
     if (application.euis && application.euis.length)
@@ -97,7 +96,7 @@ class ApplicationForm extends Component {
     this.props.onSubmit()
   }
   _allInputsValid() {
-    return this.state.idValid && this.state.eui
+    return Boolean(this.state.idValid && this.state.eui)
   }
 
   _addEUI = async () => {
@@ -106,12 +105,9 @@ class ApplicationForm extends Component {
     await createEUIAsync(application)
     this.setState({ inProgressEUI: false })
   }
-
   render() {
     const { application, onCancel } = this.props
-    const appHasEUI = !!(application.euis && application.euis.length)
-    console.log('has EUI', appHasEUI)
-    const euis = appHasEUI
+    const euis = application.euis && application.euis.length
       ? application.euis.map(eui => ({
           label: splitHex(eui),
           value: eui,
@@ -139,7 +135,7 @@ class ApplicationForm extends Component {
           />
 
           <FormLabel primaryText="App EUI" />
-          {appHasEUI
+          {application.euis && application.euis.length
             ? <RadioButtonPanel
                 buttons={euis}
                 selected={this.state.eui}
