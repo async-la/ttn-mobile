@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import AppNavigator from './scopes/navigation/navigator'
 import SplashHome from './screens/SplashHome'
 
+import codePush from 'react-native-code-push'
 import { connect } from 'react-redux'
 import { addNavigationHelpers } from 'react-navigation'
 
@@ -11,10 +12,10 @@ type Props = {
   auth: Object,
   dispatch: Function,
   nav: Object,
-};
+}
 
 class App extends Component {
-  props: Props;
+  props: Props
   renderApp = () => {
     const { auth } = this.props
     if (auth.accessToken) {
@@ -29,7 +30,7 @@ class App extends Component {
     } else {
       return <SplashHome />
     }
-  };
+  }
   render() {
     return this.renderApp()
   }
@@ -38,4 +39,4 @@ class App extends Component {
 export default connect(state => ({
   auth: state.auth,
   nav: state.navigator,
-}))(App)
+}))(codePush(App))
