@@ -12,15 +12,15 @@ import {
   View,
 } from 'react-native'
 
-import ClipboardToggle from '../components/ClipboardToggle'
-import ContentBlock from '../components/ContentBlock'
-import TagLabel from '../components/TagLabel'
-import { FormattedMessage } from 'react-intl'
-
 import { BLUE } from '../constants/colors'
 import { DEVICE_LIST } from '../scopes/navigation/constants'
 import { LATO_REGULAR } from '../constants/fonts'
 
+import ClipboardToggle from '../components/ClipboardToggle'
+import ContentBlock from '../components/ContentBlock'
+import TagLabel from '../components/TagLabel'
+
+import copy from '../constants/copy'
 import { connect } from 'react-redux'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
@@ -32,6 +32,7 @@ type Props = {
   application: TTNApplication,
   getApplicationDevicesAsync: Function,
   getApplicationAsync: typeof TTNApplicationActions.getApplicationAsync,
+  navigation: Object,
 }
 
 type State = {
@@ -40,18 +41,16 @@ type State = {
   isRefreshing: boolean,
 }
 
-class ApplicationDetail extends Component {
+class ApplicationOverview extends Component {
   static navigationOptions = {
     title: ({ state }) => state.params.appName,
   }
-
   props: Props
   state: State = {
     devices: [],
     initialLoad: false,
     isRefreshing: false,
   }
-
   componentDidMount() {
     this._fetchApplication(true)
   }
@@ -73,7 +72,6 @@ class ApplicationDetail extends Component {
       this.setState({ initialLoad: true, devices })
     }
   }
-
   _navigateToDevices = () => {
     this.props.navigation.navigate(DEVICE_LIST, {
       appId: this.props.application.id,
@@ -81,14 +79,7 @@ class ApplicationDetail extends Component {
   }
   _renderCollaborators(collaborators) {
     return (
-      <ContentBlock
-        heading={
-          <FormattedMessage
-            id="app.label.application.collaborators"
-            defaultMessage="COLLABORATORS"
-          />
-        }
-      >
+      <ContentBlock heading={copy.COLLABORATORS}>
         {collaborators.map(collaborator => {
           const labels = collaborator.rights.map(right => (
             <View key={right} style={styles.collaboratorLabels}>
@@ -131,14 +122,7 @@ class ApplicationDetail extends Component {
 
   _renderApplicationEUIS(euis) {
     return (
-      <ContentBlock
-        heading={
-          <FormattedMessage
-            id="app.label.application.eui"
-            defaultMessage="APPLICATION EUIS"
-          />
-        }
-      >
+      <ContentBlock heading={copy.APPLICATION_EUI}>
         {euis.map(eui => (
           <ClipboardToggle key={eui} style={{ marginBottom: 10 }} value={eui} />
         ))}
@@ -166,14 +150,7 @@ class ApplicationDetail extends Component {
             />
           }
         >
-          <ContentBlock
-            heading={
-              <FormattedMessage
-                id="app.label.application.overview"
-                defaultMessage="APPLICATION OVERVIEW"
-              />
-            }
-          >
+          <ContentBlock heading={copy.APPLICATION_OVERVIEW}>
             <View>
               <Text style={styles.header}>Application ID</Text>
               <TagLabel orange>{application.id}</TagLabel>
@@ -191,14 +168,7 @@ class ApplicationDetail extends Component {
 
           {application.euis && this._renderApplicationEUIS(application.euis)}
 
-          <ContentBlock
-            heading={
-              <FormattedMessage
-                id="app.label.application.devices"
-                defaultMessage="DEVICES"
-              />
-            }
-          >
+          <ContentBlock heading={copy.DEVICES}>
             <TouchableOpacity
               style={styles.deviceButton}
               onPress={this._navigateToDevices}
@@ -209,27 +179,21 @@ class ApplicationDetail extends Component {
                 style={styles.deviceButtonImage}
               />
               <Text style={styles.deviceButtonText}>
-                {this.state.devices.length}
+                {this.state.devices ? this.state.devices.length : 0}
               </Text>
               <Text
-              >{`registered ${this.state.devices.length === 1 ? 'device' : 'devices'}`}</Text>
+              >{`registered ${this.state.devices && this.state.devices.length === 1 ? 'device' : 'devices'}`}</Text>
             </TouchableOpacity>
+          </ContentBlock>
+
+          <ContentBlock heading={copy.ACCESS_KEYS}>
+            {application.access_keys &&
+              this._renderAccessKeys(application.access_keys)}
           </ContentBlock>
 
           {application.collaborators &&
             this._renderCollaborators(application.collaborators)}
 
-          <ContentBlock
-            heading={
-              <FormattedMessage
-                id="app.label.application.accessKeys"
-                defaultMessage="ACCESS KEYS"
-              />
-            }
-          >
-            {application.access_keys &&
-              this._renderAccessKeys(application.access_keys)}
-          </ContentBlock>
         </ScrollView>
       )
     }
@@ -243,7 +207,7 @@ export default connect(
     ],
   }),
   TTNApplicationActions
-)(ApplicationDetail)
+)(ApplicationOverview)
 
 const styles = StyleSheet.create({
   header: {

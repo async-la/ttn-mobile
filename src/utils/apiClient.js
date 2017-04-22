@@ -5,13 +5,13 @@ let singletonStore = null
 
 type APIOptions = {
   body?: Object,
-};
+}
 
 export function initializeClient(store: Object) {
   singletonStore = store
 }
 
-async function getToken() {
+async function getTokenAsync() {
   if (!singletonStore) throw new Error('API Client is not initialized')
   const auth = singletonStore.getState().auth
 
@@ -23,105 +23,74 @@ async function getToken() {
   }
 }
 
-async function getRequest(endpoint: string) {
-  const token = await getToken()
-  try {
-    const response = await fetch(endpoint, {
-      method: 'GET',
-      headers: {
-        Authorization: token ? `Bearer ${token}` : undefined,
-        'Content-Type': 'application/json',
-      },
-    })
+async function makeRequestAsync(method = 'GET', endpoint, options = {}) {
+  const token = await getTokenAsync()
+  const { body } = options
 
+  return fetch(endpoint, {
+    method: method,
+    headers: {
+      Authorization: token ? `Bearer ${token}` : undefined,
+      'Content-Type': 'application/json',
+    },
+    body: body && JSON.stringify(body),
+  })
+}
+
+async function processResponse(response = {}) {
+  if (response.status < 200 || response.status >= 300) {
+    throw response
+  }
+
+  const contentType = response.headers && response.headers.get('content-type')
+  if (contentType && contentType.indexOf('application/json') !== -1) {
     const json = await response.json()
     return json
+  } else {
+    return response
+  }
+}
+
+async function getRequest(endpoint: string) {
+  try {
+    const response = await makeRequestAsync('GET', endpoint)
+    return processResponse(response)
   } catch (err) {
     throw err
   }
 }
 
-async function patchRequest(endrpoint: string, options?: APIOptions = {}) {
-  const token = await getToken()
-  const { body } = options
-
+async function patchRequest(endpoint: string, options?: APIOptions = {}) {
   try {
-    const response = await fetch(endrpoint, {
-      method: 'PATCH',
-      headers: {
-        Authorization: token ? `Bearer ${token}` : undefined,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-
-    const json = response.status !== 204 && (await response.json())
-    return json
+    const response = await makeRequestAsync('PATCH', endpoint, options)
+    return processResponse(response)
   } catch (err) {
     throw err
   }
 }
 
 async function postRequest(endpoint: string, options?: APIOptions = {}) {
-  const token = await getToken()
-  const { body } = options
-
   try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        Authorization: token ? `Bearer ${token}` : undefined,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-
-    const json = await response.json()
-
-    return json
+    const response = await makeRequestAsync('POST', endpoint, options)
+    return processResponse(response)
   } catch (err) {
     throw err
   }
 }
 
-async function putRequest(endpoint: string, options: APIOptions = {}) {
-  const token = await getToken()
-  const { body } = options
-
+async function putRequest(endpoint: string, options?: APIOptions = {}) {
   try {
-    const response = await fetch(endpoint, {
-      method: 'PUT',
-      headers: {
-        Authorization: token ? `Bearer ${token}` : undefined,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-
-    //@NOTE: 204 status fails on calling .json()
-    const json = response.status !== 204 && (await response.json())
-
-    return json
+    const response = await makeRequestAsync('PUT', endpoint, options)
+    return processResponse(response)
   } catch (err) {
     throw err
   }
 }
 
 async function deleteRequest(endpoint: string, options?: APIOptions) {
-  const token = await getToken()
   try {
-    const response = await fetch(endpoint, {
-      method: 'DELETE',
-      headers: {
-        Authorization: token ? `Bearer ${token}` : undefined,
-        'Content-Type': 'application/json',
-      },
-    })
-
-    //@NOTE: 204 status fails on calling .json()
-    const json = response.status !== 204 && (await response.json())
-
-    return json
+    const response = await makeRequestAsync('DELETE', endpoint, options)
+    return processResponse(response)
   } catch (err) {
     throw err
   }

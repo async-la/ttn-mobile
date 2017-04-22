@@ -1,12 +1,18 @@
 //@flow
 
+// Actions
+export const LOGOUT = 'Logout'
+
 // Titles
 export const ACTIVATION_METHOD = 'Activation Method'
 export const ADDRESS = 'Address'
+export const ACCESS_KEYS = 'Access Keys'
 export const APP_KEY = 'App Key'
 export const APP_SESSION_KEY = 'App Session Key'
 export const APPLICATION_EUI = 'Application EUI'
 export const APPLICATION_ID = 'Application ID'
+export const APPLICATION_OVERVIEW = 'Application Overview'
+export const COLLABORATORS = 'Collaborators'
 export const DELETE = 'Delete'
 export const DEVICE = 'Device'
 export const DEVICES = 'Devices'
@@ -33,3 +39,6 @@ export const FRAME_COUNTER_CHECK_WARNING =
   'Disabling frame counter checks drastically reduces security and should only be used for development purposes'
 export const ABP_KEYS_GENERATED =
   'Device Address, Network Session Key & App Session Key will be generated'
+export const UNAUTHORIZED = 'You are unauthorized to perform this action'
+export const UNKNOWN_ERROR = 'Unknown error occurred. Please try again'
+export const USERNAME_NOT_FOUND = 'Username does not exist'

@@ -34,6 +34,7 @@ import TagLabel from '../components/TagLabel'
 
 import type { TTNApplication } from '../scopes/content/applications/types'
 import { connect } from 'react-redux'
+import { hasDeleteRights } from '../utils/permissionCheck'
 
 type Props = {
   application: TTNApplication,
@@ -67,7 +68,6 @@ class ApplicationSettings extends Component {
   static navigationOptions = {
     title: ({ state }) => state.params.appName,
   }
-
   props: Props
   state: State = {
     accessKeyGenerateFormVisible: false,
@@ -166,7 +166,6 @@ class ApplicationSettings extends Component {
     await updateApplicationAsync(body)
     this.setState({ inProgressSubmit: false })
   }
-
   _confirmDeleteApplication = async () => {
     const { deleteApplicationAsync } = this.props
     this.setState({ inProgressDelete: true })
@@ -174,12 +173,10 @@ class ApplicationSettings extends Component {
     this.setState({ inProgressDelete: false })
     this.props.navigation.goBack(null)
   }
-
   _cancelDeleteApplication = () => {
     if (Platform.OS === 'android')
       ToastAndroid.show('Application delete cancelled', ToastAndroid.SHORT)
   }
-
   _addEUI = async () => {
     console.log('ADDING EUI!!')
     const { application, createEUIAsync } = this.props
@@ -289,42 +286,57 @@ class ApplicationSettings extends Component {
     })
   }
 
-  _renderCollaborators(collaborators) {
-    return collaborators.map((collaborator, i) => {
-      return (
-        <View key={i}>
-          <View style={styles.titleRow}>
-            <View style={styles.collaboratorName}>
-              <Ionicons
-                name={'md-contact'}
-                size={20}
-                style={{ marginRight: 20 }}
-              />
-              <Text style={styles.collaboratorTitle}>
-                {collaborator.username}
-              </Text>
+  _renderCollaborators = collaborators => {
+    const { application } = this.props
+    return (
+      <ContentBlock
+        heading="COLLABORATORS"
+        headingRight={
+          <AddButton
+            header
+            disabled={!application.handler}
+            onPress={
+              application.handler ? this._showCollaboratorForm : this._noop
+            }
+          />
+        }
+      >
+        {collaborators.map((collaborator, i) => {
+          return (
+            <View key={i}>
+              <View style={styles.titleRow}>
+                <View style={styles.collaboratorName}>
+                  <Ionicons
+                    name={'md-contact'}
+                    size={20}
+                    style={{ marginRight: 20 }}
+                  />
+                  <Text style={styles.collaboratorTitle}>
+                    {collaborator.username}
+                  </Text>
+                </View>
+                <DeleteButton
+                  small
+                  itemToDeleteTitle={`collaborator ${collaborator.username}`}
+                  onConfirm={() => this._deleteCollaborator(collaborator)}
+                />
+              </View>
+              <View style={styles.rightsRow}>
+                {collaborator.rights &&
+                  collaborator.rights.map((collaboratorRight, j) => {
+                    return (
+                      <View style={styles.tagLabel} key={j}>
+                        <TagLabel>{collaboratorRight}</TagLabel>
+                      </View>
+                    )
+                  })}
+              </View>
             </View>
-            <DeleteButton
-              small
-              itemToDeleteTitle={`collaborator ${collaborator.username}`}
-              onConfirm={() => this._deleteCollaborator(collaborator)}
-            />
-          </View>
-          <View style={styles.rightsRow}>
-            {collaborator.rights &&
-              collaborator.rights.map((collaboratorRight, j) => {
-                return (
-                  <View style={styles.tagLabel} key={j}>
-                    <TagLabel>{collaboratorRight}</TagLabel>
-                  </View>
-                )
-              })}
-          </View>
-        </View>
-      )
-    })
+          )
+        })}
+      </ContentBlock>
+    )
   }
-
   _renderEUIs(euis) {
     return euis.map((eui, i) => {
       return (
@@ -409,33 +421,19 @@ class ApplicationSettings extends Component {
               : this._renderAccessKeys(application.access_keys)}
           </ContentBlock>
 
-          <ContentBlock
-            heading="COLLABORATORS"
-            headingRight={
-              <AddButton
-                header
-                disabled={!application.handler}
-                onPress={
-                  application.handler ? this._showCollaboratorForm : this._noop
-                }
-              />
-            }
-          >
-            {!application.collaborators
-              ? <Text style={styles.infoText}>No collaborators found</Text>
-              : this._renderCollaborators(application.collaborators)}
-          </ContentBlock>
+          {application.collaborators &&
+            this._renderCollaborators(application.collaborators)}
 
-          <DeleteButton
-            buttonTitle="DELETE APPLICATION"
-            confirm
-            inProgress={this.state.inProgressDelete}
-            itemToDeleteTitle={`application ${application.id}`}
-            onConfirm={this._confirmDeleteApplication}
-            onDeny={this._cancelDeleteApplication}
-            style={styles.deleteButton}
-          />
-
+          {hasDeleteRights(application) &&
+            <DeleteButton
+              buttonTitle="DELETE APPLICATION"
+              confirm
+              inProgress={this.state.inProgressDelete}
+              itemToDeleteTitle={`application ${application.id}`}
+              onConfirm={this._confirmDeleteApplication}
+              onDeny={this._cancelDeleteApplication}
+              style={styles.deleteButton}
+            />}
         </ScrollView>
         {this.state.inProgressGeneral &&
           <ActivityIndicator

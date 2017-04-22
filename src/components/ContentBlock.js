@@ -7,7 +7,7 @@ import { BLUE, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LEAGUE_SPARTAN } from '../constants/fonts'
 
 type Props = {
-  heading: React.Element<any>,
+  heading: string,
   headingRight?: React.Element<any>,
   children?: React.Element<any>,
 }

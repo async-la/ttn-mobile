@@ -271,6 +271,7 @@ export function createCollaboratorAsync(
       await dispatch(getApplicationAsync(application))
     } catch (err) {
       console.log('## createCollaboratorAsync error', err)
+      throw err
     }
   }
 }

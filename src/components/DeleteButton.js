@@ -64,7 +64,6 @@ class DeleteButton extends Component {
               />
               {!small && <Text style={styles.text}>{buttonTitle}</Text>}
             </View>}
-
       </TouchableOpacity>
     )
   }

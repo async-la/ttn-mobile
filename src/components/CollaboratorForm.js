@@ -18,6 +18,8 @@ import FormInput from '../components/FormInput'
 import FormLabel from '../components/FormLabel'
 import SubmitButton from '../components/SubmitButton'
 
+import copy from '../constants/copy'
+
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { connect } from 'react-redux'
 import type { TTNApplication } from '../scopes/content/applications/types'
@@ -29,7 +31,7 @@ type Props = {
   onCancel: () => void,
   onSubmit: () => void,
   //createCollaboratorAsync:  typeof TTNApplicationActions.createCollaboratorAsync,
-};
+}
 
 type State = {
   username: string,
@@ -39,10 +41,10 @@ type State = {
   settingsSelected: boolean,
   devicesSelected: boolean,
   collaboratorsSelected: boolean,
-};
+}
 
 class CollaboratorForm extends Component {
-  props: Props;
+  props: Props
   state: State = {
     username: '',
     usernameValid: false,
@@ -51,21 +53,21 @@ class CollaboratorForm extends Component {
     settingsSelected: true,
     devicesSelected: false,
     collaboratorsSelected: false,
-  };
+  }
   _onChangeText = (text, formInputId) => {
     switch (formInputId) {
       case 'username':
         this.setState({ username: text })
         break
     }
-  };
+  }
   _onValidate = (isValid, formInputId) => {
     switch (formInputId) {
       case 'username':
         this.setState({ usernameValid: isValid })
         break
     }
-  };
+  }
   _onSubmit = async () => {
     const { application, createCollaboratorAsync, onSubmit } = this.props
     const {
@@ -82,11 +84,26 @@ class CollaboratorForm extends Component {
     deleteSelected && rights.push(DELETE)
     devicesSelected && rights.push(DEVICES)
 
-    this.setState({ inProgress: true })
-    await createCollaboratorAsync(application, { username, rights })
-    this.setState({ inProgress: false })
-    onSubmit && onSubmit()
-  };
+    try {
+      this.setState({ inProgress: true })
+      await createCollaboratorAsync(application, { username, rights })
+      this.setState({ inProgress: false })
+      onSubmit && onSubmit()
+    } catch (err) {
+      this.setState({ inProgress: false })
+      switch (err.status) {
+        case 403:
+          alert(copy.UNAUTHORIZED)
+          return
+        case 404:
+          alert(copy.USERNAME_NOT_FOUND)
+          return
+        default:
+          alert(copy.UNKNOWN_ERROR)
+          return
+      }
+    }
+  }
   _allInputsValid() {
     return this.state.usernameValid
   }
