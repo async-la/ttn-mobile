@@ -3,7 +3,6 @@
 import apiClient from '../../../utils/apiClient'
 
 import { APPLICATIONS } from '../../../constants/apiEndpoints'
-import { RECEIVE_TTN_APPLICATION, RECEIVE_TTN_APPLICATIONS } from './types'
 import type {
   AccessKey,
   AccessKeyOptions,
@@ -20,7 +19,7 @@ import type { Dispatch, GetState } from '../../../types/redux'
 export function getApplicationsAsync() {
   return async (dispatch: Dispatch, getState: GetState) => {
     const payload: Array<TTNApplication> = await apiClient.get(APPLICATIONS)
-    return dispatch({ type: RECEIVE_TTN_APPLICATIONS, payload })
+    return dispatch({ type: 'content/RECEIVE_TTN_APPLICATIONS', payload })
   }
 }
 
@@ -32,7 +31,7 @@ export function getApplicationAsync(application: TTNApplication) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
     const payload: TTNApplication = await apiClient.get(APPLICATIONS + id)
-    return dispatch({ type: RECEIVE_TTN_APPLICATION, payload })
+    return dispatch({ type: 'content/RECEIVE_TTN_APPLICATION', payload })
   }
 }
 
@@ -158,7 +157,9 @@ export function deleteDeviceAsync(application: TTNApplication, device: Device) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
-      await apiClient.delete(APPLICATIONS + id + '/devices/' + device.dev_id)
+      await apiClient.delete(
+        APPLICATIONS + id + '/devices/' + (device.dev_id || '')
+      )
     } catch (err) {
       console.log('## deleteDeviceAsync error', err)
     }

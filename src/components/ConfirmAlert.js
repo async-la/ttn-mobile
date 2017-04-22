@@ -2,12 +2,12 @@
 import { Alert } from 'react-native'
 
 type Props = {
-  title: string,
-  message: string,
-  confirmButtonTitle: string,
-  denyButtonTitle: string,
-  onConfirm: () => void,
-  onDeny: () => void,
+  title?: string,
+  message?: string,
+  confirmButtonTitle?: string,
+  denyButtonTitle?: string,
+  onConfirm?: () => any,
+  onDeny?: () => any,
 }
 
 const ConfirmAlert = ({
@@ -15,8 +15,8 @@ const ConfirmAlert = ({
   message = 'Are you sure?',
   confirmButtonTitle = 'OK',
   denyButtonTitle = 'Cancel',
-  onConfirm = () => any,
-  onDeny = () => any,
+  onConfirm = () => {},
+  onDeny = () => {},
 }: Props) => {
   Alert.alert(title, message, [
     { text: denyButtonTitle, onPress: onDeny },
