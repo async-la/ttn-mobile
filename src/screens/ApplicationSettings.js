@@ -32,9 +32,11 @@ import RadioButtonPanel from '../components/RadioButtonPanel'
 import SubmitButton from '../components/SubmitButton'
 import TagLabel from '../components/TagLabel'
 
-import type { TTNApplication } from '../scopes/content/applications/types'
+import _ from 'lodash'
 import { connect } from 'react-redux'
 import { hasDeleteRights } from '../utils/permissionCheck'
+
+import type { TTNApplication } from '../scopes/content/applications/types'
 
 type Props = {
   application: TTNApplication,
@@ -372,7 +374,7 @@ class ApplicationSettings extends Component {
 
             <FormLabel primaryText="Handler" />
             <RadioButtonPanel
-              buttons={Object.values(handlers)}
+              buttons={_.map(handlers)}
               selected={this.state.handler}
               onSelect={handler => this.setState({ handler })}
             />
