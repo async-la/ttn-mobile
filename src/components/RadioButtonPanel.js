@@ -11,6 +11,7 @@ type RadioOption = {
 }
 
 type Props = {
+  // $FlowIssue flow has bad typing for Object.values
   buttons: Array<RadioOption>,
   onSelect: Function,
   selected: ?string,

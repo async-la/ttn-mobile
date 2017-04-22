@@ -15,14 +15,15 @@ import SubmitButton from '../components/SubmitButton'
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { handlers } from '../constants/application'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 const BUTTON_SIZE = 60
 
 type Props = {
   onCancel: () => void,
   onSubmit: () => void,
-  //addApplicationAsync:  typeof TTNApplicationActions.addApplicationAsync,
-};
+  addApplicationAsync: Function,
+}
 
 type State = {
   description: string,
@@ -31,10 +32,10 @@ type State = {
   idValid: boolean,
   inProgress: boolean,
   handler: string,
-};
+}
 
 class ApplicationForm extends Component {
-  props: Props;
+  props: Props
   state: State = {
     description: '',
     descriptionValid: false,
@@ -42,7 +43,7 @@ class ApplicationForm extends Component {
     idValid: false,
     inProgress: false,
     handler: 'ttn-handler-us-west',
-  };
+  }
   _onChangeText = (text, formInputId) => {
     switch (formInputId) {
       case 'applicationId':
@@ -52,7 +53,7 @@ class ApplicationForm extends Component {
         this.setState({ description: text })
         break
     }
-  };
+  }
   _onValidate = (isValid, formInputId) => {
     switch (formInputId) {
       case 'applicationId':
@@ -62,7 +63,7 @@ class ApplicationForm extends Component {
         this.setState({ descriptionValid: isValid })
         break
     }
-  };
+  }
   _onSubmit = async () => {
     const { addApplicationAsync } = this.props
 
@@ -76,7 +77,7 @@ class ApplicationForm extends Component {
     await addApplicationAsync(body)
     this.setState({ inProgress: false })
     this.props.onSubmit()
-  };
+  }
   _allInputsValid() {
     return this.state.idValid && this.state.descriptionValid
   }
@@ -120,7 +121,7 @@ class ApplicationForm extends Component {
             secondaryText="Select the handler you want to register this application to"
           />
           <RadioButtonPanel
-            buttons={Object.values(handlers)}
+            buttons={_.map(handlers)}
             selected={this.state.handler}
             onSelect={handler => this.setState({ handler })}
           />
