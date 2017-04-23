@@ -14,7 +14,7 @@
     "precommit": "lint-staged",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:haul": "haul start --platform all",
-    "test": "jest",
+    "test": "yarn flow && yarn jest",
     "translate": "node_modules/babel-cli/bin/babel-node.js src/scripts/translations",
     "version:bump": "node ./scripts/version-increment.js && git add . && node ./scripts/version-commit.js",
     "version:tag": "node ./scripts/version-tag.js && git push origin --tags",
