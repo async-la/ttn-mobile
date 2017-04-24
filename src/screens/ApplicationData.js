@@ -45,17 +45,14 @@ type State = {
 class ApplicationData extends Component {
   _subscriptionNewMessage = null
   _subscriptionConnectionLoss = null
-
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: navigation.state.params.appName,
   })
-  
   props: Props
   state: State = {
     connectionStatus: '',
     data: [],
   }
-
   componentDidMount() {
     const { application } = this.props
     //TODO: Notify user to set handler
@@ -106,7 +103,6 @@ class ApplicationData extends Component {
   _clearData = () => {
     this.setState({ data: [] })
   }
-
   _handleConnectionLoss = () => {
     this.setState({ connectionStatus: CLOSED })
   }
