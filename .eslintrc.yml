@@ -25,3 +25,5 @@ rules:
   no-unused-vars: [2, {vars: all, args: none}]
   jsx-quotes: [2, "prefer-double"]
   react/prop-types: [2, { skipUndeclared: true }]
+  react/jsx-indent: 0 # handled by prettier
+  react/jsx-indent-props: 0 # handled by prettier

@@ -4,9 +4,10 @@ import React, { Component } from 'react'
 import AppNavigator from './scopes/navigation/navigator'
 import SplashHome from './screens/SplashHome'
 
-import codePush from 'react-native-code-push'
 import { connect } from 'react-redux'
 import { addNavigationHelpers } from 'react-navigation'
+
+const codePush = require('react-native-code-push')
 
 type Props = {
   auth: Object,

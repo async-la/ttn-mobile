@@ -1,7 +1,6 @@
 // @flow
 
 import {
-  RESET,
   SET_APP_STATE,
   SET_KEYBOARD_STATUS,
   SET_NETWORK_STATUS,

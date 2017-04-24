@@ -9,7 +9,6 @@ import {
   SET_VIEWPORT,
 } from './types'
 import type {
-  AppStatePayload,
   DeviceAction,
   KeyboardStatusPayload,
   NetworkStatusPayload,
@@ -21,7 +20,7 @@ export type State = {
   keyboard: ?KeyboardStatusPayload,
   networkStatus: ?NetworkStatusPayload,
   viewport: ?ViewportPayload,
-};
+}
 
 export const initialState: State = {
   appState: AppState.currentState,
