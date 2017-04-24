@@ -111,7 +111,8 @@ class ApplicationOverview extends Component {
           <Text style={styles.collaboratorName}>{accessKey.name}</Text>
           <ClipboardToggle
             style={{ marginVertical: 15 }}
-            password
+            type="base64"
+            sensitive
             value={accessKey.key}
           />
           <View style={styles.labelsWrapper}>{labels}</View>

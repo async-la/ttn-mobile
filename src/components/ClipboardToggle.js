@@ -12,44 +12,49 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { hexToLsb, hexToMsb, splitHex } from '../utils/payloadConversion'
-import { DARK_GREY, LIGHT_GREY, GREY } from '../constants/colors'
+import { DARK_GREY, LIGHT_GREY, GREY, MID_GREY } from '../constants/colors'
 
 type Props = {
-  type: 'password' | 'hex',
+  type: 'base64' | 'hex',
+  sensitive: boolean,
+  style: Object,
   value: string,
 }
 
 type State = {
   currentState: {
-    type: string,
+    state: string,
     value: string,
   },
   copied: boolean,
-  passwordVisible: boolean,
+  hidden: boolean,
 }
 
-export default class ClipboardToggle extends Component {
-  prop: Props
-  state: State
-
-  state = {
+export default class clipboardToggle extends Component {
+  static defaultProps = {
     type: 'hex',
+    sensitive: false,
+    value: '',
+    style: {},
+  }
+  props: Props
+  state: State = {
     currentState: {
-      type: '',
+      state: '',
       value: '',
     },
     copied: false,
-    passwordVisible: false,
+    hidden: true,
   }
   componentDidMount() {
-    !this.props.password && this._toggleKeyFormat()
+    this.props.type === 'hex' && this._toggleKeyFormat()
   }
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.value !== nextProps.value) {
       this.setState({
         currentState: {
-          type: 'hex',
+          state: 'default',
           value: splitHex(nextProps.value),
         },
       })
@@ -57,14 +62,14 @@ export default class ClipboardToggle extends Component {
   }
 
   _togglePassword = () => {
-    this.setState({ passwordVisible: !this.state.passwordVisible })
+    this.setState({ hidden: !this.state.hidden })
   }
   _toggleKeyFormat = () => {
-    switch (this.state.currentState.type) {
-      case 'hex':
+    switch (this.state.currentState.state) {
+      case 'default':
         this.setState({
           currentState: {
-            type: 'msb',
+            state: 'msb',
             value: hexToMsb(this.props.value),
           },
         })
@@ -72,7 +77,7 @@ export default class ClipboardToggle extends Component {
       case 'msb':
         this.setState({
           currentState: {
-            type: 'lsb',
+            state: 'lsb',
             value: hexToLsb(this.props.value),
           },
         })
@@ -80,7 +85,7 @@ export default class ClipboardToggle extends Component {
       case 'lsb':
         this.setState({
           currentState: {
-            type: 'hex',
+            state: 'default',
             value: splitHex(this.props.value),
           },
         })
@@ -88,7 +93,7 @@ export default class ClipboardToggle extends Component {
       default:
         this.setState({
           currentState: {
-            type: 'hex',
+            state: 'default',
             value: splitHex(this.props.value),
           },
         })
@@ -96,10 +101,10 @@ export default class ClipboardToggle extends Component {
     }
   }
   _copyToClipboard = () => {
-    if (this.props.password) {
-      Clipboard.setString(this.props.value)
-    } else {
+    if (this.props.type === 'hex') {
       Clipboard.setString(this.state.currentState.value)
+    } else {
+      Clipboard.setString(this.props.value)
     }
 
     this.setState({ copied: true })
@@ -110,10 +115,22 @@ export default class ClipboardToggle extends Component {
       this.setState({ copied: false })
     }, 2000)
   }
-
   _renderHexkeyClipboard = () => {
     return (
       <View style={[styles.container, { ...this.props.style }]}>
+        {this.props.sensitive &&
+          <View style={styles.toggleSwitchContainer}>
+            <TouchableOpacity
+              onPress={this._togglePassword}
+              style={styles.toggleSwitch}
+            >
+              <Ionicons
+                name={this.state.hidden ? 'ios-eye' : 'ios-eye-off'}
+                size={20}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          </View>}
         <View style={styles.toggleSwitchContainer}>
           <TouchableOpacity
             onPress={this._toggleKeyFormat}
@@ -125,12 +142,19 @@ export default class ClipboardToggle extends Component {
           </TouchableOpacity>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <Text style={styles.inputText}>{this.state.currentState.value}</Text>
+          <Text style={styles.inputText}>
+            {this.props.sensitive && this.state.hidden
+              ? this.state.currentState.value.replace(/(.)/g, '•')
+              : this.state.currentState.value}
+          </Text>
         </ScrollView>
-        <View style={styles.clipBoardContainer}>
+        <View style={styles.labelContainer}>
+          <Text style={styles.labelText}>{this.props.type || 'hex'}</Text>
+        </View>
+        <View style={styles.clipboardContainer}>
           <TouchableOpacity
             onPress={this._copyToClipboard}
-            style={styles.clipBoardToggle}
+            style={styles.clipboardToggle}
           >
             <Ionicons
               name="ios-clipboard-outline"
@@ -143,32 +167,36 @@ export default class ClipboardToggle extends Component {
       </View>
     )
   }
-  _renderPasswordClipboard() {
+  _renderBase64Clipboard() {
     return (
       <View style={[styles.container, { ...this.props.style }]}>
-        <View style={styles.toggleSwitchContainer}>
-          <TouchableOpacity
-            onPress={this._togglePassword}
-            style={styles.toggleSwitch}
-          >
-            <Ionicons
-              name={this.state.passwordVisible ? 'ios-eye-off' : 'ios-eye'}
-              size={20}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
-        </View>
+        {this.props.sensitive &&
+          <View style={styles.toggleSwitchContainer}>
+            <TouchableOpacity
+              onPress={this._togglePassword}
+              style={styles.toggleSwitch}
+            >
+              <Ionicons
+                name={this.state.hidden ? 'ios-eye' : 'ios-eye-off'}
+                size={20}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          </View>}
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <Text style={styles.inputText}>
-            {this.state.passwordVisible
-              ? this.props.value
-              : this.props.value.replace(/(.)/g, '•')}
+            {this.props.sensitive && this.state.hidden
+              ? this.props.value.replace(/(.)/g, '•')
+              : this.props.value}
           </Text>
         </ScrollView>
-        <View style={styles.clipBoardContainer}>
+        <View style={styles.labelContainer}>
+          <Text style={styles.labelText}>{this.props.type || 'hex'}</Text>
+        </View>
+        <View style={styles.clipboardContainer}>
           <TouchableOpacity
             onPress={this._copyToClipboard}
-            style={styles.clipBoardToggle}
+            style={styles.clipboardToggle}
           >
             <Ionicons
               name="ios-clipboard-outline"
@@ -182,9 +210,9 @@ export default class ClipboardToggle extends Component {
     )
   }
   render() {
-    return this.props.password
-      ? this._renderPasswordClipboard()
-      : this._renderHexkeyClipboard()
+    return this.props.type === 'hex'
+      ? this._renderHexkeyClipboard()
+      : this._renderBase64Clipboard()
   }
 }
 const styles = StyleSheet.create({
@@ -208,11 +236,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: '100%',
   },
-  clipBoardContainer: {
+  labelText: {
+    fontSize: 10,
+    color: MID_GREY,
+    padding: 5,
+  },
+  clipboardContainer: {
     borderLeftWidth: 1,
     borderColor: GREY,
   },
-  clipBoardToggle: {
+  clipboardToggle: {
     padding: 15,
     alignSelf: 'center',
     height: '100%',
