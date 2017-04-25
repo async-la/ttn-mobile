@@ -51,7 +51,7 @@ class DevicesList extends Component {
     isRefreshing: false,
   }
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.appName,
+    title: navigation.state.params.appName || '',
   })
   componentWillMount() {
     const { application } = this.props

@@ -68,7 +68,7 @@ const BUTTON_SIZE = 60
 
 class ApplicationSettings extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.appName,
+    title: navigation.state.params.appName || '',
   })
   props: Props
   state: State = {
