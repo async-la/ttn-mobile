@@ -5,22 +5,21 @@ import {
   RECEIVE_TTN_APPLICATIONS,
 } from './applications/types'
 
-import type {
-  TTNApplicationAction,
-  TTNApplication,
-} from './applications/types'
+import { RESET_AUTH } from '../auth/types'
+
+import type { TTNApplicationAction, TTNApplication } from './applications/types'
 import _ from 'lodash'
 
 type TTNApplicationDictionary = {
   [key: string]: TTNApplication,
-};
+}
 
 export type State = {
   applications: {
     list: Array<string>,
     dictionary: TTNApplicationDictionary,
   },
-};
+}
 
 export const initialState: State = {
   applications: {
@@ -31,6 +30,9 @@ export const initialState: State = {
 
 export default (state: State = initialState, action: TTNApplicationAction) => {
   switch (action.type) {
+    case RESET_AUTH:
+      return initialState
+
     case RECEIVE_TTN_APPLICATION: {
       const application = action.payload
 

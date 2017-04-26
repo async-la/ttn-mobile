@@ -46,7 +46,7 @@ class ApplicationData extends Component {
   _subscriptionNewMessage = null
   _subscriptionConnectionLoss = null
   static navigationOptions = ({ navigation, screenProps }) => ({
-    title: navigation.state.params.appName,
+    title: navigation.state.params.appName || '',
   })
   props: Props
   state: State = {
