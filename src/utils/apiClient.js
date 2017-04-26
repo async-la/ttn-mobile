@@ -1,4 +1,5 @@
 // @flow
+import { Platform, StatusBar } from 'react-native'
 import { refreshAccessTokenAsync } from '../scopes/auth/actions'
 
 let singletonStore = null
@@ -24,6 +25,8 @@ async function getTokenAsync() {
 }
 
 async function makeRequestAsync(method = 'GET', endpoint, options = {}) {
+  Platform.OS === 'ios' && StatusBar.setNetworkActivityIndicatorVisible(true)
+
   const token = await getTokenAsync()
   const { body } = options
 
@@ -38,6 +41,8 @@ async function makeRequestAsync(method = 'GET', endpoint, options = {}) {
 }
 
 async function processResponse(response = {}) {
+  Platform.OS === 'ios' && StatusBar.setNetworkActivityIndicatorVisible(false)
+
   if (response.status < 200 || response.status >= 300) {
     throw response
   }
