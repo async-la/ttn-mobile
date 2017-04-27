@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Text,
   ToastAndroid,
+  TouchableOpacity,
   View,
 } from 'react-native'
 
@@ -23,6 +24,7 @@ import AccessKeyGenerateForm from '../components/AccessKeyGenerateForm'
 import AddButton from '../components/AddButton'
 import ClipboardToggle from '../components/ClipboardToggle'
 import CollaboratorForm from '../components/CollaboratorForm'
+import CollaboratorEditForm from '../components/CollaboratorEditForm'
 import ConfirmAlert from '../components/ConfirmAlert'
 import ContentBlock from '../components/ContentBlock'
 import DeleteButton from '../components/DeleteButton'
@@ -43,7 +45,6 @@ type Props = {
   createEUIAsync: typeof TTNApplicationActions.createEUIAsync,
   deleteAccessKeyAsync: typeof TTNApplicationActions.deleteAccessKeyAsync,
   deleteApplicationAsync: typeof TTNApplicationActions.deleteApplicationAsync,
-  deleteCollaboratorAsync: typeof TTNApplicationActions.deleteCollaboratorAsync,
   deleteEUIAsync: typeof TTNApplicationActions.deleteEUIAsync,
   updateApplicationAsync: typeof TTNApplicationActions.updateApplicationAsync,
   navigation: Object,
@@ -51,7 +52,9 @@ type Props = {
 
 type State = {
   accessKeyGenerateFormVisible: boolean,
+  collaboratorToEdit: Object,
   collaboratorFormVisible: boolean,
+  collaboratorEditFormVisible: boolean,
   description: string,
   originalDescription: string,
   inProgressDelete: boolean,
@@ -73,7 +76,9 @@ class ApplicationSettings extends Component {
   props: Props
   state: State = {
     accessKeyGenerateFormVisible: false,
+    collaboratorToEdit: {},
     collaboratorFormVisible: false,
+    collaboratorEditFormVisible: false,
     description: '',
     originalDescription: '',
     inProgressDelete: false,
@@ -180,7 +185,6 @@ class ApplicationSettings extends Component {
       ToastAndroid.show('Application delete cancelled', ToastAndroid.SHORT)
   }
   _addEUI = async () => {
-    console.log('ADDING EUI!!')
     const { application, createEUIAsync } = this.props
     this.setState({ inProgressEUI: true })
     await createEUIAsync(application)
@@ -224,6 +228,24 @@ class ApplicationSettings extends Component {
       </Modal>
     )
   }
+  _renderCollaboratorEditForm = () => {
+    return (
+      <Modal
+        animationType={'slide'}
+        transparent={false}
+        visible={this.state.collaboratorEditFormVisible}
+        onRequestClose={this._noop}
+      >
+        <CollaboratorEditForm
+          application={this.props.application}
+          collaborator={this.state.collaboratorToEdit}
+          onCancel={this._dismissCollaboratorEditForm}
+          onDelete={this._dismissCollaboratorEditForm}
+          onSubmit={this._dismissCollaboratorEditForm}
+        />
+      </Modal>
+    )
+  }
   _showAccessKeyForm = () => {
     this.setState({ accessKeyGenerateFormVisible: true })
   }
@@ -236,16 +258,17 @@ class ApplicationSettings extends Component {
   _dismissCollaboratorForm = () => {
     this.setState({ collaboratorFormVisible: false })
   }
+  _showCollaboratorEditForm = async collaboratorToEdit => {
+    await this.setState({ collaboratorToEdit })
+    this.setState({ collaboratorEditFormVisible: true })
+  }
+  _dismissCollaboratorEditForm = () => {
+    this.setState({ collaboratorEditFormVisible: false })
+  }
   _deleteAccessKey = async accessKey => {
     const { application, deleteAccessKeyAsync } = this.props
     this.setState({ inProgressGeneral: true })
     await deleteAccessKeyAsync(application, accessKey)
-    this.setState({ inProgressGeneral: false })
-  }
-  _deleteCollaborator = async collaborator => {
-    const { application, deleteCollaboratorAsync } = this.props
-    this.setState({ inProgressGeneral: true })
-    await deleteCollaboratorAsync(application, collaborator)
     this.setState({ inProgressGeneral: false })
   }
   _noop() {
@@ -317,11 +340,11 @@ class ApplicationSettings extends Component {
                     {collaborator.username}
                   </Text>
                 </View>
-                <DeleteButton
-                  small
-                  itemToDeleteTitle={`collaborator ${collaborator.username}`}
-                  onConfirm={() => this._deleteCollaborator(collaborator)}
-                />
+                <TouchableOpacity
+                  onPress={() => this._showCollaboratorEditForm(collaborator)}
+                >
+                  <Ionicons name={'md-create'} size={20} />
+                </TouchableOpacity>
               </View>
               <View style={styles.rightsRow}>
                 {collaborator.rights &&
@@ -360,6 +383,7 @@ class ApplicationSettings extends Component {
       <View style={styles.container}>
         {this._renderAccessKeyGenerateForm()}
         {this._renderCollaboratorForm()}
+        {this._renderCollaboratorEditForm()}
         <ScrollView>
           <ContentBlock heading="GENERAL">
 
@@ -428,7 +452,7 @@ class ApplicationSettings extends Component {
 
           {hasDeleteRights(application) &&
             <DeleteButton
-              buttonTitle="DELETE APPLICATION"
+              title="DELETE APPLICATION"
               confirm
               inProgress={this.state.inProgressDelete}
               itemToDeleteTitle={`application ${application.id}`}

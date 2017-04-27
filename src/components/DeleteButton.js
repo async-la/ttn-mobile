@@ -12,11 +12,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import ConfirmAlert from './ConfirmAlert'
 
+import { LATO_REGULAR } from '../constants/fonts'
 import { RED, LIGHT_RED } from '../constants/colors'
 
+import copy from '../constants/copy'
+
 type Props = {
-  buttonTitle?: string,
+  title?: string,
   confirm?: boolean,
+  confirmButtonTitle?: string,
+  confirmMessage?: string,
   inProgress?: boolean,
   itemToDeleteTitle?: string,
   onConfirm?: Function,
@@ -29,12 +34,18 @@ type Props = {
 class DeleteButton extends Component {
   props: Props
   _showDeleteConfirmation = () => {
-    const { itemToDeleteTitle = 'this item', onConfirm, onDeny } = this.props
+    const {
+      confirmButtonTitle = copy.DELETE,
+      itemToDeleteTitle = copy.THIS_ITEM,
+      confirmMessage = `${copy.CONFIRM_DELETE} ${itemToDeleteTitle}?`,
+      onConfirm,
+      onDeny,
+    } = this.props
     ConfirmAlert({
-      title: 'Caution',
-      message: `Are you sure you want to delete ${itemToDeleteTitle}?`,
-      confirmButtonTitle: 'Delete',
-      denyButtonTitle: 'Cancel',
+      title: copy.CAUTION,
+      message: confirmMessage,
+      confirmButtonTitle: confirmButtonTitle,
+      denyButtonTitle: copy.CANCEL,
       onConfirm,
       onDeny,
     })
@@ -45,15 +56,24 @@ class DeleteButton extends Component {
     onPress && onPress()
   }
   render() {
-    const { inProgress, buttonTitle = 'DELETE', small, style } = this.props
+    const { inProgress, title, small, style } = this.props
     return (
       <TouchableOpacity
-        style={[styles.button, small && styles.buttonSmall, style]}
+        style={[!small && styles.buttonLarge, title && styles.buttonRow, style]}
         onPress={this._onPress}
       >
         {inProgress
-          ? <ActivityIndicator color={RED} style={{ width: 30, height: 30 }} />
-          : <View style={!small && styles.buttonRow}>
+          ? <ActivityIndicator
+              color={RED}
+              style={[
+                small
+                  ? styles.activityIndicatorSmall
+                  : styles.activityIndicatorLarge,
+              ]}
+            />
+          : <View
+              style={(title && styles.buttonRow, small && styles.buttonSmall)}
+            >
               <Ionicons
                 name={small ? 'md-remove' : 'ios-trash-outline'}
                 size={small ? 10 : 30}
@@ -62,8 +82,16 @@ class DeleteButton extends Component {
                   small ? styles.iconSmall : styles.iconLarge,
                 ]}
               />
-              {!small && <Text style={styles.text}>{buttonTitle}</Text>}
             </View>}
+        {title &&
+          <Text
+            style={[
+              !small && styles.textLarge,
+              small && styles.buttonTitleSmall,
+            ]}
+          >
+            {title}
+          </Text>}
       </TouchableOpacity>
     )
   }
@@ -72,7 +100,15 @@ class DeleteButton extends Component {
 export default DeleteButton
 
 const styles = StyleSheet.create({
-  button: {
+  activityIndicatorLarge: {
+    width: 30,
+    height: 30,
+  },
+  activityIndicatorSmall: {
+    width: 20,
+    height: 20,
+  },
+  buttonLarge: {
     backgroundColor: LIGHT_RED,
     borderRadius: 30,
     borderWidth: 1,
@@ -89,11 +125,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonSmall: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 5,
     backgroundColor: RED,
     width: 20,
     height: 20,
+  },
+  buttonTitleSmall: {
+    color: RED,
+    fontFamily: LATO_REGULAR,
+    fontSize: 15,
+    marginLeft: 10,
   },
   icon: {
     color: RED,
@@ -105,7 +150,7 @@ const styles = StyleSheet.create({
   iconSmall: {
     color: LIGHT_RED,
   },
-  text: {
+  textLarge: {
     color: RED,
     marginLeft: 10,
     fontSize: 17,

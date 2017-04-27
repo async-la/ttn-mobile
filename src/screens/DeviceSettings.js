@@ -200,7 +200,6 @@ class DeviceSettings extends Component {
       { label: OTAA, value: OTAA },
       { label: ABP, value: ABP },
     ]
-    console.log('SETTINGS DEVICE', device)
     return (
       <View style={{ flex: 1 }}>
         {!device.dev_id
@@ -270,7 +269,7 @@ class DeviceSettings extends Component {
 
               </ContentBlock>
               <DeleteButton
-                buttonTitle={`${copy.DELETE} ${copy.DEVICE}`.toUpperCase()}
+                title={`${copy.DELETE} ${copy.DEVICE}`.toUpperCase()}
                 confirm
                 inProgress={this.state.inProgressDelete}
                 itemToDeleteTitle={`${copy.DEVICE} ${device.dev_id || ''}`}
