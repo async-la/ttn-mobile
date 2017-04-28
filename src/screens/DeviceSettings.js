@@ -31,6 +31,7 @@ const BUTTON_SIZE = 60
 
 type Props = {
   navigation: Object,
+  getApplicationDevicesAsync: Function,
   getDeviceAsync: Function,
   deleteDeviceAsync: Function,
   updateDeviceAsync: Function,
@@ -82,18 +83,22 @@ class DeviceSettings extends Component {
   _getDevice = async () => {
     const { application } = this.props.navigation.state.params
     const { dev_id } = this.props.navigation.state.params.device
-    const device = await this.props.getDeviceAsync(application, dev_id)
-    this.setState({
-      appEui: device.app_eui,
-      originalAppEui: device.app_eui,
-      description: device.description,
-      originalDescription: device.description,
-      frameCounterWidth: device.uses_32bit_fcnt ? '32' : '16',
-      originalFrameCounterWidth: device.uses_32bit_fcnt ? '32' : '16',
-      frameCounterChecks: !device.disable_fcnt_check,
-      originalFrameCounterChecks: !device.disable_fcnt_check,
-      device,
-    })
+    try {
+      const device = await this.props.getDeviceAsync(application, dev_id)
+      this.setState({
+        appEui: device.app_eui,
+        originalAppEui: device.app_eui,
+        description: device.description,
+        originalDescription: device.description,
+        frameCounterWidth: device.uses_32bit_fcnt ? '32' : '16',
+        originalFrameCounterWidth: device.uses_32bit_fcnt ? '32' : '16',
+        frameCounterChecks: !device.disable_fcnt_check,
+        originalFrameCounterChecks: !device.disable_fcnt_check,
+        device,
+      })
+    } catch (err) {
+      console.log('# DeviceSettings getDevice error', err)
+    }
   }
   _onChangeText = text => {
     this.setState({ description: text })
@@ -103,9 +108,16 @@ class DeviceSettings extends Component {
   }
   _deleteDevice = async () => {
     const { application, device } = this.props.navigation.state.params
-    const { deleteDeviceAsync } = this.props
+    const { deleteDeviceAsync, getApplicationDevicesAsync } = this.props
     this.setState({ inProgressDelete: true })
-    await deleteDeviceAsync(application, device)
+    try {
+      await deleteDeviceAsync(application, device)
+      await getApplicationDevicesAsync(application)
+    } catch (err) {
+      alert('Error: ' + err.status)
+      console.log('# DeviceSettings deleteDevice error', err)
+    }
+
     this.setState({ inProgressDelete: false })
     this.props.navigation.goBack(null)
   }
@@ -147,14 +159,20 @@ class DeviceSettings extends Component {
       uses_32bit_fcnt: this.state.frameCounterWidth === '32',
     }
 
-    const device = await updateDeviceAsync(application, dev_id, updatedDevice)
-    if (device)
-      this.setState({
-        originalAppEui: device.app_eui,
-        originalDescription: device.description,
-        originalFrameCounterChecks: !device.disable_fcnt_check,
-        originalFrameCounterWidth: device.uses_32bit_fcnt ? '32' : '16',
-      })
+    try {
+      const device = await updateDeviceAsync(application, dev_id, updatedDevice)
+      if (device)
+        this.setState({
+          originalAppEui: device.app_eui,
+          originalDescription: device.description,
+          originalFrameCounterChecks: !device.disable_fcnt_check,
+          originalFrameCounterWidth: device.uses_32bit_fcnt ? '32' : '16',
+        })
+    } catch (err) {
+      alert('Error: ' + err.status)
+      console.log('# DeviceSettings saveDevice error', err)
+    }
+
     this.setState({ inProgressSave: false })
   }
   _renderOTAA() {
@@ -200,7 +218,7 @@ class DeviceSettings extends Component {
       { label: OTAA, value: OTAA },
       { label: ABP, value: ABP },
     ]
-    console.log('SETTINGS DEVICE', device)
+
     return (
       <View style={{ flex: 1 }}>
         {!device.dev_id

@@ -35,6 +35,7 @@ export const FRAMES_DOWN = 'Frames down'
 // Messages
 export const NEVER_SEEN = 'never seen'
 export const NOT_FOUND = 'not found'
+export const OPTIONAL = 'optional'
 export const FRAME_COUNTER_CHECK_WARNING =
   'Disabling frame counter checks drastically reduces security and should only be used for development purposes'
 export const ABP_KEYS_GENERATED =
