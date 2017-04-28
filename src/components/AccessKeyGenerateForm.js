@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   submitButton: {
-    width: BUTTON_SIZE * 3.8,
+    width: BUTTON_SIZE * 3.4,
     height: BUTTON_SIZE,
     marginBottom: 15,
   },
