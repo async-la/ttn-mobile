@@ -263,7 +263,8 @@ class ApplicationSettings extends Component {
           </View>
           <View style={styles.euiRow}>
             <ClipboardToggle
-              password
+              type="base64"
+              sensitive
               value={accessKey.key}
               style={{ flex: 1, marginRight: 20 }}
             />
