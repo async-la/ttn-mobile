@@ -52,25 +52,44 @@ export default class clipboardToggle extends Component {
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.value !== nextProps.value) {
+      const { state } = this.state.currentState
       this.setState({
         currentState: {
-          state: 'default',
-          value: splitHex(nextProps.value),
+          state,
+          value: this._formatValue(nextProps.value, state),
         },
       })
     }
+  }
+
+  _formatValue(value, format) {
+    let formatted
+
+    switch (format) {
+      case 'msb':
+        formatted = hexToMsb(value)
+        break
+      case 'lsb':
+        formatted = hexToLsb(value)
+        break
+      case 'hex':
+      default:
+        formatted = splitHex(value)
+    }
+    return formatted
   }
 
   _togglePassword = () => {
     this.setState({ hidden: !this.state.hidden })
   }
   _toggleKeyFormat = () => {
+    const { value } = this.props
     switch (this.state.currentState.state) {
       case 'default':
         this.setState({
           currentState: {
             state: 'msb',
-            value: hexToMsb(this.props.value),
+            value: this._formatValue(value, 'msb'),
           },
         })
         break
@@ -78,7 +97,7 @@ export default class clipboardToggle extends Component {
         this.setState({
           currentState: {
             state: 'lsb',
-            value: hexToLsb(this.props.value),
+            value: this._formatValue(value, 'lsb'),
           },
         })
         break
@@ -86,7 +105,7 @@ export default class clipboardToggle extends Component {
         this.setState({
           currentState: {
             state: 'default',
-            value: splitHex(this.props.value),
+            value: this._formatValue(value, 'hex'),
           },
         })
         break
@@ -94,7 +113,7 @@ export default class clipboardToggle extends Component {
         this.setState({
           currentState: {
             state: 'default',
-            value: splitHex(this.props.value),
+            value: this._formatValue(value, 'hex'),
           },
         })
         break
