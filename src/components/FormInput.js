@@ -10,8 +10,17 @@ import {
   LIGHT_GREY,
   GREY,
 } from '../constants/colors'
+import { validationTypes } from '../constants/application'
 
 import ErrorText from './ErrorText'
+
+import {
+  getValidResponse,
+  validateApplicationDescription,
+  validateDeviceId,
+  validateEmailAddress,
+  validateNotEmpty,
+} from '../utils/validations'
 
 type Props = {
   id?: any,
@@ -20,13 +29,13 @@ type Props = {
   onValidate: (isValid: boolean, formInputId: any) => any,
   required?: boolean,
   validationType?:
-    | 'accessKey'
-    | 'applicationId'
-    | 'applicationDescription'
-    | 'deviceId'
-    | 'email'
-    | 'none'
-    | 'username',
+    | typeof validationTypes.ACCESS_KEY
+    | typeof validationTypes.APPLICATION_ID
+    | typeof validationTypes.APPLICATION_DESCRIPTION
+    | typeof validationTypes.DEVICE_ID
+    | typeof validationTypes.EMAIL
+    | typeof validationTypes.NONE
+    | typeof validationTypes.USERNAME,
   value: ?string,
 }
 
@@ -40,12 +49,12 @@ class FormInput extends Component {
   _onChangeText = text => {
     const { validationType } = this.props
     switch (validationType) {
-      case 'accessKey':
-      case 'applicationId':
-      case 'deviceId':
+      case validationTypes.ACCESS_KEY:
+      case validationTypes.APPLICATION_ID:
+      case validationTypes.DEVICE_ID:
         text = text.toLowerCase()
         break
-      case 'none':
+      case validationTypes.NONE:
       default:
     }
 
@@ -54,30 +63,26 @@ class FormInput extends Component {
 
     this.props.onChangeText(text, this.props.id)
   }
-  _validateText = value => {
+  _validateText = (value: ?string) => {
     const { id, onValidate, required, validationType } = this.props
-    let isInvalid
-    let validationMsg
+    let validation
 
     switch (validationType) {
-      case 'accessKey':
-      case 'applicationId':
-      case 'deviceId':
-        const regexp = /^[a-z0-9]+([-_][a-z0-9]+)*$/
-        isInvalid = !value || value.length < 2 || !regexp.test(value)
-        validationMsg =
-          'Name must consist of lowercase alphanumeric characters, nonconsecutive - and _ and cannot start or end with - or _'
+      case validationTypes.ACCESS_KEY:
+      case validationTypes.APPLICATION_ID:
+      case validationTypes.DEVICE_ID:
+        validation = validateDeviceId(value)
         break
-      case 'applicationDescription':
-        isInvalid = !value || value.length < 1
-        validationMsg = 'Description cannot be empty'
+      case validationTypes.APPLICATION_DESCRIPTION:
+        validation = validateApplicationDescription(value)
         break
-      case 'email':
+      case validationTypes.EMAIL:
+        validation = validateEmailAddress(value)
+        break
       default:
-        isInvalid = required ? !value || !value.length : false
-        validationMsg = 'Field cannot be blank'
+        validation = required ? validateNotEmpty(value) : getValidResponse()
     }
-
+    const { isInvalid, validationMsg } = validation
     this.setState({ isInvalid, validationMsg })
     onValidate && onValidate(!isInvalid, id)
   }

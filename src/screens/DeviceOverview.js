@@ -144,7 +144,7 @@ class DeviceOverview extends Component {
                 )}
                 {this._renderRow(
                   copy.APPLICATION_EUI,
-                  <ClipboardToggle value={device.app_eui} />,
+                  <ClipboardToggle value={device.app_eui || ''} />,
                   device.app_eui
                 )}
               </ContentBlock>
@@ -152,17 +152,17 @@ class DeviceOverview extends Component {
               <ContentBlock heading={copy.KEYS}>
                 {this._renderRow(
                   copy.APP_KEY,
-                  <ClipboardToggle value={device.app_key} password />,
+                  <ClipboardToggle value={device.app_key} sensitive />,
                   device.app_key
                 )}
                 {this._renderRow(
                   copy.NETWORK_SESSION_KEY,
-                  <ClipboardToggle value={device.nwk_skey} password />,
+                  <ClipboardToggle value={device.nwk_skey} sensitive />,
                   device.nwk_skey
                 )}
                 {this._renderRow(
                   copy.APP_SESSION_KEY,
-                  <ClipboardToggle value={device.app_skey} password />,
+                  <ClipboardToggle value={device.app_skey} sensitive />,
                   device.app_skey
                 )}
               </ContentBlock>

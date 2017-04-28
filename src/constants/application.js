@@ -8,7 +8,7 @@ export const MESSAGES_DOWN_W = 'messages:down:w'
 export const MESSAGES_UP_R = 'messages:up:r'
 export const SETTINGS = 'settings'
 
-// settings
+// Settings
 export const OTAA = 'OTAA'
 export const ABP = 'ABP'
 
@@ -34,4 +34,15 @@ export const handlers = {
   EU,
   US_WEST,
   NONE,
+}
+
+// Text input validation types
+export const validationTypes = {
+  ACCESS_KEY: 'accessKey',
+  APPLICATION_ID: 'applicationId',
+  APPLICATION_DESCRIPTION: 'applicationDescription',
+  DEVICE_ID: 'deviceId',
+  EMAIL: 'email',
+  NONE: 'none',
+  USERNAME: 'username',
 }

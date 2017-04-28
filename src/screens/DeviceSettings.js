@@ -288,7 +288,7 @@ class DeviceSettings extends Component {
 
               </ContentBlock>
               <DeleteButton
-                buttonTitle={`${copy.DELETE} ${copy.DEVICE}`.toUpperCase()}
+                title={`${copy.DELETE} ${copy.DEVICE}`.toUpperCase()}
                 confirm
                 inProgress={this.state.inProgressDelete}
                 itemToDeleteTitle={`${copy.DEVICE} ${device.dev_id || ''}`}

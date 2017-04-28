@@ -3,8 +3,8 @@
 import React, { Component } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
-import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
-import { LEAGUE_SPARTAN } from '../constants/fonts'
+import { BLUE, GREY, LIGHT_GREY, MID_GREY, WHITE } from '../constants/colors'
+import { LATO_REGULAR, LEAGUE_SPARTAN } from '../constants/fonts'
 import {
   COLLABORATORS,
   DELETE,
@@ -14,23 +14,28 @@ import {
 
 import CancelButton from '../components/CancelButton'
 import CheckBox from '../components/CheckBox'
-import FormInput from '../components/FormInput'
+import DeleteButton from '../components/DeleteButton'
 import FormLabel from '../components/FormLabel'
 import SubmitButton from '../components/SubmitButton'
 
 import copy from '../constants/copy'
 
+import _ from 'lodash'
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { connect } from 'react-redux'
 import type { TTNApplication } from '../scopes/content/applications/types'
+import { hasCollaboratorRights } from '../utils/permissionCheck'
 
 const BUTTON_SIZE = 60
 
 type Props = {
   application: TTNApplication,
+  collaborator: Object,
   onCancel: Function,
+  onDelete: Function,
   onSubmit: Function,
-  createCollaboratorAsync: Function,
+  createCollaboratorAsync: typeof TTNApplicationActions.deleteCollaboratorAsync,
+  deleteCollaboratorAsync: typeof TTNApplicationActions.deleteCollaboratorAsync,
 }
 
 type State = {
@@ -38,6 +43,7 @@ type State = {
   deleteSelected: boolean,
   devicesSelected: boolean,
   inProgress: boolean,
+  inProgressDelete: boolean,
   settingsSelected: boolean,
   username: string,
   usernameValid: boolean,
@@ -50,24 +56,22 @@ class CollaboratorForm extends Component {
     deleteSelected: false,
     devicesSelected: false,
     inProgress: false,
+    inProgressDelete: false,
     settingsSelected: true,
     username: '',
     usernameValid: false,
   }
-  _onChangeText = (text, formInputId) => {
-    switch (formInputId) {
-      case 'username':
-        this.setState({ username: text })
-        break
-    }
+  componentDidMount() {
+    const { username, rights } = this.props.collaborator
+    this.setState({
+      username,
+      settingsSelected: rights.indexOf(SETTINGS) >= 0,
+      devicesSelected: rights.indexOf(DEVICES) >= 0,
+      deleteSelected: rights.indexOf(DELETE) >= 0,
+      collaboratorsSelected: rights.indexOf(COLLABORATORS) >= 0,
+    })
   }
-  _onValidate = (isValid, formInputId) => {
-    switch (formInputId) {
-      case 'username':
-        this.setState({ usernameValid: isValid })
-        break
-    }
-  }
+
   _onSubmit = async () => {
     const { application, createCollaboratorAsync, onSubmit } = this.props
     const {
@@ -104,46 +108,68 @@ class CollaboratorForm extends Component {
       }
     }
   }
-  _allInputsValid() {
-    return this.state.usernameValid
+  _deleteCollaborator = async () => {
+    const { application, collaborator, deleteCollaboratorAsync } = this.props
+    this.setState({ inProgressDelete: true })
+    await deleteCollaboratorAsync(application, collaborator)
+    this.setState({ inProgressDelete: false })
+    return this.props.onDelete && this.props.onDelete()
+  }
+  _rightsHaveChanged() {
+    const {
+      collaboratorsSelected,
+      deleteSelected,
+      devicesSelected,
+      settingsSelected,
+    } = this.state
+
+    let selectedRights = []
+    settingsSelected && selectedRights.push(SETTINGS)
+    collaboratorsSelected && selectedRights.push(COLLABORATORS)
+    deleteSelected && selectedRights.push(DELETE)
+    devicesSelected && selectedRights.push(DEVICES)
+
+    return !_.isEqual(
+      selectedRights.sort(),
+      this.props.collaborator.rights.sort()
+    )
   }
 
   render() {
-    const { onCancel } = this.props
+    const { application, collaborator, onCancel } = this.props
     const {
       settingsSelected,
       collaboratorsSelected,
       deleteSelected,
       devicesSelected,
     } = this.state
+
     return (
       <ScrollView>
         <View style={styles.header}>
-          <Text style={styles.formTitle}>ADD COLLABORATOR</Text>
+          <Text style={styles.formTitle}>
+            {copy.EDIT_COLLABORATOR.toUpperCase()}
+          </Text>
         </View>
         <View style={styles.container}>
 
-          <FormLabel primaryText="Username" />
-          <FormInput
-            id="username"
-            validationType="username"
-            onChangeText={this._onChangeText}
-            onValidate={this._onValidate}
-            value={this.state.username}
-            required
-          />
+          <FormLabel primaryText={copy.COLLABORATOR} />
+          <Text style={styles.uneditableText}>{collaborator.username}</Text>
 
-          <FormLabel primaryText="Rights" />
+          <FormLabel primaryText={copy.APPLICATION} />
+          <Text style={styles.uneditableText}>{application.id}</Text>
+
+          <FormLabel primaryText={copy.RIGHTS} />
           <View style={styles.optionContainer}>
             <CheckBox
-              primaryText="Settings"
-              secondaryText="Manage the application settings &amp; access keys"
+              primaryText={copy.SETTINGS}
+              secondaryText={copy.RIGHT_DESCRIPTION_SETTINGS}
               selected={settingsSelected}
               onPress={() => {}}
             />
             <CheckBox
-              primaryText="Collaborators"
-              secondaryText="Edit the application collaborators"
+              primaryText={copy.COLLABORATORS}
+              secondaryText={copy.RIGHT_DESCRIPTION_COLLABORATORS}
               selected={collaboratorsSelected}
               onPress={() =>
                 this.setState({
@@ -151,14 +177,14 @@ class CollaboratorForm extends Component {
                 })}
             />
             <CheckBox
-              primaryText="Delete"
-              secondaryText="Delete the application"
+              primaryText={copy.DELETE}
+              secondaryText={copy.RIGHT_DESCRIPTION_DELETE}
               selected={deleteSelected}
               onPress={() => this.setState({ deleteSelected: !deleteSelected })}
             />
             <CheckBox
-              primaryText="Devices"
-              secondaryText="View and edit devices of the application"
+              primaryText={copy.DEVICES}
+              secondaryText={copy.RIGHT_DESCRIPTION_DEVICES}
               selected={devicesSelected}
               onPress={() =>
                 this.setState({ devicesSelected: !devicesSelected })}
@@ -166,14 +192,27 @@ class CollaboratorForm extends Component {
           </View>
 
           <View>
+            {hasCollaboratorRights(application) &&
+              <DeleteButton
+                title={copy.REMOVE_COLLABORATOR.toUpperCase()}
+                small
+                confirm
+                confirmButtonTitle={copy.REMOVE}
+                confirmMessage={`${copy.CONFIRM_REMOVE} ${collaborator.username} ${copy.FROM} ${copy.APPLICATION.toLowerCase()} ${application.id}`}
+                inProgress={this.state.inProgressDelete}
+                itemToDeleteTitle={`${copy.COLLABORATOR.toLowerCase()} ${collaborator.username}`}
+                onConfirm={this._deleteCollaborator}
+                onDeny={() => {}}
+                style={styles.deleteButton}
+              />}
             <View style={styles.buttonRow}>
               <CancelButton onPress={onCancel} style={styles.cancelButton} />
               <SubmitButton
-                active={this._allInputsValid()}
+                active={this._rightsHaveChanged()}
                 inProgress={this.state.inProgress}
                 onPress={this._onSubmit}
                 style={styles.submitButton}
-                title="Add Collaborator"
+                title="Save"
               />
             </View>
           </View>
@@ -197,6 +236,9 @@ const styles = StyleSheet.create({
   cancelButton: {
     marginRight: 20,
   },
+  deleteButton: {
+    marginVertical: 20,
+  },
   submitButton: {
     width: BUTTON_SIZE * 3.25,
     height: BUTTON_SIZE,
@@ -218,6 +260,10 @@ const styles = StyleSheet.create({
     backgroundColor: LIGHT_GREY,
     borderColor: GREY,
     borderBottomWidth: 2,
+  },
+  uneditableText: {
+    color: MID_GREY,
+    fontFamily: LATO_REGULAR,
   },
   option: {
     borderColor: BLUE,
