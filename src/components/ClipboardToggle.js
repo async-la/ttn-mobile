@@ -30,7 +30,7 @@ type State = {
   hidden: boolean,
 }
 
-export default class clipboardToggle extends Component {
+export default class ClipboardToggle extends Component {
   static defaultProps = {
     type: 'hex',
     sensitive: false,
@@ -84,40 +84,17 @@ export default class clipboardToggle extends Component {
   }
   _toggleKeyFormat = () => {
     const { value } = this.props
-    switch (this.state.currentState.state) {
-      case 'default':
-        this.setState({
-          currentState: {
-            state: 'msb',
-            value: this._formatValue(value, 'msb'),
-          },
-        })
-        break
-      case 'msb':
-        this.setState({
-          currentState: {
-            state: 'lsb',
-            value: this._formatValue(value, 'lsb'),
-          },
-        })
-        break
-      case 'lsb':
-        this.setState({
-          currentState: {
-            state: 'default',
-            value: this._formatValue(value, 'hex'),
-          },
-        })
-        break
-      default:
-        this.setState({
-          currentState: {
-            state: 'default',
-            value: this._formatValue(value, 'hex'),
-          },
-        })
-        break
-    }
+    const { state } = this.state.currentState
+
+    const formats = ['hex', 'msb', 'lsb']
+    const currentIndex = formats.indexOf(state)
+    const nextIndex = currentIndex >= formats.length - 1 ? 0 : currentIndex + 1
+    this.setState({
+      currentState: {
+        state: formats[nextIndex],
+        value: this._formatValue(value, formats[nextIndex]),
+      },
+    })
   }
   _copyToClipboard = () => {
     if (this.props.type === 'hex') {
