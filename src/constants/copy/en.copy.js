@@ -57,6 +57,7 @@ export const RIGHT_DESCRIPTION_SETTINGS =
   'Manage the application settings & access keys'
 export const NEVER_SEEN = 'never seen'
 export const NOT_FOUND = 'not found'
+export const OPTIONAL = 'optional'
 export const REMOVE_COLLABORATOR = 'Remove collaborator'
 export const THIS_ITEM = 'this item'
 export const UNAUTHORIZED = 'You are unauthorized to perform this action'

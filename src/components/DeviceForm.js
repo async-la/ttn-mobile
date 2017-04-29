@@ -12,6 +12,7 @@ import {
 
 import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LEAGUE_SPARTAN } from '../constants/fonts'
+import copy from '../constants/copy'
 
 import CancelButton from '../components/CancelButton'
 import FormInput from '../components/FormInput'
@@ -28,14 +29,16 @@ const BUTTON_SIZE = 60
 
 type Props = {
   application: TTNApplication,
+  createEUIAsync: Function,
   onCancel: () => void,
   onSubmit: () => void,
   addDeviceAsync: Function,
-  createEUIAsync: Function,
+  updateDeviceAsync: Function,
 }
 
 type State = {
   eui: string,
+  description: string,
   id: string,
   idValid: boolean,
   inProgress: boolean,
@@ -47,6 +50,7 @@ class ApplicationForm extends Component {
   state: State = {
     eui: '',
     id: '',
+    description: '',
     idValid: false,
     inProgress: false,
     inProgressEUI: false,
@@ -72,6 +76,9 @@ class ApplicationForm extends Component {
       case 'deviceId':
         this.setState({ id: text })
         break
+      case 'deviceDescription':
+        this.setState({ description: text })
+        break
     }
   }
   _onValidate = (isValid, formInputId) => {
@@ -82,16 +89,30 @@ class ApplicationForm extends Component {
     }
   }
   _onSubmit = async () => {
-    const { application, addDeviceAsync } = this.props
-    const { eui, id } = this.state
+    const { application, addDeviceAsync, updateDeviceAsync } = this.props
+    const { eui, id, description } = this.state
 
-    const device = {
+    let device = {
       app_eui: eui,
       dev_id: id,
     }
 
     this.setState({ inProgress: true })
-    await addDeviceAsync(application, device)
+    try {
+      device = await addDeviceAsync(application, device)
+
+      if (description) {
+        device = {
+          ...device,
+          description,
+        }
+        await updateDeviceAsync(application, device.dev_id, device)
+      }
+    } catch (err) {
+      alert('Error: ' + err.status)
+      console.log('# DeviceForm onSubmit error', err)
+    }
+
     this.setState({ inProgress: false })
     this.props.onSubmit()
   }
@@ -102,7 +123,13 @@ class ApplicationForm extends Component {
   _addEUI = async () => {
     const { application, createEUIAsync } = this.props
     this.setState({ inProgressEUI: true })
-    await createEUIAsync(application)
+    try {
+      await createEUIAsync(application)
+    } catch (err) {
+      alert('Error: ' + err.status)
+      console.log('# DeviceForm addEUI error', err)
+    }
+
     this.setState({ inProgressEUI: false })
   }
   render() {
@@ -131,6 +158,16 @@ class ApplicationForm extends Component {
             onChangeText={this._onChangeText}
             onValidate={this._onValidate}
             value={this.state.id.toLowerCase()}
+            required
+          />
+
+          <FormLabel primaryText={`${copy.DESCRIPTION} (${copy.OPTIONAL})`} />
+          <FormInput
+            id="deviceDescription"
+            validationType="none"
+            onChangeText={this._onChangeText}
+            onValidate={this._onValidate}
+            value={this.state.description}
             required
           />
 

@@ -21,6 +21,7 @@ type Props = {
   children?: React.Element<any>,
   grey?: boolean,
   orange?: boolean,
+  style?: Object,
 }
 
 const TagLabel = (props: Props) => {
@@ -49,9 +50,12 @@ const TagLabel = (props: Props) => {
           ...labelColor,
           alignSelf: props.center ? 'center' : 'flex-start',
         },
+        props.style,
       ]}
     >
       <Text
+        numberOfLines={1}
+        ellipsizeMode="tail"
         style={{
           fontFamily: LATO_REGULAR,
           color: textColor,

@@ -48,8 +48,15 @@ class DeviceOverview extends Component {
     const { dev_id } = this.props.navigation.state.params.device
     const { application } = this.props.navigation.state.params
     this.setState({ isRefreshing: true })
-    const device = await this.props.getDeviceAsync(application, dev_id)
-    this.setState({ isRefreshing: false, device })
+    try {
+      const device = await this.props.getDeviceAsync(application, dev_id)
+      this.setState({ device })
+    } catch (err) {
+      console.log('# DeviceOverview getDevice error', err)
+      alert('Error: ' + err.status)
+      this.props.navigation.goBack(null)
+    }
+    this.setState({ isRefreshing: false })
   }
   _renderRow(label, component, content) {
     return (

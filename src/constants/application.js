@@ -14,16 +14,16 @@ export const ABP = 'ABP'
 
 // Handlers
 export const ASIA_SE = {
-  label: 'ttn-handler-asia-se',
+  label: 'asia-se',
   value: 'ttn-handler-asia-se',
 }
 export const BRAZIL = {
-  label: 'ttn-handler-brazil',
+  label: 'brazil',
   value: 'ttn-handler-brazil',
 }
-export const EU = { label: 'ttn-handler-eu', value: 'ttn-handler-eu' }
+export const EU = { label: 'eu', value: 'ttn-handler-eu' }
 export const US_WEST = {
-  label: 'ttn-handler-us-west',
+  label: 'us-west',
   value: 'ttn-handler-us-west',
 }
 export const NONE = { label: 'none', value: '' }

@@ -107,6 +107,7 @@ export function getDeviceAsync(application: TTNApplication, deviceId: string) {
       return payload
     } catch (err) {
       console.log('## getDeviceAsync error', err)
+      throw err
     }
   }
 }
@@ -119,9 +120,13 @@ export function addDeviceAsync(application: TTNApplication, device: Device) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
-      await apiClient.post(APPLICATIONS + id + '/devices', { body: device })
+      device = await apiClient.post(APPLICATIONS + id + '/devices', {
+        body: device,
+      })
+      return device
     } catch (err) {
       console.log('## addDeviceAsync error', err)
+      throw err
     }
   }
 }
@@ -145,6 +150,7 @@ export function updateDeviceAsync(
       return payload
     } catch (err) {
       console.log('## updateDeviceAsync error', err)
+      throw err
     }
   }
 }
@@ -162,6 +168,7 @@ export function deleteDeviceAsync(application: TTNApplication, device: Device) {
       )
     } catch (err) {
       console.log('## deleteDeviceAsync error', err)
+      throw err
     }
   }
 }

@@ -32,52 +32,45 @@ export default class DeviceListItem extends Component {
     const { device } = this.props
 
     return (
-      <TouchableOpacity onPress={() => this._navigateToSingleDevice(device)}>
-        <View style={styles.deviceRow}>
-          <View style={styles.deviceId}>
-            <TagLabel orange>{device.dev_id}</TagLabel>
-          </View>
-          <View style={styles.statusContainer}>
-            <View style={styles.deviceEui}>
-              <Text style={styles.euiText}>{splitHex(device.dev_eui)}</Text>
-            </View>
-            <View style={styles.statusDot}>
-              <StatusDot up={!!device.app_skey} />
-            </View>
-          </View>
+      <TouchableOpacity
+        onPress={() => this._navigateToSingleDevice(device)}
+        style={styles.deviceListItem}
+      >
+        <View style={styles.idStatusRow}>
+          <TagLabel orange style={{ width: '50%' }}>
+            {device.dev_id}
+          </TagLabel>
+          <StatusDot up={!!device.app_skey} />
         </View>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={styles.descriptionText}
+        >
+          {device.description ? device.description : splitHex(device.dev_eui)}
+        </Text>
       </TouchableOpacity>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  deviceRow: {
+  deviceListItem: {
     backgroundColor: WHITE,
     borderRadius: 3,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     padding: 10,
     minHeight: 100,
   },
-  deviceId: {
-    marginLeft: 20,
-    maxWidth: 175,
-  },
-  deviceEui: {
-    marginRight: 15,
-    maxWidth: 180,
-  },
-  euiText: {
-    color: MID_GREY,
-    fontFamily: LATO_REGULAR,
-  },
-  statusContainer: {
+  idStatusRow: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
-  statusDot: {
-    width: 50,
+  descriptionText: {
+    marginTop: 10,
+    marginLeft: 5,
+    color: MID_GREY,
+    fontFamily: LATO_REGULAR,
   },
 })
