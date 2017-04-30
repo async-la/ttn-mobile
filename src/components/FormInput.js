@@ -24,10 +24,14 @@ import {
 
 type Props = {
   id?: any,
+  defaultValue?: string,
+  editable?: boolean,
   multiline?: boolean,
-  onChangeText: (text: string, formInputId: any) => any,
-  onValidate: (isValid: boolean, formInputId: any) => any,
+  onChangeText?: (text: string, formInputId: any) => any,
+  onSubmitEditing?: Function,
+  onValidate?: (isValid: boolean, formInputId: any) => any,
   required?: boolean,
+  returnKeyType?: string,
   validationType?:
     | typeof validationTypes.ACCESS_KEY
     | typeof validationTypes.APPLICATION_ID
@@ -40,6 +44,7 @@ type Props = {
 }
 
 class FormInput extends Component {
+  _textInput: TextInput
   props: Props
   state = {
     isInvalid: false,
@@ -61,7 +66,7 @@ class FormInput extends Component {
     if (this.state.hasEnteredText) this._validateText(text)
     else this.setState({ hasEnteredText: true })
 
-    this.props.onChangeText(text, this.props.id)
+    this.props.onChangeText && this.props.onChangeText(text, this.props.id)
   }
   _validateText = (value: ?string) => {
     const { id, onValidate, required, validationType } = this.props
@@ -86,22 +91,40 @@ class FormInput extends Component {
     this.setState({ isInvalid, validationMsg })
     onValidate && onValidate(!isInvalid, id)
   }
+  isFocused = () => {
+    return this._textInput.isFocused()
+  }
+  focus = () => {
+    return this._textInput.focus()
+  }
   render() {
-    const { multiline, value } = this.props
+    const {
+      defaultValue,
+      editable,
+      multiline,
+      onSubmitEditing,
+      returnKeyType,
+      value,
+    } = this.props
     return (
       <View>
         <TextInput
+          ref={ref => (this._textInput = ref)}
           autoCapitalize="none"
           autoCorrect={false}
+          defaultValue={defaultValue}
+          editable={editable}
+          multiline={multiline}
+          onChangeText={this._onChangeText}
+          onBlur={() => this._validateText(value)}
+          onSubmitEditing={onSubmitEditing}
+          returnKeyType={returnKeyType}
+          underlineColorAndroid={this.state.isInvalid ? RED : DARK_GREY}
+          value={value}
           style={[
             styles.textInput,
             this.state.isInvalid && styles.invalidInput,
           ]}
-          onChangeText={this._onChangeText}
-          onBlur={() => this._validateText(value)}
-          multiline={multiline}
-          underlineColorAndroid={this.state.isInvalid ? RED : DARK_GREY}
-          value={value}
         />
         {this.state.isInvalid
           ? <ErrorText>{this.state.validationMsg}</ErrorText>

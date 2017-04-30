@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.horcrux.svg.SvgPackage;
 import io.sentry.RNSentryPackage;
@@ -48,6 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
 
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new ImagePickerPackage(),
           new CodePush(metaData.getString("com.ttnconsole.codePushKey"), getApplicationContext(), BuildConfig.DEBUG),
           new SvgPackage(),
           new RNSentryPackage(),

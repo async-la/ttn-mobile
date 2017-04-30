@@ -45,7 +45,7 @@ type State = {
   inProgressEUI: boolean,
 }
 
-class ApplicationForm extends Component {
+class DeviceForm extends Component {
   props: Props
   state: State = {
     eui: '',
@@ -211,7 +211,7 @@ export default connect(
     application: state.content.applications.dictionary[props.application.id],
   }),
   TTNApplicationActions
-)(ApplicationForm)
+)(DeviceForm)
 
 const styles = StyleSheet.create({
   buttonRow: {
