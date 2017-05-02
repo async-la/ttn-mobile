@@ -18,8 +18,13 @@ import type { Dispatch, GetState } from '../../../types/redux'
 
 export function getApplicationsAsync() {
   return async (dispatch: Dispatch, getState: GetState) => {
-    const payload: Array<TTNApplication> = await apiClient.get(APPLICATIONS)
-    return dispatch({ type: 'content/RECEIVE_TTN_APPLICATIONS', payload })
+    try {
+      const payload: Array<TTNApplication> = await apiClient.get(APPLICATIONS)
+      return dispatch({ type: 'content/RECEIVE_TTN_APPLICATIONS', payload })
+    } catch (err) {
+      console.log('## getApplicationsAsync error', err)
+      throw err
+    }
   }
 }
 
@@ -30,8 +35,13 @@ export function getApplicationsAsync() {
 export function getApplicationAsync(application: TTNApplication) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
-    const payload: TTNApplication = await apiClient.get(APPLICATIONS + id)
-    return dispatch({ type: 'content/RECEIVE_TTN_APPLICATION', payload })
+    try {
+      const payload: TTNApplication = await apiClient.get(APPLICATIONS + id)
+      return dispatch({ type: 'content/RECEIVE_TTN_APPLICATION', payload })
+    } catch (err) {
+      console.log('## getApplicationAsync error', err)
+      throw err
+    }
   }
 }
 
@@ -48,6 +58,7 @@ export function addApplicationAsync(application: TTNApplication) {
       await dispatch(getApplicationAsync(application))
     } catch (err) {
       console.log('## addApplicationAsync error', err)
+      throw err
     }
   }
 }
@@ -65,6 +76,7 @@ export function updateApplicationAsync(application: TTNApplication) {
       await dispatch(getApplicationAsync(application))
     } catch (err) {
       console.log('## updateApplicationAsync error', err)
+      throw err
     }
   }
 }
@@ -89,6 +101,7 @@ export function getApplicationDevicesAsync(application: TTNApplication) {
       return payload
     } catch (err) {
       console.log('## getApplicationDevicesAsync error', err)
+      throw err
     }
   }
 }
@@ -185,6 +198,7 @@ export function updateHandlerAsync(application: TTNApplication) {
         })
     } catch (err) {
       console.log('## updateHandlerAsync error', err)
+      throw err
     }
   }
 }
@@ -201,6 +215,7 @@ export function deleteApplicationAsync(application: TTNApplication) {
       await dispatch(getApplicationsAsync())
     } catch (err) {
       console.log('## deleteApplicationAsync error', err)
+      throw err
     }
   }
 }
@@ -214,6 +229,7 @@ export function createEUIAsync(application: TTNApplication) {
       return payload
     } catch (err) {
       console.log('## createEUIAsync error', err)
+      throw err
     }
   }
 }
@@ -226,6 +242,7 @@ export function deleteEUIAsync(application: TTNApplication, eui: string) {
       await dispatch(getApplicationAsync(application))
     } catch (err) {
       console.log('## deleteEUIAsync error', err)
+      throw err
     }
   }
 }
@@ -244,6 +261,7 @@ export function createAccessKeyAsync(
       await dispatch(getApplicationAsync(application))
     } catch (err) {
       console.log('## createAccessKeyAsync error', err)
+      throw err
     }
   }
 }
@@ -255,12 +273,12 @@ export function deleteAccessKeyAsync(
   const { id } = application
   const { name } = accessKey
   return async (dispatch: Dispatch, getState: GetState) => {
-    console.log('deleting access key', name)
     try {
       await apiClient.delete(APPLICATIONS + id + '/access-keys/' + name)
       await dispatch(getApplicationAsync(application))
     } catch (err) {
       console.log('## deleteAccessKeyAsync error', err)
+      throw err
     }
   }
 }
@@ -296,6 +314,7 @@ export function deleteCollaboratorAsync(
       await dispatch(getApplicationAsync(application))
     } catch (err) {
       console.log('## deleteCollaboratorAsync error', err)
+      throw err
     }
   }
 }
