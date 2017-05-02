@@ -3,7 +3,7 @@
 import apiClient from '../../../utils/apiClient'
 
 import { GATEWAYS } from '../../../constants/apiEndpoints'
-import type { Gateway } from './types'
+import type { TTNGateway } from './types'
 import type { Dispatch, GetState } from '../../../types/redux'
 
 /**
@@ -12,8 +12,8 @@ import type { Dispatch, GetState } from '../../../types/redux'
 
 export function getGatewaysAsync() {
   return async (dispatch: Dispatch, getState: GetState) => {
-    const payload: Array<Gateway> = await apiClient.get(GATEWAYS)
-    return dispatch({ type: 'content/RECEIVE_GATEWAYS', payload })
+    const payload: Array<TTNGateway> = await apiClient.get(GATEWAYS)
+    return dispatch({ type: 'content/RECEIVE_TTN_GATEWAYS', payload })
   }
 }
 
@@ -21,10 +21,10 @@ export function getGatewaysAsync() {
  * Fetch Gateway by ID
  */
 
-export function getGatewayAsync(gateway: Gateway) {
+export function getGatewayAsync(gateway: TTNGateway) {
   const { id } = gateway
   return async (dispatch: Dispatch, getState: GetState) => {
-    const payload: Gateway = await apiClient.get(GATEWAYS + id)
-    return dispatch({ type: 'content/RECEIVE_GATEWAY', payload })
+    const payload: TTNGateway = await apiClient.get(GATEWAYS + id)
+    return dispatch({ type: 'content/RECEIVE_TTN_GATEWAY', payload })
   }
 }

@@ -5,22 +5,22 @@ import {
   RECEIVE_TTN_APPLICATIONS,
 } from './applications/types'
 
-import { RECEIVE_GATEWAY, RECEIVE_GATEWAYS } from './gateways/types'
+import { RECEIVE_TTN_GATEWAY, RECEIVE_TTN_GATEWAYS } from './gateways/types'
 
 import { RESET_AUTH } from '../auth/types'
 
 import type { TTNApplicationAction, TTNApplication } from './applications/types'
-import type { GatewayAction, Gateway } from './gateways/types'
+import type { TTNGatewayAction, TTNGateway } from './gateways/types'
 import _ from 'lodash'
 
-type ContentAction = TTNApplicationAction | GatewayAction
+type ContentAction = TTNApplicationAction | TTNGatewayAction
 
 type TTNApplicationDictionary = {
   [key: string]: TTNApplication,
 }
 
-type GatewayDictionary = {
-  [key: string]: Gateway,
+type TTNGatewayDictionary = {
+  [key: string]: TTNGateway,
 }
 
 export type State = {
@@ -30,7 +30,7 @@ export type State = {
   },
   gateways: {
     list: Array<string>,
-    dictionary: GatewayDictionary,
+    dictionary: TTNGatewayDictionary,
   },
 }
 
@@ -83,7 +83,7 @@ export default (state: State = initialState, action: ContentAction) => {
       }
     }
 
-    case RECEIVE_GATEWAY: {
+    case RECEIVE_TTN_GATEWAY: {
       const gateway = action.payload
 
       let dictionary = {
@@ -100,8 +100,8 @@ export default (state: State = initialState, action: ContentAction) => {
       }
     }
 
-    case RECEIVE_GATEWAYS: {
-      const incomingDictionary: GatewayDictionary = _.keyBy(
+    case RECEIVE_TTN_GATEWAYS: {
+      const incomingDictionary: TTNGatewayDictionary = _.keyBy(
         action.payload,
         'id'
       )

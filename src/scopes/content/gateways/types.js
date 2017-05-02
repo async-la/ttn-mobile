@@ -5,7 +5,7 @@ type Collaborator = {
   rights: Array<string>,
 }
 
-export type Gateway = {
+export type TTNGateway = {
   id: string,
   activated: boolean,
   frequency_plan: string,
@@ -50,17 +50,19 @@ type Router = {
   mqtt_address: string,
 }
 
-export const RECEIVE_GATEWAY = 'content/RECEIVE_GATEWAY'
-export const RECEIVE_GATEWAYS = 'content/RECEIVE_GATEWAYS'
+export const RECEIVE_TTN_GATEWAY = 'content/RECEIVE_TTN_GATEWAY'
+export const RECEIVE_TTN_GATEWAYS = 'content/RECEIVE_TTN_GATEWAYS'
 
-export type ReceiveGatewayAction = {
-  type: 'content/RECEIVE_GATEWAY',
-  payload: Gateway,
+export type ReceiveTTNGatewayAction = {
+  type: 'content/RECEIVE_TTN_GATEWAY',
+  payload: TTNGateway,
 }
 
-export type ReceiveGatewaysAction = {
-  type: 'content/RECEIVE_GATEWAYS',
-  payload: Array<Gateway>,
+export type ReceiveTTNGatewaysAction = {
+  type: 'content/RECEIVE_TTN_GATEWAYS',
+  payload: Array<TTNGateway>,
 }
 
-export type GatewayAction = ReceiveGatewayAction | ReceiveGatewaysAction
+export type TTNGatewayAction =
+  | ReceiveTTNGatewayAction
+  | ReceiveTTNGatewaysAction

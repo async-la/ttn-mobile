@@ -16,18 +16,18 @@ import { GATEWAYS_LABEL } from '../scopes/navigation/constants'
 import { LATO_REGULAR } from '../constants/fonts'
 import { LIGHT_GREY, WHITE } from '../constants/colors'
 
-import * as GatewayActions from '../scopes/content/gateways/actions'
+import * as TTNGatewayActions from '../scopes/content/gateways/actions'
 
 import type { Connector } from 'react-redux'
-import type { Gateway } from '../scopes/content/gateways/types'
+import type { TTNGateway } from '../scopes/content/gateways/types'
 
 type OwnProps = {
   navigation: Object,
 }
 
 type Props = {
-  gateways: Array<Gateway>,
-  getGatewaysAsync: typeof GatewayActions.getGatewaysAsync,
+  gateways: Array<TTNGateway>,
+  getGatewaysAsync: typeof TTNGatewayActions.getGatewaysAsync,
 } & OwnProps
 
 type State = {
@@ -107,7 +107,7 @@ const connector: Connector<OwnProps, Props> = connect(
   state => ({
     gateways: state.content.gateways,
   }),
-  GatewayActions
+  TTNGatewayActions
 )
 export default connector(GatewayList)
 

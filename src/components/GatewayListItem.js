@@ -10,10 +10,10 @@ import { GATEWAY_DETAIL } from '../scopes/navigation/constants'
 import { BLUE, MID_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
-import type { Gateway } from '../scopes/content/gateways/types'
+import type { TTNGateway } from '../scopes/content/gateways/types'
 
 type Props = {
-  gateway: Gateway,
+  gateway: TTNGateway,
   navigation: Object,
 }
 
