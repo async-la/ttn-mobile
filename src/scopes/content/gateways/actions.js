@@ -12,8 +12,13 @@ import type { Dispatch, GetState } from '../../../types/redux'
 
 export function getGatewaysAsync() {
   return async (dispatch: Dispatch, getState: GetState) => {
-    const payload: Array<TTNGateway> = await apiClient.get(GATEWAYS)
-    return dispatch({ type: 'content/RECEIVE_TTN_GATEWAYS', payload })
+    try {
+      const payload: Array<TTNGateway> = await apiClient.get(GATEWAYS)
+      return dispatch({ type: 'content/RECEIVE_TTN_GATEWAYS', payload })
+    } catch (err) {
+      console.log('## getGatewaysAsync error', err)
+      throw err
+    }
   }
 }
 
@@ -24,7 +29,12 @@ export function getGatewaysAsync() {
 export function getGatewayAsync(gateway: TTNGateway) {
   const { id } = gateway
   return async (dispatch: Dispatch, getState: GetState) => {
-    const payload: TTNGateway = await apiClient.get(GATEWAYS + id)
-    return dispatch({ type: 'content/RECEIVE_TTN_GATEWAY', payload })
+    try {
+      const payload: TTNGateway = await apiClient.get(GATEWAYS + id)
+      return dispatch({ type: 'content/RECEIVE_TTN_GATEWAY', payload })
+    } catch (err) {
+      console.log('## getGatewaysAsync error', err)
+      throw err
+    }
   }
 }
