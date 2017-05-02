@@ -6,11 +6,18 @@ import { StyleSheet, View } from 'react-native'
 import { GREY, ORANGE, BRIGHT_GREEN } from '../constants/colors'
 
 type Props = {
+  downColor?: string,
   up: boolean,
+  upColor?: string,
 }
 
-const StatusDot = ({ up }: Props) => {
-  return <View style={[styles.dot, up && styles.up]} />
+const StatusDot = ({
+  downColor = ORANGE,
+  up,
+  upColor = BRIGHT_GREEN,
+}: Props) => {
+  const backgroundColor = up ? upColor : downColor
+  return <View style={[styles.dot, { backgroundColor }]} />
 }
 
 export default StatusDot
@@ -21,10 +28,6 @@ const styles = StyleSheet.create({
     width: 15,
     borderRadius: 10,
     borderWidth: 1,
-    backgroundColor: ORANGE,
     borderColor: GREY,
-  },
-  up: {
-    backgroundColor: BRIGHT_GREEN,
   },
 })
