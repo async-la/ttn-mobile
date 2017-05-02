@@ -12,7 +12,7 @@ import DeviceSettings from '../../screens/DeviceSettings'
 import DeviceDetailPlaceholder from '../../screens/DeviceDetailPlaceholder'
 import GatewayList from '../../screens/GatewayList'
 import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
-import Profile from '../../screens/Profile'
+import ProfileOverview from '../../screens/ProfileOverview'
 
 import IconAccount from '../../components/IconAccount'
 import IconApplications from '../../components/IconApplications'
@@ -217,6 +217,12 @@ const Gateways = StackNavigator({
   },
 })
 
+const Profile = StackNavigator({
+  [PROFILE]: {
+    screen: ProfileOverview,
+    path: '/',
+  },
+})
 // Main app navigator. Define bottom tabs here
 const AppNavigator = TabNavigator(
   {

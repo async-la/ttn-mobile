@@ -90,5 +90,9 @@
 	<false/>
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODE_PUSH_KEY)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Upload profile photo</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Upload profile photo</string>
 </dict>
 </plist>
