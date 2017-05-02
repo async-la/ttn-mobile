@@ -9,3 +9,6 @@ export const AUTHORIZATION_URI =
 
 // Applications
 export const APPLICATIONS = `${HOST}applications/`
+
+// Gateways
+export const GATEWAYS = `${HOST}gateways/`
