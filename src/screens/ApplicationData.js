@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import {
+  ActivityIndicator,
   FlatList,
   NativeEventEmitter,
   NativeModules,
@@ -18,7 +19,7 @@ import {
   CLOSED,
   UNAUTHORIZED,
 } from '../constants/mqttConnectionStatus'
-import { LIGHT_GREY, WHITE } from '../constants/colors'
+import { GREEN, LIGHT_GREY, RED, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import { connect } from 'react-redux'
@@ -46,7 +47,7 @@ class ApplicationData extends Component {
   _subscriptionNewMessage = null
   _subscriptionConnectionLoss = null
   static navigationOptions = ({ navigation, screenProps }) => ({
-    title: navigation.state.params.appName || '',
+    title: (navigation.state.params && navigation.state.params.appName) || '',
   })
   props: Props
   state: State = {
@@ -55,17 +56,13 @@ class ApplicationData extends Component {
   }
   componentDidMount() {
     const { application } = this.props
-    //TODO: Notify user to set handler
-    if (!application.handler) return
-    if (!hasDevicesRights(application)) return
 
-    const messageUplinkPermission = getMessageUplinkPermission(application)
-    if (messageUplinkPermission) {
-      this._createMQTTSession(application, messageUplinkPermission.key)
-    } else {
-      // User doesn't have proper permissions
+    if (!hasDevicesRights(application)) {
       this.setState({ connectionStatus: UNAUTHORIZED })
+      return
     }
+
+    this._createMQTTSession(application)
   }
 
   componentWillUnmount() {
@@ -78,13 +75,19 @@ class ApplicationData extends Component {
     TTNMQTT.destroySessionAsync()
   }
 
-  _createMQTTSession = async (application, key) => {
+  _createMQTTSession = async application => {
+    const messageUplinkPermission = getMessageUplinkPermission(application)
+    if (!messageUplinkPermission) {
+      this.setState({ connectionStatus: UNAUTHORIZED })
+      return
+    }
+
     try {
       const host = getApplicationMQTTHost(application)
       await TTNMQTT.createSessionAsync({
         host,
         username: application.id,
-        password: key,
+        password: messageUplinkPermission.key,
       })
     } catch (err) {
       console.error(err)
@@ -116,12 +119,44 @@ class ApplicationData extends Component {
     data.unshift(parsedMessage)
     this.setState({ data })
   }
+  _renderConnectionStatus = () => {
+    let { connectionStatus } = this.state
+
+    if (!connectionStatus) return
+
+    if (!this.props.application.handler) {
+      connectionStatus = 'NO REGISTERED HANLDER'
+    }
+
+    const backgroundColor = connectionStatus === CONNECTED ? GREEN : RED
+    return (
+      <View style={[styles.connectionStatus, { backgroundColor }]}>
+        {connectionStatus === CONNECTED
+          ? <Text style={styles.connectionStatusText}>{connectionStatus}</Text>
+          : <Text
+              onPress={() => this._createMQTTSession(this.props.application)}
+              style={styles.connectionStatusText}
+            >{`${connectionStatus} - TAP TO RETRY`}</Text>}
+      </View>
+    )
+  }
   _renderContent = () => {
-    if (
+    if (this.state.connectionStatus === UNAUTHORIZED) {
+      return (
+        <View>
+          <Text>No access key with message rights found.</Text>
+        </View>
+      )
+    } else if (
       this.state.data.length === 0 &&
       this.state.connectionStatus === CONNECTED
     ) {
-      return <Text>Listening to Data</Text>
+      return (
+        <View>
+          <ActivityIndicator size="large" />
+          <Text>Waiting for incoming data...</Text>
+        </View>
+      )
     } else {
       return (
         <FlatList
@@ -138,9 +173,10 @@ class ApplicationData extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.connectionStatus}</Text>
+        {this._renderConnectionStatus()}
         {this._renderContent()}
-        <ClearButton onPress={this._clearData} />
+        {this.state.connectionStatus === CONNECTED &&
+          <ClearButton onPress={this._clearData} />}
       </View>
     )
   }
@@ -160,6 +196,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: WHITE,
+    paddingTop: 25,
+  },
+  connectionStatus: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: 25,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  connectionStatusText: {
+    fontFamily: LATO_REGULAR,
+    fontWeight: 'bold',
+    color: WHITE,
   },
   header: {
     fontFamily: LATO_REGULAR,

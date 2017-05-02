@@ -137,6 +137,9 @@ class DevicesList extends Component {
     }
   }
   _renderContent = () => {
+    if (!this.state.authorized) {
+      return <Text>You do not have permissions to access devices</Text>
+    }
     if (!this.state.initialLoad) {
       return <ActivityIndicator size="large" />
     } else if (
