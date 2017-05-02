@@ -3,10 +3,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
+import StatusDot from '../components/StatusDot'
 import TagLabel from '../components/TagLabel'
 
 import { GATEWAY_DETAIL } from '../scopes/navigation/constants'
-import { MID_GREY, WHITE } from '../constants/colors'
+import { BLUE, MID_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import type { Gateway } from '../scopes/content/gateways/types'
@@ -38,11 +39,11 @@ export default class GatewayListItem extends Component {
           <TagLabel center orange style={{ width: '50%' }}>
             {gateway.id}
           </TagLabel>
-          <View style={[styles.gatewayContainer, styles.handlerContainer]}>
-            <Text style={styles.handlerText}>
-              {gateway.frequency_plan}
-            </Text>
-          </View>
+          <StatusDot
+            downColor={MID_GREY}
+            up={!!gateway.status.tx_in}
+            upColor={BLUE}
+          />
         </View>
         <View style={styles.descriptionRow}>
           <Text
@@ -51,6 +52,9 @@ export default class GatewayListItem extends Component {
             style={styles.descriptionText}
           >
             {gateway.attributes.description}
+          </Text>
+          <Text style={styles.frequencyText}>
+            {gateway.frequency_plan}
           </Text>
         </View>
       </TouchableOpacity>
@@ -73,7 +77,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   descriptionRow: {
-    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingHorizontal: 5,
     marginTop: 10,
     marginLeft: 5,
@@ -89,7 +95,7 @@ const styles = StyleSheet.create({
   handlerContainer: {
     width: 70,
   },
-  handlerText: {
+  frequencyText: {
     fontStyle: 'italic',
     fontSize: 10,
   },
