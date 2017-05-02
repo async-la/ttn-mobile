@@ -10,6 +10,8 @@ import { GATEWAY_DETAIL } from '../scopes/navigation/constants'
 import { BLUE, MID_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
+const LAST_SEEN_LIMIT_MSECS = 1000 * 60 // 1 minute
+
 import type { TTNGateway } from '../scopes/content/gateways/types'
 
 type Props = {
@@ -20,8 +22,6 @@ type Props = {
 export default class GatewayListItem extends Component {
   props: Props
   _navigateToSingleGateway = gateway => {
-    // TODO: clean up props -- knowing whether or not a handler is present
-    // is useful info so we might as well pass the entire gateway [dan]
     this.props.navigation.navigate(GATEWAY_DETAIL, {
       gateway: gateway,
       gatwayName: gateway.attributes.description,
@@ -30,6 +30,9 @@ export default class GatewayListItem extends Component {
   }
   render() {
     const { gateway } = this.props
+    const isAlive =
+      Date.now() - gateway.status.time / (1000 * 1000) < LAST_SEEN_LIMIT_MSECS
+
     return (
       <TouchableOpacity
         onPress={() => this._navigateToSingleGateway(gateway)}
@@ -39,11 +42,7 @@ export default class GatewayListItem extends Component {
           <TagLabel center orange style={{ width: '50%' }}>
             {gateway.id}
           </TagLabel>
-          <StatusDot
-            downColor={MID_GREY}
-            up={!!gateway.status.tx_in}
-            upColor={BLUE}
-          />
+          <StatusDot downColor={MID_GREY} up={isAlive} upColor={BLUE} />
         </View>
         <View style={styles.descriptionRow}>
           <Text
