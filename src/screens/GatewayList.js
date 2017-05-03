@@ -26,7 +26,7 @@ type OwnProps = {
 }
 
 type Props = {
-  gateways: Array<TTNGateway>,
+  gateways: Object,
   getGatewaysAsync: typeof TTNGatewayActions.getGatewaysAsync,
 } & OwnProps
 
