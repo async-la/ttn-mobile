@@ -144,12 +144,13 @@ const DeviceDetail = TabNavigator(
     tabBarOptions: {
       labelStyle: {
         fontFamily: LATO_REGULAR,
+        color: BLUE,
       },
       style: {
-        backgroundColor: BLUE,
+        backgroundColor: WHITE,
       },
       indicatorStyle: {
-        backgroundColor: WHITE,
+        backgroundColor: BLUE,
       },
     },
   }
