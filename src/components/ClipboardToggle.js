@@ -136,7 +136,7 @@ export default class ClipboardToggle extends Component {
           </Text>
         </ScrollView>
         <View style={styles.labelContainer}>
-          <Text style={styles.labelText}>{this.props.type || 'hex'}</Text>
+          <Text style={styles.labelText}>{this.state.currentState.state || 'hex'}</Text>
         </View>
         <View style={styles.clipboardContainer}>
           <TouchableOpacity
