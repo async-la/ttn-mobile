@@ -4,6 +4,7 @@ import { REHYDRATE as SOURCE_REHYDRATE } from 'redux-persist/constants'
 
 import type { AuthAction } from './auth/types'
 import type { TTNApplicationAction } from './content/applications/types'
+import type { TTNGatewayAction } from './content/gateways/types'
 import type { DeviceAction } from './device/types'
 import type { State } from './rootReducer'
 
@@ -16,10 +17,11 @@ export { REHYDRATE }
 type RehydrateAction = {
   type: 'persist/REHYDRATE',
   payload: State,
-};
+}
 
 export type Action =
   | TTNApplicationAction
   | AuthAction
   | DeviceAction
-  | RehydrateAction;
+  | TTNGatewayAction
+  | RehydrateAction

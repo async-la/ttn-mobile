@@ -10,8 +10,6 @@ globals:
   jest: true
 
 extends:
-- plugin:eslint-plugin-import/warnings
-- plugin:eslint-plugin-import/errors
 - standard-react
 
 plugins:

@@ -55,7 +55,6 @@
     "eslint": "^3.18.0",
     "eslint-config-standard-react": "^4.3.0",
     "eslint-plugin-flowtype": "^2.30.4",
-    "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "git+ssh://git@github.com/async-la/eslint-plugin-react#ttn-patch",
     "flow-bin": "0.42",
     "haul-cli": "^0.1.2",
