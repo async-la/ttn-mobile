@@ -19,7 +19,6 @@ import { LIGHT_GREY, WHITE } from '../constants/colors'
 import * as TTNGatewayActions from '../scopes/content/gateways/actions'
 
 import type { Connector } from 'react-redux'
-import type { TTNGateway } from '../scopes/content/gateways/types'
 
 type OwnProps = {
   navigation: Object,
