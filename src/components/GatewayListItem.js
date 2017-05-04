@@ -24,8 +24,8 @@ export default class GatewayListItem extends Component {
   _navigateToSingleGateway = gateway => {
     this.props.navigation.navigate(GATEWAY_DETAIL, {
       gateway: gateway,
-      gatwayName: gateway.attributes.description,
-      gatwayId: gateway.id,
+      gatewayName: gateway.attributes.description,
+      gatewayId: gateway.id,
     })
   }
   render() {
