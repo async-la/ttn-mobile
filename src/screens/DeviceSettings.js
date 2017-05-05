@@ -22,7 +22,7 @@ import SubmitButton from '../components/SubmitButton'
 import WarningText from '../components/WarningText'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
-import type { Device } from '../scopes/content/applications/types'
+import type { TTNDevice } from '../scopes/content/applications/types'
 
 import { connect } from 'react-redux'
 import { splitHex } from '../utils/payloadConversion'
@@ -30,9 +30,9 @@ import { splitHex } from '../utils/payloadConversion'
 const BUTTON_SIZE = 60
 
 type Props = {
+  device: TTNDevice,
   navigation: Object,
   getApplicationDevicesAsync: Function,
-  getDeviceAsync: Function,
   deleteDeviceAsync: Function,
   updateDeviceAsync: Function,
 }
@@ -40,9 +40,8 @@ type Props = {
 type State = {
   activationMethod: string,
   appEui: ?string,
-  originalAppEui: string,
+  originalAppEui: ?string,
   description: ?string,
-  device: Device,
   originalDescription: ?string,
   frameCounterChecks: boolean,
   originalFrameCounterChecks: boolean,
@@ -63,10 +62,6 @@ class DeviceSettings extends Component {
     appEui: '',
     originalAppEui: '',
     description: '',
-    device: {
-      app_eui: null,
-      dev_id: null,
-    },
     originalDescription: '',
     frameCounterChecks: true,
     originalFrameCounterChecks: true,
@@ -81,10 +76,8 @@ class DeviceSettings extends Component {
   }
 
   _getDevice = async () => {
-    const { application } = this.props.navigation.state.params
-    const { dev_id } = this.props.navigation.state.params.device
     try {
-      const device = await this.props.getDeviceAsync(application, dev_id)
+      const { device } = this.props
       this.setState({
         appEui: device.app_eui,
         originalAppEui: device.app_eui,
@@ -94,7 +87,6 @@ class DeviceSettings extends Component {
         originalFrameCounterWidth: device.uses_32bit_fcnt ? '32' : '16',
         frameCounterChecks: !device.disable_fcnt_check,
         originalFrameCounterChecks: !device.disable_fcnt_check,
-        device,
       })
     } catch (err) {
       console.log('# DeviceSettings getDevice error', err)
@@ -140,7 +132,7 @@ class DeviceSettings extends Component {
   _saveDevice = async () => {
     const { updateDeviceAsync } = this.props
     const { application } = this.props.navigation.state.params
-    const { dev_eui, dev_id, app_key, app_skey, nwk_skey } = this.state.device
+    const { dev_eui, dev_id, app_key, app_skey, nwk_skey } = this.props.device
 
     this.setState({ inProgressSave: true })
 
@@ -176,8 +168,8 @@ class DeviceSettings extends Component {
     this.setState({ inProgressSave: false })
   }
   _renderOTAA() {
-    const device = this.state.device.dev_id
-      ? this.state.device
+    const device = this.props.device.dev_id
+      ? this.props.device
       : this.props.navigation.state.params.device
     return (
       <View>
@@ -205,7 +197,8 @@ class DeviceSettings extends Component {
   render() {
     const { application } = this.props.navigation.state.params
 
-    const { device } = this.state
+    const { device } = this.props
+    if (!device) return <View />
     const appEuis = application.euis.map(eui => ({
       label: splitHex(eui),
       value: eui,
@@ -273,8 +266,16 @@ class DeviceSettings extends Component {
                 />
                 {!this.state.frameCounterChecks &&
                   <WarningText>{copy.FRAME_COUNTER_CHECK_WARNING}</WarningText>}
-
-                <View style={{ height: 30 }} />
+                <DeleteButton
+                  title={`${copy.DELETE} ${copy.DEVICE}`.toUpperCase()}
+                  confirm
+                  small
+                  inProgress={this.state.inProgressDelete}
+                  itemToDeleteTitle={`${copy.DEVICE} ${device.dev_id || ''}`}
+                  onConfirm={this._deleteDevice}
+                  onDeny={this._cancelDeleteDevice}
+                  style={styles.deleteDeviceButton}
+                />
 
                 <SubmitButton
                   active={this._settingsHaveChanged()}
@@ -283,19 +284,7 @@ class DeviceSettings extends Component {
                   style={styles.submitButton}
                   title={copy.SAVE}
                 />
-
-                <View style={{ height: 50 }} />
-
               </ContentBlock>
-              <DeleteButton
-                title={`${copy.DELETE} ${copy.DEVICE}`.toUpperCase()}
-                confirm
-                inProgress={this.state.inProgressDelete}
-                itemToDeleteTitle={`${copy.DEVICE} ${device.dev_id || ''}`}
-                onConfirm={this._deleteDevice}
-                onDeny={this._cancelDeleteDevice}
-                style={styles.deleteDeviceButton}
-              />
 
             </ScrollView>}
       </View>
@@ -303,7 +292,14 @@ class DeviceSettings extends Component {
   }
 }
 
-export default connect(null, TTNApplicationActions)(DeviceSettings)
+export default connect(
+  (state, props) => ({
+    device: state.content.devices.dictionary[
+      props.navigation.state.params.device.dev_id
+    ],
+  }),
+  TTNApplicationActions
+)(DeviceSettings)
 
 const styles = StyleSheet.create({
   activityIndicator: {
@@ -316,10 +312,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   deleteDeviceButton: {
-    width: BUTTON_SIZE * 4,
-    height: BUTTON_SIZE,
-    alignSelf: 'center',
-    marginBottom: 15,
+    alignSelf: 'flex-start',
+    marginTop: 30,
+    marginBottom: 50,
+    marginLeft: 10,
   },
   clipBoardRow: {
     flexDirection: 'row',
@@ -332,5 +328,6 @@ const styles = StyleSheet.create({
     width: BUTTON_SIZE * 4,
     height: BUTTON_SIZE,
     alignSelf: 'center',
+    marginBottom: 15,
   },
 })

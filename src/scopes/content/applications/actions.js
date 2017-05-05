@@ -7,7 +7,7 @@ import type {
   AccessKey,
   AccessKeyOptions,
   Collaborator,
-  Device,
+  TTNDevice,
   TTNApplication,
 } from './types'
 import type { Dispatch, GetState } from '../../../types/redux'
@@ -95,9 +95,10 @@ export function getApplicationDevicesAsync(application: TTNApplication) {
       return []
     }
     try {
-      const payload: Array<TTNApplication> = await apiClient.get(
+      const payload: Array<TTNDevice> = await apiClient.get(
         APPLICATIONS + id + '/devices/'
       )
+      dispatch({ type: 'content/RECEIVE_TTN_DEVICES', payload })
       return payload
     } catch (err) {
       console.log('## getApplicationDevicesAsync error', err)
@@ -114,9 +115,10 @@ export function getDeviceAsync(application: TTNApplication, deviceId: string) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
-      const payload = await apiClient.get(
+      const payload: TTNDevice = await apiClient.get(
         APPLICATIONS + id + '/devices/' + deviceId
       )
+      dispatch({ type: 'content/RECEIVE_TTN_DEVICE', payload })
       return payload
     } catch (err) {
       console.log('## getDeviceAsync error', err)
@@ -129,14 +131,18 @@ export function getDeviceAsync(application: TTNApplication, deviceId: string) {
   * Add Device
   */
 
-export function addDeviceAsync(application: TTNApplication, device: Device) {
+export function addDeviceAsync(application: TTNApplication, device: TTNDevice) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
-      device = await apiClient.post(APPLICATIONS + id + '/devices', {
-        body: device,
-      })
-      return device
+      const payload: TTNDevice = await apiClient.post(
+        APPLICATIONS + id + '/devices',
+        {
+          body: device,
+        }
+      )
+      dispatch({ type: 'content/RECEIVE_TTN_DEVICE', payload })
+      return payload
     } catch (err) {
       console.log('## addDeviceAsync error', err)
       throw err
@@ -151,15 +157,16 @@ export function addDeviceAsync(application: TTNApplication, device: Device) {
 export function updateDeviceAsync(
   application: TTNApplication,
   deviceId: string,
-  device: Device
+  device: TTNDevice
 ) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
-      const payload = await apiClient.patch(
+      const payload: TTNDevice = await apiClient.patch(
         APPLICATIONS + id + '/devices/' + deviceId,
         { body: device }
       )
+      dispatch({ type: 'content/RECEIVE_TTN_DEVICE', payload })
       return payload
     } catch (err) {
       console.log('## updateDeviceAsync error', err)
@@ -172,13 +179,17 @@ export function updateDeviceAsync(
  * Delete Device
  */
 
-export function deleteDeviceAsync(application: TTNApplication, device: Device) {
+export function deleteDeviceAsync(
+  application: TTNApplication,
+  device: TTNDevice
+) {
   const { id } = application
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
       await apiClient.delete(
         APPLICATIONS + id + '/devices/' + (device.dev_id || '')
       )
+      dispatch(getApplicationDevicesAsync(application))
     } catch (err) {
       console.log('## deleteDeviceAsync error', err)
       throw err

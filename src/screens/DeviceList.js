@@ -24,9 +24,13 @@ import { LATO_REGULAR } from '../constants/fonts'
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { connect } from 'react-redux'
 import { hasDevicesRights } from '../utils/permissionCheck'
+import _ from 'lodash'
+
+import type { TTNDevice } from '../scopes/content/applications/types'
 
 type Props = {
   application: Object,
+  devices: Array<TTNDevice>,
   getApplicationDevicesAsync: Function,
   navigation: Object,
 }
@@ -40,7 +44,7 @@ type State = {
   isRefreshing: boolean,
 }
 
-class DevicesList extends Component {
+class DeviceList extends Component {
   props: Props
   state: State = {
     authorized: false,
@@ -66,6 +70,7 @@ class DevicesList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (!nextProps.application) return
     if (!this.state.authorized || !nextProps.application.handler)
       this.setState({ addButtonDisabled: true })
     else this.setState({ addButtonDisabled: false })
@@ -76,13 +81,11 @@ class DevicesList extends Component {
 
     if (!initialLoad) this.setState({ isRefreshing: true })
 
-    const devices = await getApplicationDevicesAsync(
-      navigation.state.params.application
-    )
+    await getApplicationDevicesAsync(navigation.state.params.application)
     if (!initialLoad) {
-      this.setState({ isRefreshing: false, devices })
+      this.setState({ isRefreshing: false })
     } else {
-      this.setState({ initialLoad: true, devices })
+      this.setState({ initialLoad: true })
     }
   }
   _renderDeviceRow(device) {
@@ -94,7 +97,6 @@ class DevicesList extends Component {
   }
   _submitForm = () => {
     this._dismissModal()
-    this._fetchApplicationDevices()
   }
   _renderModal = () => {
     return (
@@ -144,8 +146,8 @@ class DevicesList extends Component {
       return <ActivityIndicator size="large" />
     } else if (
       this.state.initialLoad &&
-      this.state.devices &&
-      this.state.devices.length === 0
+      this.props.devices &&
+      this.props.devices.length === 0
     ) {
       return (
         <TouchableOpacity onPress={this._fetchApplicationDevices}>
@@ -155,8 +157,8 @@ class DevicesList extends Component {
     } else {
       return (
         <FlatList
-          data={this.state.devices}
-          initialListSize={this.state.devices ? this.state.devices.length : 0}
+          data={this.props.devices}
+          initialListSize={this.props.devices ? this.props.devices.length : 0}
           keyExtractor={item => item.dev_id}
           renderItem={({ item }) => this._renderDeviceRow(item)}
           ItemSeparatorComponent={Separator}
@@ -185,9 +187,10 @@ export default connect(
     application: state.content.applications.dictionary[
       props.navigation.state.params.application.id
     ],
+    devices: _.values(state.content.devices.dictionary),
   }),
   TTNApplicationActions
-)(DevicesList)
+)(DeviceList)
 
 const styles = StyleSheet.create({
   container: {

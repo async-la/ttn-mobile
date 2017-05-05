@@ -3,13 +3,19 @@
 import {
   RECEIVE_TTN_APPLICATION,
   RECEIVE_TTN_APPLICATIONS,
+  RECEIVE_TTN_DEVICE,
+  RECEIVE_TTN_DEVICES,
 } from './applications/types'
 
 import { RECEIVE_TTN_GATEWAY, RECEIVE_TTN_GATEWAYS } from './gateways/types'
 
 import { RESET_AUTH } from '../auth/types'
 
-import type { TTNApplicationAction, TTNApplication } from './applications/types'
+import type {
+  TTNApplicationAction,
+  TTNApplication,
+  TTNDevice,
+} from './applications/types'
 import type { TTNGatewayAction, TTNGateway } from './gateways/types'
 import _ from 'lodash'
 
@@ -17,6 +23,10 @@ type ContentAction = TTNApplicationAction | TTNGatewayAction
 
 type TTNApplicationDictionary = {
   [key: string]: TTNApplication,
+}
+
+type TTNDeviceDictionary = {
+  [key: string]: TTNDevice,
 }
 
 type TTNGatewayDictionary = {
@@ -28,6 +38,10 @@ export type State = {
     list: Array<string>,
     dictionary: TTNApplicationDictionary,
   },
+  devices: {
+    list: Array<string>,
+    dictionary: TTNDeviceDictionary,
+  },
   gateways: {
     list: Array<string>,
     dictionary: TTNGatewayDictionary,
@@ -36,6 +50,10 @@ export type State = {
 
 export const initialState: State = {
   applications: {
+    list: [],
+    dictionary: {},
+  },
+  devices: {
     list: [],
     dictionary: {},
   },
@@ -77,6 +95,46 @@ export default (state: State = initialState, action: ContentAction) => {
       return {
         ...state,
         applications: {
+          list: incomingList,
+          dictionary: incomingDictionary,
+        },
+      }
+    }
+
+    case RECEIVE_TTN_DEVICE: {
+      const device: TTNDevice = action.payload
+      let dictionary
+      // workaround for nullable type dev_id
+      if (device.dev_id) {
+        dictionary = {
+          ...state.devices.dictionary,
+          [device.dev_id]: device,
+        }
+      } else {
+        dictionary = {
+          ...state.devices.dictionary,
+        }
+      }
+
+      return {
+        ...state,
+        devices: {
+          list: _.uniq([...state.devices.list, ...[device.dev_id]]),
+          dictionary,
+        },
+      }
+    }
+
+    case RECEIVE_TTN_DEVICES: {
+      const incomingDictionary: TTNApplicationDictionary = _.keyBy(
+        action.payload,
+        'dev_id'
+      )
+      const incomingList: Array<string> = _.map(action.payload, 'dev_id')
+
+      return {
+        ...state,
+        devices: {
           list: incomingList,
           dictionary: incomingDictionary,
         },
