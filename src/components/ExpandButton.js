@@ -1,5 +1,7 @@
 //@flow
 
+// Not currently used, but may be useful as a template for an animated toggle [dan]
+
 import React, { Component } from 'react'
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native'
 

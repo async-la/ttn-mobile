@@ -1,10 +1,16 @@
 // @flow
 
 import React, { Component } from 'react'
-import { Animated, StyleSheet, Text, View } from 'react-native'
+import {
+  Animated,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-import ExpandButton from '../components/ExpandButton'
+import ClipboardToggle from '../components/ClipboardToggle'
 import TagLabel from '../components/TagLabel'
 import copy from '../constants/copy'
 
@@ -36,9 +42,10 @@ export default class DataListItem extends Component {
     metadataOpacity: new Animated.Value(0),
   }
   _setMetadataHeight = e => {
-    // workaround -- we only want to get the height of each element once when it loads,
-    // not each time it toggles. We also need to render it once with its full height in
-    // order to set it, before hiding the element [dan]
+    // We only want to get the height of each element once when it loads,
+    // but onLayout gets called each time it toggles.
+    // We also need to render it once with its full height in
+    // order to set the animation value before hiding the element [dan]
     if (!this.state.heightSet) {
       this.setState({
         maxHeight: e.nativeEvent.layout.height,
@@ -78,7 +85,7 @@ export default class DataListItem extends Component {
     } = this.state
     return (
       <View style={styles.container}>
-        <View style={styles.summary}>
+        <TouchableOpacity style={styles.summary} onPress={this._toggleMetadata}>
           <View style={styles.caret}>
             <Text style={styles.dataColumnHeading} />
             <FontAwesome name="caret-up" size={20} style={{ color: BLUE }} />
@@ -105,28 +112,33 @@ export default class DataListItem extends Component {
                 <Text style={styles.dataColumnHeading}>dev id</Text>
                 <Text style={styles.dataText}>{data.dev_id}</Text>
               </View>
-            </View>
-            <View style={styles.dataRow}>
               <View style={[styles.dataColumn, styles.hexLabel]}>
-                <TagLabel>{base64toHEX(data.payload_raw, true)}</TagLabel>
-              </View>
-              <View style={styles.expandButton}>
-                <ExpandButton onPress={this._toggleMetadata} />
+                <TagLabel style={{ marginTop: 10 }}>
+                  {base64toHEX(data.payload_raw, true)}
+                </TagLabel>
               </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
 
         {metadataVisible &&
           <Animated.View
             onLayout={this._setMetadataHeight}
             style={[
               styles.metadataOuter,
-              heightSet && { height: metadataHeight },
+              // Hacky way to avoid seeing a flash of white during the initial
+              // render when we get height for accordion animation from onLayout. [dan]
+              !heightSet
+                ? { position: 'absolute' }
+                : { height: metadataHeight, position: 'relative' },
               { opacity: metadataOpacity, padding: 20 },
             ]}
           >
-            <Text style={styles.dataColumnHeading}>{copy.METADATA}</Text>
+            <Text style={styles.dataColumnHeading}>Payload</Text>
+            <ClipboardToggle value={base64toHEX(data.payload_raw)} />
+            <Text style={[styles.dataColumnHeading, styles.metadataTitle]}>
+              {copy.METADATA}
+            </Text>
             <View style={styles.metadataInner}>
               <Text style={{ margin: 20, padding: 20 }}>
                 {JSON.stringify(data.metadata, null, 2)}
@@ -152,6 +164,7 @@ const styles = StyleSheet.create({
   },
   dataRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: 10,
@@ -190,5 +203,8 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
     padding: 20,
+  },
+  metadataTitle: {
+    marginTop: 10,
   },
 })
