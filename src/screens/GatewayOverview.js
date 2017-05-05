@@ -17,7 +17,7 @@ import { LATO_REGULAR } from '../constants/fonts'
 
 import ClipboardToggle from '../components/ClipboardToggle'
 import ContentBlock from '../components/ContentBlock'
-import StatusDot from '../components/StatusDot'
+import GatewayStatusDot from '../components/GatewayStatusDot'
 import TagLabel from '../components/TagLabel'
 
 import copy from '../constants/copy'
@@ -39,8 +39,6 @@ type State = {
   initialLoad: boolean,
   isRefreshing: boolean,
 }
-
-const LAST_SEEN_LIMIT_MSECS = 1000 * 60 // 1 minute
 
 class GatewayOverview extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -67,17 +65,16 @@ class GatewayOverview extends Component {
       this.setState({ initialLoad: true })
     }
   }
-  _renderStatus(lastSeen, isAlive) {
-    lastSeen = moment(lastSeen)
-    // always print actual seconds instead of 'a few seconds ago'
+  _renderStatus(gateway: TTNGateway) {
+    const lastSeen = gateway.status && gateway.status.time / (1000 * 1000)
 
+    // always print actual seconds instead of 'a few seconds ago'
     moment.relativeTimeThreshold('ss', 0)
-    const statusMsg = lastSeen.toObject().years === 0
-      ? copy.NEVER_SEEN
-      : lastSeen.fromNow()
+
+    const statusMsg = lastSeen ? moment(lastSeen).fromNow() : copy.NEVER_SEEN
     return (
       <View style={styles.statusContainer}>
-        <StatusDot downColor={MID_GREY} up={isAlive} upColor={BLUE} />
+        <GatewayStatusDot gateway={gateway} />
         <Text style={styles.statusMsg}>{statusMsg}</Text>
       </View>
     )
@@ -85,8 +82,7 @@ class GatewayOverview extends Component {
 
   render() {
     const { gateway } = this.props
-    const isAlive =
-      Date.now() - gateway.status.time / (1000 * 1000) < LAST_SEEN_LIMIT_MSECS
+
     if (!this.state.initialLoad) {
       return <ActivityIndicator size="large" style={{ flex: 1 }} />
     } else if (this.state.initialLoad && !gateway) {
@@ -129,11 +125,15 @@ class GatewayOverview extends Component {
 
           <ContentBlock heading={copy.STATUS}>
             <Text style={styles.header}>Connection</Text>
-            {this._renderStatus(gateway.status.time / (1000 * 1000), isAlive)}
+            {this._renderStatus(gateway)}
             <Text style={styles.header}>Received Messages</Text>
-            <Text style={styles.content}>{gateway.status.rx_ok}</Text>
+            <Text style={styles.content}>
+              {gateway.status ? gateway.status.rx_ok : 0}
+            </Text>
             <Text style={styles.header}>Transmitted Messages</Text>
-            <Text style={styles.content}>{gateway.status.tx_in}</Text>
+            <Text style={styles.content}>
+              {gateway.status ? gateway.status.tx_in : 0}
+            </Text>
           </ContentBlock>
 
           <ContentBlock heading={copy.INFORMATION}>
@@ -148,41 +148,47 @@ class GatewayOverview extends Component {
           </ContentBlock>
 
           <ContentBlock heading={copy.LOCATION}>
-            <Text style={styles.header}>Antenna placement</Text>
-            <Text style={styles.content}>{gateway.attributes.placement}</Text>
-            <Text style={styles.header}>Altitude</Text>
-            <Text style={styles.content}>
-              {gateway.antenna_location.altitude}
-            </Text>
-            <View style={styles.mapContainer}>
-              <MapView
-                scrollEnabled={false}
-                style={styles.map}
-                initialRegion={{
-                  latitude: gateway.antenna_location.latitude,
-                  longitude: gateway.antenna_location.longitude,
-                  latitudeDelta: 0.02,
-                  longitudeDelta: 0.02,
-                }}
-              >
-                <MapView.Marker
-                  anchor={{ x: 0.5, y: 1 }}
-                  centerOffset={{ x: 0.5, y: 1 }}
-                  coordinate={{
-                    latitude: gateway.antenna_location.latitude,
-                    longitude: gateway.antenna_location.longitude,
-                  }}
-                  title={gateway.id}
-                  description={gateway.attributes.description}
-                >
-                  <Ionicons
-                    name={'ios-pin'}
-                    style={{ color: BLUE }}
-                    size={50}
-                  />
-                </MapView.Marker>
-              </MapView>
-            </View>
+            {gateway.antenna_location
+              ? <View>
+                  <Text style={styles.header}>Antenna placement</Text>
+                  <Text style={styles.content}>
+                    {gateway.attributes.placement}
+                  </Text>
+                  <Text style={styles.header}>Altitude</Text>
+                  <Text style={styles.content}>
+                    {gateway.antenna_location.altitude}
+                  </Text>
+                  <View style={styles.mapContainer}>
+                    <MapView
+                      scrollEnabled={false}
+                      style={styles.map}
+                      initialRegion={{
+                        latitude: gateway.antenna_location.latitude,
+                        longitude: gateway.antenna_location.longitude,
+                        latitudeDelta: 0.02,
+                        longitudeDelta: 0.02,
+                      }}
+                    >
+                      <MapView.Marker
+                        anchor={{ x: 0.5, y: 1 }}
+                        centerOffset={{ x: 0.5, y: 1 }}
+                        coordinate={{
+                          latitude: gateway.antenna_location.latitude,
+                          longitude: gateway.antenna_location.longitude,
+                        }}
+                        title={gateway.id}
+                        description={gateway.attributes.description}
+                      >
+                        <Ionicons
+                          name={'ios-pin'}
+                          style={{ color: BLUE }}
+                          size={50}
+                        />
+                      </MapView.Marker>
+                    </MapView>
+                  </View>
+                </View>
+              : <Text>{copy.NOT_FOUND}</Text>}
           </ContentBlock>
         </ScrollView>
       )

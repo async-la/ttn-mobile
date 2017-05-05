@@ -14,7 +14,7 @@ export type TTNGateway = {
   location_public: boolean,
   status_public: boolean,
   owner_public: boolean,
-  antenna_location: {
+  antenna_location?: {
     longitude: number,
     latitude: number,
     altitude: number,
@@ -36,7 +36,7 @@ export type TTNGateway = {
   fallback_routers: Array<Router>,
   owner: { id: string, username: string },
   rights: ?Array<string>,
-  status: {
+  status: ?{
     time: number,
     gps: { altitude: number },
     rx_ok: number,
