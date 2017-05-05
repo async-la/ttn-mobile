@@ -11,6 +11,7 @@ import DeviceOverview from '../../screens/DeviceOverview'
 import DeviceSettings from '../../screens/DeviceSettings'
 import DeviceDetailPlaceholder from '../../screens/DeviceDetailPlaceholder'
 import GatewayList from '../../screens/GatewayList'
+import GatewayOverview from '../../screens/GatewayOverview'
 import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
 import ProfileOverview from '../../screens/ProfileOverview'
 
@@ -144,12 +145,13 @@ const DeviceDetail = TabNavigator(
     tabBarOptions: {
       labelStyle: {
         fontFamily: LATO_REGULAR,
+        color: BLUE,
       },
       style: {
-        backgroundColor: BLUE,
+        backgroundColor: WHITE,
       },
       indicatorStyle: {
-        backgroundColor: WHITE,
+        backgroundColor: BLUE,
       },
     },
   }
@@ -171,7 +173,7 @@ const Applications = StackNavigator({
 const GatewayDetail = TabNavigator(
   {
     [OVERVIEW]: {
-      screen: GatewayDetailPlaceholder,
+      screen: GatewayOverview,
       navigationOptions: {
         tabBarLabel: OVERVIEW_LABEL,
       },
@@ -194,12 +196,19 @@ const GatewayDetail = TabNavigator(
     order: [OVERVIEW, TRAFFIC, SETTINGS],
     tabBarComponent: TabView.TabBarTop,
     tabBarPosition: 'top',
+    lazyLoad: true,
     animationEnabled: true,
     swipeEnabled: true,
     pressOpacity: 0.2,
     tabBarOptions: {
       labelStyle: {
         fontFamily: LATO_REGULAR,
+      },
+      style: {
+        backgroundColor: BLUE,
+      },
+      indicatorStyle: {
+        backgroundColor: WHITE,
       },
       scrollEnabled: true,
     },

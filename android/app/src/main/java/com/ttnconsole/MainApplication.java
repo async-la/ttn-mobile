@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
 import com.imagepicker.ImagePickerPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -54,7 +55,8 @@ public class MainApplication extends Application implements ReactApplication {
           new SvgPackage(),
           new RNSentryPackage(),
           new TTNMQTTPackage(),
-          new VectorIconsPackage()
+          new VectorIconsPackage(),
+          new MapsPackage()
       );
     }
   };

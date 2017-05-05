@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from 'react-native'
+import { connect } from 'react-redux'
 
 import AddButton from '../components/AddButton'
 import ApplicationForm from '../components/ApplicationForm'
@@ -19,13 +20,17 @@ import { LIGHT_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
-import { connect } from 'react-redux'
+
+import type { Connector } from 'react-redux'
+
+type OwnProps = {
+  navigation: Object,
+}
 
 type Props = {
   applications: Object,
   getApplicationsAsync: typeof TTNApplicationActions.getApplicationsAsync,
-  navigation: Object,
-}
+} & OwnProps
 
 type State = {
   initialLoad: boolean,
@@ -37,14 +42,12 @@ class ApplicationsList extends Component {
   static navigationOptions = {
     title: APPLICATIONS_LABEL,
   }
-
   props: Props
   state: State = {
     initialLoad: false,
     modalVisible: false,
     isRefreshing: false,
   }
-
   componentDidMount() {
     this._fetchApplications(true)
   }
@@ -60,7 +63,6 @@ class ApplicationsList extends Component {
       this.setState({ initialLoad: true })
     }
   }
-
   _renderApplicationRow(id) {
     const application = this.props.applications.dictionary[id]
     return (
@@ -131,12 +133,13 @@ class ApplicationsList extends Component {
 
 const Separator = () => <View style={styles.separator} />
 
-export default connect(
+const connector: Connector<OwnProps, Props> = connect(
   state => ({
     applications: state.content.applications,
   }),
   TTNApplicationActions
-)(ApplicationsList)
+)
+export default connector(ApplicationsList)
 
 const styles = StyleSheet.create({
   container: {

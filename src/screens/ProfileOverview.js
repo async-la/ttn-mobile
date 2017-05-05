@@ -1,7 +1,7 @@
 //@flow
 
 import React, { Component } from 'react'
-import { Platform, StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
 
 import { WHITE } from '../constants/colors'
 
@@ -16,18 +16,15 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import * as authActions from '../scopes/auth/actions'
 import { connect } from 'react-redux'
 
-import type { State as deviceState } from '../scopes/device/reducer'
 import type { User } from '../scopes/auth/types'
 
 const BUTTON_SIZE = 60
 
 type Props = {
-  device: deviceState,
   deleteUserAvatarAsync: typeof authActions.deleteUserAvatarAsync,
   getUserAsync: typeof authActions.getUserAsync,
   updateUserAsync: typeof authActions.updateUserAsync,
   uploadUserAvatar: typeof authActions.uploadUserAvatar,
-  navigation: Object,
   user: User,
 }
 
@@ -39,7 +36,6 @@ type State = {
 
 class ProfileOverview extends Component {
   static navigationOptions = ({ navigation }) => {
-    const { state } = navigation
     return {
       headerRight: (
         <Text
@@ -50,7 +46,6 @@ class ProfileOverview extends Component {
         </Text>
       ),
       title: 'My Profile',
-      tabBarVisible: state.params ? !state.params.keyboardVisible : true,
     }
   }
   _usernameInput: TextInput
@@ -69,21 +64,6 @@ class ProfileOverview extends Component {
   }
   componentDidMount() {
     this.props.getUserAsync()
-  }
-
-  componentWillReceiveProps(nextProps) {
-    /* @NOTE: On Android devices the tab bar floats above the keyboard when active.
-    * We use `setParams` to set whether or not the keyboard is visible.
-    * Above, in `navigationOptions` is where we set `tabBarVisible` to params.keyboardVisible [cdro]
-    */
-
-    if (Platform.OS === 'android') {
-      if (!this.props.device.keyboard && nextProps.device.keyboard) {
-        this.props.navigation.setParams({ keyboardVisible: true })
-      } else if (this.props.device.keyboard && !nextProps.device.keyboard) {
-        this.props.navigation.setParams({ keyboardVisible: false })
-      }
-    }
   }
 
   _onChangeText = (text, formInputId) => {
@@ -132,7 +112,17 @@ class ProfileOverview extends Component {
     try {
       await this.props.updateUserAsync(payload)
       this.setState({ inProgress: false })
-      alert('Profile Updated')
+
+      if (
+        this.state.user.email !== null &&
+        this.state.user.email !== this.props.user.email
+      ) {
+        alert(
+          'Profile updated successfully. An email confirmation has been sent to your new email address.'
+        )
+      } else {
+        alert('Profile updated successfully.')
+      }
     } catch (err) {
       alert('Error updating profile. Please try again.')
       this.setState({ inProgress: false })
@@ -257,7 +247,6 @@ class ProfileOverview extends Component {
 
 export default connect(
   state => ({
-    device: state.device,
     user: state.auth.user,
   }),
   authActions

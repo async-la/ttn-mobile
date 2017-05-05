@@ -5,19 +5,32 @@ import {
   RECEIVE_TTN_APPLICATIONS,
 } from './applications/types'
 
+import { RECEIVE_TTN_GATEWAY, RECEIVE_TTN_GATEWAYS } from './gateways/types'
+
 import { RESET_AUTH } from '../auth/types'
 
 import type { TTNApplicationAction, TTNApplication } from './applications/types'
+import type { TTNGatewayAction, TTNGateway } from './gateways/types'
 import _ from 'lodash'
+
+type ContentAction = TTNApplicationAction | TTNGatewayAction
 
 type TTNApplicationDictionary = {
   [key: string]: TTNApplication,
+}
+
+type TTNGatewayDictionary = {
+  [key: string]: TTNGateway,
 }
 
 export type State = {
   applications: {
     list: Array<string>,
     dictionary: TTNApplicationDictionary,
+  },
+  gateways: {
+    list: Array<string>,
+    dictionary: TTNGatewayDictionary,
   },
 }
 
@@ -26,9 +39,13 @@ export const initialState: State = {
     list: [],
     dictionary: {},
   },
+  gateways: {
+    list: [],
+    dictionary: {},
+  },
 }
 
-export default (state: State = initialState, action: TTNApplicationAction) => {
+export default (state: State = initialState, action: ContentAction) => {
   switch (action.type) {
     case RESET_AUTH:
       return initialState
@@ -60,6 +77,39 @@ export default (state: State = initialState, action: TTNApplicationAction) => {
       return {
         ...state,
         applications: {
+          list: incomingList,
+          dictionary: incomingDictionary,
+        },
+      }
+    }
+
+    case RECEIVE_TTN_GATEWAY: {
+      const gateway = action.payload
+
+      let dictionary = {
+        ...state.gateways.dictionary,
+        [gateway.id]: gateway,
+      }
+
+      return {
+        ...state,
+        gateways: {
+          list: _.uniq([...state.gateways.list, ...[gateway.id]]),
+          dictionary,
+        },
+      }
+    }
+
+    case RECEIVE_TTN_GATEWAYS: {
+      const incomingDictionary: TTNGatewayDictionary = _.keyBy(
+        action.payload,
+        'id'
+      )
+      const incomingList: Array<string> = _.map(action.payload, 'id')
+
+      return {
+        ...state,
+        gateways: {
           list: incomingList,
           dictionary: incomingDictionary,
         },
