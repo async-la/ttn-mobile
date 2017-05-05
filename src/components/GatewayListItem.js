@@ -3,14 +3,12 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-import StatusDot from '../components/StatusDot'
+import GatewayStatusDot from '../components/GatewayStatusDot'
 import TagLabel from '../components/TagLabel'
 
 import { GATEWAY_DETAIL } from '../scopes/navigation/constants'
-import { BLUE, MID_GREY, WHITE } from '../constants/colors'
+import { MID_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
-
-const LAST_SEEN_LIMIT_MSECS = 1000 * 60 // 1 minute
 
 import type { TTNGateway } from '../scopes/content/gateways/types'
 
@@ -30,8 +28,6 @@ export default class GatewayListItem extends Component {
   }
   render() {
     const { gateway } = this.props
-    const isAlive =
-      Date.now() - gateway.status.time / (1000 * 1000) < LAST_SEEN_LIMIT_MSECS
 
     return (
       <TouchableOpacity
@@ -42,7 +38,7 @@ export default class GatewayListItem extends Component {
           <TagLabel center orange style={{ width: '50%' }}>
             {gateway.id}
           </TagLabel>
-          <StatusDot downColor={MID_GREY} up={isAlive} upColor={BLUE} />
+          <GatewayStatusDot gateway={gateway} />
         </View>
         <View style={styles.descriptionRow}>
           <Text
