@@ -139,7 +139,8 @@ class ApplicationData extends Component {
   _renderConnectionStatus = () => {
     let { connectionStatus } = this.state
 
-    if (!connectionStatus) return
+    // Handle case where application has been delted
+    if (!connectionStatus || !this.props.application) return
 
     if (!this.props.application.handler) {
       connectionStatus = 'NO REGISTERED HANLDER'
