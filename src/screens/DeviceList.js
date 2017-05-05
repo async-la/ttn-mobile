@@ -40,7 +40,7 @@ type State = {
   isRefreshing: boolean,
 }
 
-class DevicesList extends Component {
+class DeviceList extends Component {
   props: Props
   state: State = {
     authorized: false,
@@ -66,6 +66,8 @@ class DevicesList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // Handle case where application has been deleted
+    if (!nextProps.application) return
     if (!this.state.authorized || !nextProps.application.handler)
       this.setState({ addButtonDisabled: true })
     else this.setState({ addButtonDisabled: false })
@@ -187,7 +189,7 @@ export default connect(
     ],
   }),
   TTNApplicationActions
-)(DevicesList)
+)(DeviceList)
 
 const styles = StyleSheet.create({
   container: {
