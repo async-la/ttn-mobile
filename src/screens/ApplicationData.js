@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
+  Button,
   FlatList,
   NativeEventEmitter,
   NativeModules,
@@ -11,7 +12,6 @@ import {
   View,
 } from 'react-native'
 
-import ClearButton from '../components/ClearButton'
 import DataListItem from '../components/DataListItem'
 
 import {
@@ -36,6 +36,7 @@ const TTNMQTTManagerEmitter = new NativeEventEmitter(TTNMQTT)
 
 type Props = {
   application: TTNApplication,
+  navigation: Object,
 }
 
 type State = {
@@ -48,6 +49,12 @@ class ApplicationData extends Component {
   _subscriptionConnectionLoss = null
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: (navigation.state.params && navigation.state.params.appName) || '',
+    headerRight: (
+      <Button
+        title={navigation.state.params.clearTitle || ''}
+        onPress={navigation.state.params.clearData || (() => {})}
+      />
+    ),
   })
   props: Props
   state: State = {
@@ -56,7 +63,6 @@ class ApplicationData extends Component {
   }
   componentDidMount() {
     const { application } = this.props
-
     if (!hasDevicesRights(application)) {
       this.setState({ connectionStatus: UNAUTHORIZED })
       return
@@ -105,6 +111,10 @@ class ApplicationData extends Component {
   }
   _clearData = () => {
     this.setState({ data: [] })
+    this.props.navigation.setParams({
+      clearTitle: '',
+      clearData: () => {},
+    })
   }
   _handleConnectionLoss = () => {
     this.setState({ connectionStatus: CLOSED })
@@ -115,6 +125,13 @@ class ApplicationData extends Component {
   _handleIncommingMessage = message => {
     let data = this.state.data
     let parsedMessage = JSON.parse(message)
+
+    if (!this.state.data.length) {
+      this.props.navigation.setParams({
+        clearTitle: 'Clear',
+        clearData: this._clearData,
+      })
+    }
 
     data.unshift(parsedMessage)
     this.setState({ data })
@@ -175,8 +192,6 @@ class ApplicationData extends Component {
       <View style={styles.container}>
         {this._renderConnectionStatus()}
         {this._renderContent()}
-        {this.state.connectionStatus === CONNECTED &&
-          <ClearButton onPress={this._clearData} />}
       </View>
     )
   }
