@@ -120,7 +120,7 @@ class GatewayOverview extends Component {
               {gateway.router.id || 'No owner listed'}
             </Text>
             <Text style={styles.header}>Gateway key</Text>
-            <ClipboardToggle sensitive value={gateway.key} />
+            <ClipboardToggle type="base64" sensitive value={gateway.key} />
           </ContentBlock>
 
           <ContentBlock heading={copy.STATUS}>
