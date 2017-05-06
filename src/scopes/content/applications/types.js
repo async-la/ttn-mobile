@@ -16,7 +16,7 @@ export type Collaborator = {
   rights: Array<string>,
 }
 
-export type Device = {
+export type TTNDevice = {
   app_eui: ?string,
   app_id?: string,
   app_key?: string,
@@ -47,6 +47,8 @@ export type TTNApplication = {
 
 export const RECEIVE_TTN_APPLICATION = 'content/RECEIVE_TTN_APPLICATION'
 export const RECEIVE_TTN_APPLICATIONS = 'content/RECEIVE_TTN_APPLICATIONS'
+export const RECEIVE_TTN_DEVICE = 'content/RECEIVE_TTN_DEVICE'
+export const RECEIVE_TTN_DEVICES = 'content/RECEIVE_TTN_DEVICES'
 
 export type ReceiveTTNApplicationAction = {
   type: 'content/RECEIVE_TTN_APPLICATION',
@@ -58,6 +60,18 @@ export type ReceiveTTNApplicationsAction = {
   payload: Array<TTNApplication>,
 }
 
+export type ReceiveTTNDeviceAction = {
+  type: 'content/RECEIVE_TTN_DEVICE',
+  payload: TTNDevice,
+}
+
+export type ReceiveTTNDevicesAction = {
+  type: 'content/RECEIVE_TTN_DEVICES',
+  payload: Array<TTNDevice>,
+}
+
 export type TTNApplicationAction =
   | ReceiveTTNApplicationAction
   | ReceiveTTNApplicationsAction
+  | ReceiveTTNDeviceAction
+  | ReceiveTTNDevicesAction

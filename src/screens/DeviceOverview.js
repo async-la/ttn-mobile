@@ -19,24 +19,26 @@ import StatusDot from '../components/StatusDot'
 import TagLabel from '../components/TagLabel'
 import { connect } from 'react-redux'
 
-import type { Device } from '../scopes/content/applications/types'
+import type { TTNDevice } from '../scopes/content/applications/types'
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 
 import moment from 'moment'
 
+type Props = {
+  device: TTNDevice,
+  getDeviceAsync: Function,
+  navigation: Object,
+}
+
 type State = {
-  device: Device,
   isRefreshing: boolean,
 }
 
 class DeviceOverview extends Component {
   state: State = {
-    device: {
-      app_eui: null,
-      dev_id: null,
-    },
     isRefreshing: false,
   }
+  props: Props
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.device.dev_id,
   })
@@ -45,12 +47,11 @@ class DeviceOverview extends Component {
   }
 
   _getDevice = async () => {
-    const { dev_id } = this.props.navigation.state.params.device
+    const { dev_id } = this.props.device
     const { application } = this.props.navigation.state.params
     this.setState({ isRefreshing: true })
     try {
-      const device = await this.props.getDeviceAsync(application, dev_id)
-      this.setState({ device })
+      await this.props.getDeviceAsync(application, dev_id)
     } catch (err) {
       console.log('# DeviceOverview getDevice error', err)
       alert('Error: ' + err.status)
@@ -87,7 +88,8 @@ class DeviceOverview extends Component {
     this._getDevice()
   }
   render() {
-    const { device } = this.state
+    const { device } = this.props
+    if (!device) return <View />
     return (
       <View style={{ flex: 1 }}>
         {!device.dev_id
@@ -180,7 +182,14 @@ class DeviceOverview extends Component {
   }
 }
 
-export default connect(null, TTNApplicationActions)(DeviceOverview)
+export default connect(
+  (state, props) => ({
+    device: state.content.devices.dictionary[
+      props.navigation.state.params.device.dev_id
+    ],
+  }),
+  TTNApplicationActions
+)(DeviceOverview)
 
 const styles = StyleSheet.create({
   activityIndicator: {

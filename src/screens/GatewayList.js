@@ -47,7 +47,7 @@ class GatewayList extends Component {
     this._fetchGateways(true)
   }
 
-  async _fetchGateways(initialLoad = false) {
+  _fetchGateways = async (initialLoad = false) => {
     if (!initialLoad) this.setState({ isRefreshing: true })
 
     await this.props.getGatewaysAsync()
@@ -58,7 +58,6 @@ class GatewayList extends Component {
       this.setState({ initialLoad: true })
     }
   }
-
   _renderGatewayRow(id) {
     const gateway = this.props.gateways.dictionary[id]
     return (

@@ -1,7 +1,13 @@
 //@flow
 
 import React, { Component } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 
 import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LEAGUE_SPARTAN } from '../constants/fonts'
@@ -11,6 +17,8 @@ import {
   DEVICES,
   SETTINGS,
 } from '../constants/application'
+
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import CancelButton from '../components/CancelButton'
 import CheckBox from '../components/CheckBox'
@@ -119,6 +127,9 @@ class CollaboratorForm extends Component {
     return (
       <ScrollView>
         <View style={styles.header}>
+          <TouchableOpacity onPress={onCancel} style={styles.xButton}>
+            <Ionicons name={'ios-close-outline'} size={40} />
+          </TouchableOpacity>
           <Text style={styles.formTitle}>ADD COLLABORATOR</Text>
         </View>
         <View style={styles.container}>
@@ -197,6 +208,9 @@ const styles = StyleSheet.create({
   cancelButton: {
     marginRight: 20,
   },
+  xButton: {
+    marginLeft: 20,
+  },
   submitButton: {
     width: BUTTON_SIZE * 3.25,
     height: BUTTON_SIZE,
@@ -214,10 +228,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   header: {
-    paddingTop: 40,
+    paddingTop: 20,
     backgroundColor: LIGHT_GREY,
     borderColor: GREY,
     borderBottomWidth: 2,
+    flexDirection: 'row',
   },
   option: {
     borderColor: BLUE,

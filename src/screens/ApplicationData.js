@@ -7,6 +7,7 @@ import {
   FlatList,
   NativeEventEmitter,
   NativeModules,
+  Platform,
   StyleSheet,
   Text,
   View,
@@ -49,12 +50,13 @@ class ApplicationData extends Component {
   _subscriptionConnectionLoss = null
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: (navigation.state.params && navigation.state.params.appName) || '',
-    headerRight: (
-      <Button
-        title={navigation.state.params.clearTitle || ''}
-        onPress={navigation.state.params.clearData || (() => {})}
-      />
-    ),
+    headerRight: navigation.state.params.clearTitle &&
+      <View style={styles.clearButton}>
+        <Button
+          title={navigation.state.params.clearTitle || ''}
+          onPress={navigation.state.params.clearData || (() => {})}
+        />
+      </View>,
   })
   props: Props
   state: State = {
@@ -232,6 +234,9 @@ const styles = StyleSheet.create({
     fontFamily: LATO_REGULAR,
     color: 'black',
     fontSize: 30,
+  },
+  clearButton: {
+    marginRight: Platform.OS === 'android' ? 15 : 0,
   },
   list: {
     flex: 1,

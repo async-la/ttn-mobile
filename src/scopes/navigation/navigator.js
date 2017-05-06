@@ -269,6 +269,7 @@ const AppNavigator = TabNavigator(
   {
     order: [APPLICATIONS, GATEWAYS, PROFILE],
     lazyLoad: true,
+    swipeEnabled: false,
     tabBarComponent: TabView.TabBarBottom,
     tabBarPosition: 'bottom',
     tabBarOptions: {
