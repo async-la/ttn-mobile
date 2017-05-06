@@ -70,6 +70,7 @@ class DeviceList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // Handle case where application has been deleted
     if (!nextProps.application) return
     if (!this.state.authorized || !nextProps.application.handler)
       this.setState({ addButtonDisabled: true })
