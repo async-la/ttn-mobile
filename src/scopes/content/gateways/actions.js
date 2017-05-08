@@ -38,3 +38,52 @@ export function getGatewayAsync(gateway: TTNGateway) {
     }
   }
 }
+
+/**
+ * Add Gateway
+ */
+
+export function addGatewayAsync(gateway: TTNGateway) {
+  return async (
+    dispatch: Dispatch,
+    getState: GetState
+  ): Promise<TTNGateway> => {
+    try {
+      return await apiClient.post(GATEWAYS, { body: gateway })
+    } catch (err) {
+      console.log('## addGatewayAsync error', err)
+      throw err
+    }
+  }
+}
+
+/**
+ * Update Existing Gateway
+ */
+
+export function updateGatewayAsync(gateway: TTNGateway) {
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.patch(GATEWAYS + gateway.id, { body: gateway })
+    } catch (err) {
+      console.log('## updateGatewayAsync error', err)
+      throw err
+    }
+  }
+}
+
+/**
+ * Delete Gateway
+ */
+
+export function deleteGatewayAsync(gateway: TTNGateway) {
+  const { id } = gateway
+  return async (dispatch: Dispatch, getState: GetState) => {
+    try {
+      await apiClient.delete(GATEWAYS + id)
+    } catch (err) {
+      console.log('## deleteGatewayAsync error', err)
+      throw err
+    }
+  }
+}
