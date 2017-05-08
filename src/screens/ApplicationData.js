@@ -49,7 +49,10 @@ class ApplicationData extends Component {
   _subscriptionNewMessage = null
   _subscriptionConnectionLoss = null
   static navigationOptions = ({ navigation, screenProps }) => ({
-    title: (navigation.state.params && navigation.state.params.appName) || '',
+    // deviceId supersedes appId
+    title: (navigation.state.params && navigation.state.params.deviceId) ||
+      navigation.state.params.appId ||
+      '',
     headerRight: navigation.state.params.clearTitle &&
       <View style={styles.clearButton}>
         <Button
@@ -125,6 +128,7 @@ class ApplicationData extends Component {
     this.setState({ connectionStatus: status })
   }
   _handleIncommingMessage = message => {
+    const { navigation } = this.props
     let data = this.state.data
     let parsedMessage = JSON.parse(message)
 
@@ -133,6 +137,15 @@ class ApplicationData extends Component {
         clearTitle: 'Clear',
         clearData: this._clearData,
       })
+    }
+
+    // Filter out messages when in single device view
+    if (
+      navigation &&
+      navigation.state.params &&
+      navigation.state.params.deviceId !== parsedMessage.dev_id
+    ) {
+      return
     }
 
     data.unshift(parsedMessage)
