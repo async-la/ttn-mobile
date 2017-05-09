@@ -46,6 +46,7 @@ type State = {
 }
 
 class ApplicationData extends Component {
+  _mqttSession = false
   _subscriptionNewMessage = null
   _subscriptionConnectionLoss = null
   static navigationOptions = ({ navigation, screenProps }) => ({
@@ -77,13 +78,18 @@ class ApplicationData extends Component {
   }
 
   componentWillUnmount() {
+    const { application } = this.props
+
     //@NOTE: The following check is necessary when deleting an application
     if (!this.props.application || !this.props.application.handler) return
-    this._subscriptionNewMessage && this._subscriptionNewMessage.remove()
-    this._subscriptionConnectionLoss &&
-      this._subscriptionConnectionLoss.remove()
 
-    TTNMQTT.destroySessionAsync()
+    if (hasDevicesRights(application) && this._mqttSession) {
+      this._subscriptionNewMessage && this._subscriptionNewMessage.remove()
+      this._subscriptionConnectionLoss &&
+        this._subscriptionConnectionLoss.remove()
+
+      TTNMQTT.destroySessionAsync()
+    }
   }
 
   _createMQTTSession = async application => {
@@ -100,19 +106,20 @@ class ApplicationData extends Component {
         username: application.id,
         password: messageUplinkPermission.key,
       })
+      TTNMQTT.subscribeAsync(`${application.id}/devices/+/up`)
+      TTNMQTT.getSessionStatus(this._handleSessionStatusCheck)
+      this._subscriptionNewMessage = TTNMQTTManagerEmitter.addListener(
+        'newMessage',
+        this._handleIncommingMessage
+      )
+      this._subscriptionConnectionLoss = TTNMQTTManagerEmitter.addListener(
+        'connectionLost',
+        this._handleConnectionLoss
+      )
+      this._mqttSession = true
     } catch (err) {
-      console.error(err)
+      console.log(err)
     }
-    TTNMQTT.subscribeAsync(`${application.id}/devices/+/up`)
-    TTNMQTT.getSessionStatus(this._handleSessionStatusCheck)
-    this._subscriptionNewMessage = TTNMQTTManagerEmitter.addListener(
-      'newMessage',
-      this._handleIncommingMessage
-    )
-    this._subscriptionConnectionLoss = TTNMQTTManagerEmitter.addListener(
-      'connectionLost',
-      this._handleConnectionLoss
-    )
   }
   _clearData = () => {
     this.setState({ data: [] })
