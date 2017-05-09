@@ -150,6 +150,7 @@ class ApplicationData extends Component {
     if (
       navigation &&
       navigation.state.params &&
+      navigation.state.params.deviceId &&
       navigation.state.params.deviceId !== parsedMessage.dev_id
     ) {
       return
