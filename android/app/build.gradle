@@ -83,16 +83,50 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+
+/**
+ * Helper to get versionName from version.properties
+ */
+
+def getVersionProperties() {
+    def versionPropsFile = file('version.properties')
+    if (!versionPropsFile.canRead()) {
+        throw new GradleException("Could not read version.properties!")
+    }
+    def Properties versionProps = new Properties()
+    versionProps.load(new FileInputStream(versionPropsFile))
+    return versionProps
+}
+
+def getVersionName() {
+    def Properties versionProps = getVersionProperties()
+    def versionName = versionProps['versionName']
+    logger.warn('######### VERSION NAME #########')
+    logger.warn(versionName)
+    return versionName
+}
+
+def getVersionCode() {
+    def Properties versionProps = getVersionProperties()
+    def versionCode = versionProps['versionCode'] as int
+    logger.warn('######### VERSION CODE #########')
+    logger.warn(versionCode.toString())
+    return versionCode
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
+
+    def verName = getVersionName()
+    def verCode = getVersionCode()
 
     defaultConfig {
         applicationId "com.ttnconsole"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode verCode
+        versionName verName
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
