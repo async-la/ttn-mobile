@@ -23,7 +23,7 @@ const Avatar = ({ onPress, size = 40, user }: Props) => {
     borderRadius: size * 0.5,
   }
 
-  if (!user.avatarURI) return <View />
+  if (!user || !user.avatarURI) return <View />
 
   if (onPress) {
     return (
