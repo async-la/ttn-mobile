@@ -9,7 +9,6 @@ import ApplicationSettings from '../../screens/ApplicationSettings'
 import DeviceList from '../../screens/DeviceList'
 import DeviceOverview from '../../screens/DeviceOverview'
 import DeviceSettings from '../../screens/DeviceSettings'
-import DeviceDetailPlaceholder from '../../screens/DeviceDetailPlaceholder'
 import GatewayList from '../../screens/GatewayList'
 import GatewayOverview from '../../screens/GatewayOverview'
 import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
@@ -121,7 +120,7 @@ const DeviceDetail = TabNavigator(
       },
     },
     [DATA]: {
-      screen: DeviceDetailPlaceholder,
+      screen: ApplicationData,
       navigationOptions: {
         tabBarLabel: DATA_LABEL,
       },
