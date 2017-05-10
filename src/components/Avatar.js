@@ -9,7 +9,7 @@ import type { User } from '../scopes/auth/types'
 type Props = {
   onPress?: Function,
   size?: number,
-  user: User,
+  user: ?User,
 }
 
 const Avatar = ({ onPress, size = 40, user }: Props) => {
