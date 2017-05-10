@@ -56,11 +56,7 @@ class ProfileOverview extends Component {
   state: State = {
     idValid: false,
     inProgress: false,
-    user: {
-      username: null,
-      email: null,
-      name: null,
-    },
+    user: {},
   }
   componentDidMount() {
     this.props.getUserAsync()
@@ -115,7 +111,7 @@ class ProfileOverview extends Component {
 
       if (
         this.state.user.email !== null &&
-        this.state.user.email !== this.props.user.email
+        this.state.user.email !== (this.props.user && this.props.user.email)
       ) {
         alert(
           'Profile updated successfully. An email confirmation has been sent to your new email address.'
@@ -204,7 +200,7 @@ class ProfileOverview extends Component {
           id="email"
           validationType="email"
           onChangeText={this._onChangeText}
-          defaultValue={this.props.user && this.props.user.email}
+          defaultValue={this.props.user ? this.props.user.email : ''}
           value={this.state.user && this.state.user.email}
           returnKeyType="next"
           onSubmitEditing={() => this._firstNameInput.focus()}
@@ -216,9 +212,9 @@ class ProfileOverview extends Component {
           id="firstName"
           onChangeText={this._onChangeText}
           defaultValue={
-            this.props.user &&
-              this.props.user.name &&
-              this.props.user.name.first
+            this.props.user && this.props.user.name
+              ? this.props.user.name.first
+              : ''
           }
           value={this.state.user && this.state.user.firstName}
           returnKeyType="next"
@@ -231,7 +227,9 @@ class ProfileOverview extends Component {
           id="lastName"
           onChangeText={this._onChangeText}
           defaultValue={
-            this.props.user && this.props.user.name && this.props.user.name.last
+            this.props.user && this.props.user.name
+              ? this.props.user.name.last
+              : ''
           }
           value={this.state.user && this.state.user.lastName}
           returnKeyType="done"
