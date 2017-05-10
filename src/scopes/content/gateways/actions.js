@@ -49,7 +49,9 @@ export function addGatewayAsync(gateway: TTNGateway) {
     getState: GetState
   ): Promise<TTNGateway> => {
     try {
-      return await apiClient.post(GATEWAYS, { body: gateway })
+      const payload = await apiClient.post(GATEWAYS, { body: gateway })
+      await dispatch({ type: 'content/RECEIVE_TTN_GATEWAY', payload })
+      return payload
     } catch (err) {
       console.log('## addGatewayAsync error', err)
       throw err
@@ -64,7 +66,11 @@ export function addGatewayAsync(gateway: TTNGateway) {
 export function updateGatewayAsync(gateway: TTNGateway) {
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
-      await apiClient.patch(GATEWAYS + gateway.id, { body: gateway })
+      const payload = await apiClient.patch(GATEWAYS + gateway.id, {
+        body: gateway,
+      })
+      await dispatch({ type: 'content/RECEIVE_TTN_GATEWAY', payload })
+      return payload
     } catch (err) {
       console.log('## updateGatewayAsync error', err)
       throw err
@@ -81,6 +87,7 @@ export function deleteGatewayAsync(gateway: TTNGateway) {
   return async (dispatch: Dispatch, getState: GetState) => {
     try {
       await apiClient.delete(GATEWAYS + id)
+      return dispatch(getGatewaysAsync())
     } catch (err) {
       console.log('## deleteGatewayAsync error', err)
       throw err

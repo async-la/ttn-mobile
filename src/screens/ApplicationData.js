@@ -26,7 +26,7 @@ import { LATO_REGULAR } from '../constants/fonts'
 import { connect } from 'react-redux'
 import { getApplicationMQTTHost } from '../utils/dataMonitor'
 import {
-  hasDevicesRights,
+  applicationHasDevicesRights,
   getMessageUplinkPermission,
 } from '../utils/permissionCheck'
 
@@ -69,7 +69,7 @@ class ApplicationData extends Component {
   }
   componentDidMount() {
     const { application } = this.props
-    if (!hasDevicesRights(application)) {
+    if (!applicationHasDevicesRights(application)) {
       this.setState({ connectionStatus: UNAUTHORIZED })
       return
     }
@@ -83,7 +83,7 @@ class ApplicationData extends Component {
     //@NOTE: The following check is necessary when deleting an application
     if (!this.props.application || !this.props.application.handler) return
 
-    if (hasDevicesRights(application) && this._mqttSession) {
+    if (applicationHasDevicesRights(application) && this._mqttSession) {
       this._subscriptionNewMessage && this._subscriptionNewMessage.remove()
       this._subscriptionConnectionLoss &&
         this._subscriptionConnectionLoss.remove()

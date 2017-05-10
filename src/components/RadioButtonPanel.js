@@ -24,7 +24,7 @@ const RadioButtonPanel = ({ buttons, onSelect, selected }: Props) => {
         return (
           <RadioButton
             key={i}
-            onPress={button => onSelect(button)}
+            onPress={button => onSelect && onSelect(button)}
             primaryText={button.label}
             selected={button.value === selected}
             value={button.value}

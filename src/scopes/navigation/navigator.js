@@ -11,6 +11,7 @@ import DeviceOverview from '../../screens/DeviceOverview'
 import DeviceSettings from '../../screens/DeviceSettings'
 import GatewayList from '../../screens/GatewayList'
 import GatewayOverview from '../../screens/GatewayOverview'
+import GatewaySettings from '../../screens/GatewaySettings'
 import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
 import ProfileOverview from '../../screens/ProfileOverview'
 
@@ -184,7 +185,7 @@ const GatewayDetail = TabNavigator(
       },
     },
     [SETTINGS]: {
-      screen: GatewayDetailPlaceholder,
+      screen: GatewaySettings,
       navigationOptions: {
         tabBarLabel: SETTINGS_LABEL,
       },

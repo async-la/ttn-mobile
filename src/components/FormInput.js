@@ -10,7 +10,7 @@ import {
   LIGHT_GREY,
   GREY,
 } from '../constants/colors'
-import { validationTypes } from '../constants/application'
+import { validationTypes } from '../constants/validation'
 
 import ErrorText from './ErrorText'
 
@@ -19,6 +19,7 @@ import {
   validateApplicationDescription,
   validateDeviceId,
   validateEmailAddress,
+  validateNumber,
   validateNotEmpty,
 } from '../utils/validations'
 
@@ -26,6 +27,7 @@ type Props = {
   id?: any,
   defaultValue?: string,
   editable?: boolean,
+  keyboardType?: string,
   multiline?: boolean,
   onChangeText?: (text: string, formInputId: any) => any,
   onSubmitEditing?: Function,
@@ -40,7 +42,7 @@ type Props = {
     | typeof validationTypes.EMAIL
     | typeof validationTypes.NONE
     | typeof validationTypes.USERNAME,
-  value: ?string,
+  value: ?string | ?number,
 }
 
 class FormInput extends Component {
@@ -51,7 +53,7 @@ class FormInput extends Component {
     validationMsg: '',
     hasEnteredText: false,
   }
-  _onChangeText = text => {
+  _onChangeText = (text: string) => {
     const { validationType } = this.props
     switch (validationType) {
       case validationTypes.ACCESS_KEY:
@@ -84,6 +86,10 @@ class FormInput extends Component {
       case validationTypes.EMAIL:
         validation = validateEmailAddress(value)
         break
+      case validationTypes.NUMBER:
+        validation = validateNumber(value)
+        break
+      case validationTypes.GATEWAY_DESCRIPTION:
       default:
         validation = required ? validateNotEmpty(value) : getValidResponse()
     }
@@ -92,20 +98,22 @@ class FormInput extends Component {
     onValidate && onValidate(!isInvalid, id)
   }
   isFocused = () => {
-    return this._textInput.isFocused()
+    return this._textInput && this._textInput.isFocused()
   }
   focus = () => {
-    return this._textInput.focus()
+    return this._textInput && this._textInput.focus()
   }
   render() {
     const {
       defaultValue,
       editable,
+      keyboardType = 'default',
       multiline,
       onSubmitEditing,
       returnKeyType,
-      value,
+      value = '',
     } = this.props
+    const stringifiedVal = String(value)
     return (
       <View>
         <TextInput
@@ -114,13 +122,14 @@ class FormInput extends Component {
           autoCorrect={false}
           defaultValue={defaultValue}
           editable={editable}
+          keyboardType={keyboardType}
           multiline={multiline}
           onChangeText={this._onChangeText}
-          onBlur={() => this._validateText(value)}
+          onBlur={() => this._validateText(stringifiedVal)}
           onSubmitEditing={onSubmitEditing}
           returnKeyType={returnKeyType}
           underlineColorAndroid={this.state.isInvalid ? RED : DARK_GREY}
-          value={value}
+          value={stringifiedVal}
           style={[
             styles.textInput,
             this.state.isInvalid && styles.invalidInput,

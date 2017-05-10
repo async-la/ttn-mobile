@@ -23,7 +23,7 @@ import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { connect } from 'react-redux'
-import { hasDevicesRights } from '../utils/permissionCheck'
+import { applicationHasDevicesRights } from '../utils/permissionCheck'
 import _ from 'lodash'
 
 import type { TTNDevice } from '../scopes/content/applications/types'
@@ -60,7 +60,7 @@ class DeviceList extends Component {
   componentWillMount() {
     const { application } = this.props
 
-    if (hasDevicesRights(application)) {
+    if (applicationHasDevicesRights(application)) {
       this.setState({ authorized: true })
     } else if (!application.handler) {
       this.setState({ addButtonDisabled: true })
