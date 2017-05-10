@@ -52,7 +52,7 @@ class ApplicationData extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     // deviceId supersedes appId
     title: (navigation.state.params && navigation.state.params.deviceId) ||
-      navigation.state.params.appId ||
+      navigation.state.params.appName ||
       '',
     headerRight: navigation.state.params.clearTitle &&
       <View style={styles.clearButton}>
@@ -150,6 +150,7 @@ class ApplicationData extends Component {
     if (
       navigation &&
       navigation.state.params &&
+      navigation.state.params.deviceId &&
       navigation.state.params.deviceId !== parsedMessage.dev_id
     ) {
       return
