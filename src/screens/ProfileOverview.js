@@ -25,7 +25,7 @@ type Props = {
   getUserAsync: typeof authActions.getUserAsync,
   updateUserAsync: typeof authActions.updateUserAsync,
   uploadUserAvatar: typeof authActions.uploadUserAvatar,
-  user: User,
+  user: ?User,
 }
 
 type State = {
