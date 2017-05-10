@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ttnconsole"
+    package="com.async.ttn"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -44,7 +44,7 @@
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
         <meta-data
-            android:name="com.ttnconsole.codePushKey"
+            android:name="com.async.ttn.codePushKey"
             android:value="${CODE_PUSH_KEY}" />
 
     </application>
