@@ -41,6 +41,16 @@ export function validateNotEmpty(value: ?string) {
   }
 }
 
+export function validateNumber(number: ?string) {
+  const regex = /^[-]?[0-9]*\.?[0-9]+$/
+  const isInvalid = !number || !regex.test(number)
+  const validationMsg = 'Must be a number'
+  return {
+    isInvalid,
+    validationMsg,
+  }
+}
+
 export function getValidResponse() {
   return {
     isInvalid: false,

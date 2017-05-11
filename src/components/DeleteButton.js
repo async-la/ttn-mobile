@@ -39,7 +39,7 @@ class DeleteButton extends Component {
       itemToDeleteTitle = copy.THIS_ITEM,
       confirmMessage = `${copy.CONFIRM_DELETE} ${itemToDeleteTitle}?`,
       onConfirm,
-      onDeny,
+      onDeny = () => {},
     } = this.props
     ConfirmAlert({
       title: copy.CAUTION,

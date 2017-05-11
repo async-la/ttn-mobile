@@ -36,7 +36,7 @@ import TagLabel from '../components/TagLabel'
 
 import _ from 'lodash'
 import { connect } from 'react-redux'
-import { hasDeleteRights } from '../utils/permissionCheck'
+import { applicationHasDeleteRights } from '../utils/permissionCheck'
 
 import type { TTNApplication } from '../scopes/content/applications/types'
 
@@ -451,7 +451,7 @@ class ApplicationSettings extends Component {
           {application.collaborators &&
             this._renderCollaborators(application.collaborators)}
 
-          {hasDeleteRights(application) &&
+          {applicationHasDeleteRights(application) &&
             <DeleteButton
               title="DELETE APPLICATION"
               confirm

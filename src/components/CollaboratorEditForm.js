@@ -32,7 +32,7 @@ import _ from 'lodash'
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { connect } from 'react-redux'
 import type { TTNApplication } from '../scopes/content/applications/types'
-import { hasCollaboratorRights } from '../utils/permissionCheck'
+import { applicationHasCollaboratorRights } from '../utils/permissionCheck'
 
 const BUTTON_SIZE = 60
 
@@ -203,7 +203,7 @@ class CollaboratorForm extends Component {
           </View>
 
           <View>
-            {hasCollaboratorRights(application) &&
+            {applicationHasCollaboratorRights(application) &&
               <DeleteButton
                 title={copy.REMOVE_COLLABORATOR.toUpperCase()}
                 small

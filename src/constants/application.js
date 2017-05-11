@@ -35,14 +35,3 @@ export const handlers = {
   US_WEST,
   NONE,
 }
-
-// Text input validation types
-export const validationTypes = {
-  ACCESS_KEY: 'accessKey',
-  APPLICATION_ID: 'applicationId',
-  APPLICATION_DESCRIPTION: 'applicationDescription',
-  DEVICE_ID: 'deviceId',
-  EMAIL: 'email',
-  NONE: 'none',
-  USERNAME: 'username',
-}

@@ -4807,9 +4807,9 @@ react-native-image-picker@^0.26.3:
   version "0.26.3"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.26.3.tgz#0ad2eede49501a7046d8046a73813696539c3dcd"
 
-react-native-keyboard-aware-scrollview@^1.1.6:
+"react-native-keyboard-aware-scrollview@git+ssh://git@github.com/async-la/react-native-keyboard-aware-scrollview#master":
   version "1.1.6"
-  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scrollview/-/react-native-keyboard-aware-scrollview-1.1.6.tgz#3b3524ee829f19974738dc589595a2981189a662"
+  resolved "git+ssh://git@github.com/async-la/react-native-keyboard-aware-scrollview#a86bd996b32b2623685fafd80a03f2c26983fe88"
 
 react-native-maps@0.15-rc:
   version "0.15.0"

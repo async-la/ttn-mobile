@@ -20,8 +20,10 @@ import ContentBlock from '../components/ContentBlock'
 import GatewayStatusDot from '../components/GatewayStatusDot'
 import TagLabel from '../components/TagLabel'
 
+import _ from 'lodash'
 import copy from '../constants/copy'
 import { connect } from 'react-redux'
+import { frequencyPlans, routers } from '../constants/gateway'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -82,6 +84,16 @@ class GatewayOverview extends Component {
 
   render() {
     const { gateway } = this.props
+    if (!gateway) return <View />
+
+    const frequencyPlanObj = _.find(frequencyPlans, {
+      value: gateway.frequency_plan,
+    })
+    const frequencyPlan = frequencyPlanObj
+      ? frequencyPlanObj.label
+      : 'No frequency plan listed'
+    const routerObj = _.find(routers, { value: gateway.router.id })
+    const router = routerObj ? routerObj.label : 'No router listed'
 
     if (!this.state.initialLoad) {
       return <ActivityIndicator size="large" style={{ flex: 1 }} />
@@ -113,11 +125,11 @@ class GatewayOverview extends Component {
             </Text>
             <Text style={styles.header}>Frequency plan</Text>
             <Text style={styles.content}>
-              {gateway.frequency_plan || 'No owner listed'}
+              {frequencyPlan}
             </Text>
             <Text style={styles.header}>Router</Text>
             <Text style={styles.content}>
-              {gateway.router.id || 'No owner listed'}
+              {router}
             </Text>
             <Text style={styles.header}>Gateway key</Text>
             <ClipboardToggle type="base64" sensitive value={gateway.key} />
