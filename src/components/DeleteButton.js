@@ -48,6 +48,7 @@ class DeleteButton extends Component {
       denyButtonTitle: copy.CANCEL,
       onConfirm,
       onDeny,
+      style: 'destructive',
     })
   }
   _onPress = () => {

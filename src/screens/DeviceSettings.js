@@ -266,16 +266,6 @@ class DeviceSettings extends Component {
                 />
                 {!this.state.frameCounterChecks &&
                   <WarningText>{copy.FRAME_COUNTER_CHECK_WARNING}</WarningText>}
-                <DeleteButton
-                  title={`${copy.DELETE} ${copy.DEVICE}`.toUpperCase()}
-                  confirm
-                  small
-                  inProgress={this.state.inProgressDelete}
-                  itemToDeleteTitle={`${copy.DEVICE} ${device.dev_id || ''}`}
-                  onConfirm={this._deleteDevice}
-                  onDeny={this._cancelDeleteDevice}
-                  style={styles.deleteDeviceButton}
-                />
 
                 <SubmitButton
                   active={this._settingsHaveChanged()}
@@ -285,6 +275,17 @@ class DeviceSettings extends Component {
                   title={copy.SAVE}
                 />
               </ContentBlock>
+
+              <DeleteButton
+                title={`${copy.DELETE} ${copy.DEVICE}`.toUpperCase()}
+                confirm
+                small
+                inProgress={this.state.inProgressDelete}
+                itemToDeleteTitle={`${copy.DEVICE} ${device.dev_id || ''}`}
+                onConfirm={this._deleteDevice}
+                onDeny={this._cancelDeleteDevice}
+                style={styles.deleteDeviceButton}
+              />
 
             </ScrollView>}
       </View>
@@ -312,10 +313,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   deleteDeviceButton: {
-    alignSelf: 'flex-start',
-    marginTop: 30,
-    marginBottom: 50,
-    marginLeft: 10,
+    alignSelf: 'center',
+    marginVertical: 30,
   },
   clipBoardRow: {
     flexDirection: 'row',
@@ -325,9 +324,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   submitButton: {
-    width: BUTTON_SIZE * 4,
+    width: BUTTON_SIZE * 3,
     height: BUTTON_SIZE,
-    alignSelf: 'center',
+    alignSelf: 'flex-end',
+    marginTop: 30,
     marginBottom: 15,
   },
 })

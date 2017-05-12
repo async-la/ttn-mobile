@@ -8,6 +8,7 @@ type Props = {
   denyButtonTitle?: string,
   onConfirm?: () => any,
   onDeny?: () => any,
+  style?: string,
 }
 
 const ConfirmAlert = ({
@@ -15,12 +16,13 @@ const ConfirmAlert = ({
   message = 'Are you sure?',
   confirmButtonTitle = 'OK',
   denyButtonTitle = 'Cancel',
+  style = 'default',
   onConfirm = () => {},
   onDeny = () => {},
 }: Props) => {
   Alert.alert(title, message, [
-    { text: denyButtonTitle, onPress: onDeny },
-    { text: confirmButtonTitle, onPress: onConfirm },
+    { text: denyButtonTitle, onPress: onDeny, style: 'cancel' },
+    { text: confirmButtonTitle, onPress: onConfirm, style },
   ])
   return null
 }
