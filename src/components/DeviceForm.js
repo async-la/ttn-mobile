@@ -230,6 +230,8 @@ const styles = StyleSheet.create({
   },
   xButton: {
     marginLeft: 20,
+    paddingRight: 20,
+    paddingVertical: 10,
   },
   submitButton: {
     width: BUTTON_SIZE * 3.5,
@@ -245,8 +247,6 @@ const styles = StyleSheet.create({
     color: BLUE,
     fontFamily: LEAGUE_SPARTAN,
     fontSize: 22,
-    marginLeft: 20,
-    marginBottom: 15,
   },
   header: {
     paddingTop: 20,
@@ -254,6 +254,8 @@ const styles = StyleSheet.create({
     borderColor: GREY,
     borderBottomWidth: 2,
     flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
   },
   noEUIButton: {
     padding: 10,
