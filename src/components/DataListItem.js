@@ -84,7 +84,7 @@ export default class DataListItem extends Component {
       metadataVisible,
     } = this.state
     return (
-      <View style={styles.container}>
+      <View key={data.metadata.time} style={styles.container}>
         <TouchableOpacity style={styles.summary} onPress={this._toggleMetadata}>
           <View style={styles.caret}>
             <Text style={styles.dataColumnHeading} />
