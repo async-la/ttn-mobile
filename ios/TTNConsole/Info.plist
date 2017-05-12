@@ -88,11 +88,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CodePushDeploymentKey</key>
-	<string>$(CODE_PUSH_KEY)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Upload profile photo</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Upload profile photo</string>
+	<key>CodePushDeploymentKey</key>
+	<string>$(CODE_PUSH_KEY)</string>
+	<key>FacebookAppID</key>
+	<string>$(FACEBOOK_APP_ID)</string>
+	<key>FacebookDisplayName</key>
+	<string>The Things Network</string>
 </dict>
 </plist>
