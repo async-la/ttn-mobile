@@ -65,16 +65,24 @@ class DeviceList extends Component {
     } else if (!application.handler) {
       this.setState({ addButtonDisabled: true })
     }
-
     this._fetchApplicationDevices(true)
   }
 
   componentWillReceiveProps(nextProps) {
     // Handle case where application has been deleted
     if (!nextProps.application) return
-    if (!this.state.authorized || !nextProps.application.handler)
+
+    if (applicationHasDevicesRights(nextProps.application)) {
+      this.setState({ authorized: true })
+    } else {
+      this.setState({ authorized: false })
+    }
+
+    if (!nextProps.application.handler) {
       this.setState({ addButtonDisabled: true })
-    else this.setState({ addButtonDisabled: false })
+    } else {
+      this.setState({ addButtonDisabled: false })
+    }
   }
 
   _fetchApplicationDevices = async (initialLoad = false) => {
@@ -152,7 +160,7 @@ class DeviceList extends Component {
     ) {
       return (
         <TouchableOpacity onPress={this._fetchApplicationDevices}>
-          <Text>No Devices found. Tap here to refresh</Text>
+          <Text>No Devices found. Try adding one!</Text>
         </TouchableOpacity>
       )
     } else {
