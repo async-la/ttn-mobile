@@ -26,9 +26,12 @@ import * as permissionCheck from '../utils/permissionCheck'
 import * as TTNGatewayActions from '../scopes/content/gateways/actions'
 
 const DEFAULT_LOCATION = {
-  latitude: 34,
-  longitude: -118,
+  latitude: 39.8282,
+  longitude: -98.5795,
 }
+
+const ZOOMED_IN_DELTA = 0.02
+const ZOOMED_OUT_DELTA = 30
 
 const DEFAULT_ALTITUDE = 0
 const BUTTON_SIZE = 60
@@ -39,6 +42,7 @@ class GatewaySettings extends Component {
   })
   state = {
     mapEditEnabled: false,
+    hasLocation: false,
     autoUpdate: false,
     description: '',
     descriptionValid: true,
@@ -82,13 +86,14 @@ class GatewaySettings extends Component {
     const freqPlan = gateway.frequency_plan
     const description = gateway.attributes.description
     const router = gateway.router.id
-    const location = gateway.antenna_location
+    const hasLocation = !!gateway.antenna_location
+    const location = hasLocation
       ? {
           latitude: gateway.antenna_location.latitude,
           longitude: gateway.antenna_location.longitude,
         }
       : DEFAULT_LOCATION
-    const altitude = gateway.antenna_location
+    const altitude = hasLocation
       ? gateway.antenna_location.altitude
       : DEFAULT_ALTITUDE
     const antennaPlacement = gateway.attributes.placement
@@ -100,6 +105,7 @@ class GatewaySettings extends Component {
     const antenna = gateway.attributes.antenna ? gateway.attributes.antenna : ''
 
     this.setState({
+      hasLocation,
       autoUpdate,
       originalAutoUpdate: autoUpdate,
       freqPlan,
@@ -308,15 +314,23 @@ class GatewaySettings extends Component {
       this.setState({ inProgressDelete: false })
     }
   }
-  _resetMap = () => {
+  _resetMap = async () => {
+    if (this.state.originalLocation === DEFAULT_LOCATION)
+      await this.setState({ hasLocation: false })
     this.setState({
       location: this.state.originalLocation,
     })
     this._mapView &&
-      this._mapView.animateToCoordinate(
+      this._mapView.animateToRegion(
         {
           latitude: this.state.originalLocation.latitude,
           longitude: this.state.originalLocation.longitude,
+          latitudeDelta: this.state.hasLocation
+            ? ZOOMED_IN_DELTA
+            : ZOOMED_OUT_DELTA,
+          longitudeDelta: this.state.hasLocation
+            ? ZOOMED_IN_DELTA
+            : ZOOMED_OUT_DELTA,
         },
         500
       )
@@ -401,14 +415,21 @@ class GatewaySettings extends Component {
                 ref={i => (this._mapView = i)}
                 style={styles.map}
                 scrollEnabled={this.state.mapEditEnabled}
+                pitchEnabled={false}
                 initialRegion={{
                   latitude: this.state.location.latitude,
                   longitude: this.state.location.longitude,
-                  latitudeDelta: 0.02,
-                  longitudeDelta: 0.02,
+                  latitudeDelta: this.state.hasLocation
+                    ? ZOOMED_IN_DELTA
+                    : ZOOMED_OUT_DELTA,
+                  longitudeDelta: this.state.hasLocation
+                    ? ZOOMED_IN_DELTA
+                    : ZOOMED_OUT_DELTA,
                 }}
                 onPress={e => {
                   if (this.state.mapEditEnabled) {
+                    if (!this.state.hasLocation)
+                      this.setState({ hasLocation: true })
                     this.setState({ location: e.nativeEvent.coordinate })
                     this._mapView &&
                       this._mapView.animateToCoordinate(
@@ -417,22 +438,23 @@ class GatewaySettings extends Component {
                   }
                 }}
               >
-                <MapView.Marker
-                  anchor={{ x: 0.5, y: 1 }}
-                  centerOffset={{ x: 0.5, y: 1 }}
-                  coordinate={{
-                    latitude: this.state.location.latitude,
-                    longitude: this.state.location.longitude,
-                  }}
-                  title={gateway.id}
-                  description={gateway.attributes.description}
-                >
-                  <Ionicons
-                    name={'ios-pin'}
-                    style={{ color: BLUE }}
-                    size={50}
-                  />
-                </MapView.Marker>
+                {this.state.hasLocation &&
+                  <MapView.Marker
+                    anchor={{ x: 0.5, y: 1 }}
+                    centerOffset={{ x: 0.5, y: 1 }}
+                    coordinate={{
+                      latitude: this.state.location.latitude,
+                      longitude: this.state.location.longitude,
+                    }}
+                    title={gateway.id}
+                    description={gateway.attributes.description}
+                  >
+                    <Ionicons
+                      name={'ios-pin'}
+                      style={{ color: BLUE }}
+                      size={50}
+                    />
+                  </MapView.Marker>}
               </MapView>
               <TouchableOpacity
                 style={{

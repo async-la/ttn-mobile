@@ -454,6 +454,7 @@ class ApplicationSettings extends Component {
           {applicationHasDeleteRights(application) &&
             <DeleteButton
               title="DELETE APPLICATION"
+              small
               confirm
               inProgress={this.state.inProgressDelete}
               itemToDeleteTitle={`application ${application.id}`}
@@ -528,15 +529,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   submitButton: {
-    width: BUTTON_SIZE * 2,
+    width: BUTTON_SIZE * 3,
     height: BUTTON_SIZE,
     marginBottom: 15,
+    alignSelf: 'flex-end',
   },
   deleteButton: {
-    width: BUTTON_SIZE * 4,
-    height: BUTTON_SIZE,
     alignSelf: 'center',
-    marginBottom: 15,
+    marginVertical: 30,
   },
   euiRow: {
     flexDirection: 'row',
