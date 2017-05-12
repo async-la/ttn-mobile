@@ -47,6 +47,10 @@
             android:name="com.async.ttn.codePushKey"
             android:value="${CODE_PUSH_KEY}" />
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="${FACEBOOK_APP_ID}"/>
+
     </application>
 
 </manifest>

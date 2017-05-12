@@ -15,11 +15,17 @@
 #import <React/RCTRootView.h>
 
 #import <React/RNSentry.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+  // Facebook
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                           didFinishLaunchingWithOptions:launchOptions];
+  
   NSURL *jsCodeLocation;
 
   
@@ -52,7 +58,23 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                 openURL:url
+                                       sourceApplication:sourceApplication
+                                              annotation:annotation];
+  
   return [RCTLinkingManager application:application openURL:url
                       sourceApplication:sourceApplication annotation:annotation];
 }
+
+/**
+ * ==========================================
+ * START applicationDidBecomeActive
+ * ==========================================
+ */
+- (void) applicationDidBecomeActive:(UIApplication *)application
+{
+  [FBSDKAppEvents activateApp];
+}
+
 @end

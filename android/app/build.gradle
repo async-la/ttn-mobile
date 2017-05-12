@@ -152,11 +152,13 @@ android {
       debug {
         manifestPlaceholders = [
                 CODE_PUSH_KEY: System.getenv('CODE_PUSH_KEY') ?: '',
+                FACEBOOK_APP_ID: System.getenv('FACEBOOK_APP_ID') ?: '1104749286324934',
         ]
       }
       release {
         manifestPlaceholders = [
                 CODE_PUSH_KEY: System.getenv('CODE_PUSH_KEY') ?: '',
+                FACEBOOK_APP_ID: System.getenv('FACEBOOK_APP_ID') ?: '1104749286324934',
         ]
 
         minifyEnabled enableProguardInReleaseBuilds
@@ -180,16 +182,21 @@ android {
 }
 
 dependencies {
+    compile fileTree(dir: "libs", include: ["*.jar"])
+    compile "com.facebook.react:react-native:+"  // From node_modules
+    compile "com.android.support:appcompat-v7:23.0.1"
+
     compile project(':react-native-image-picker')
     compile project(':react-native-code-push')
     compile project(':react-native-maps')
     compile project(':react-native-svg')
     compile project(':react-native-sentry')
-    compile "com.facebook.react:react-native:+"  // From node_modules
-
     compile project(':react-native-vector-icons')
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:23.0.1"
+
+    // Facebook SDK
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
+
+    // Paho MQTT
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
 
 }
