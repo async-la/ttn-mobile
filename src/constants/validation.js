@@ -8,6 +8,7 @@ export const validationTypes = {
   DEVICE_ID: 'deviceId',
   EMAIL: 'email',
   GATEWAY_DESCRIPTION: 'gatewayDescription',
+  GATEWAY_ID: 'gatewayId',
   NONE: 'none',
   NUMBER: 'number',
   USERNAME: 'username',
