@@ -71,7 +71,7 @@ const BUTTON_SIZE = 60
 
 class ApplicationSettings extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.appName || '',
+    title: (navigation.state.params && navigation.state.params.appName) || '',
   })
   props: Props
   state: State = {
@@ -93,10 +93,10 @@ class ApplicationSettings extends Component {
   componentDidMount() {
     const { application } = this.props
     this.setState({
-      originalDescription: application.name,
-      description: application.name,
-      handler: application.handler || '',
-      originalHandler: application.handler || '',
+      originalDescription: (application && application.name) || '',
+      description: (application && application.name) || '',
+      handler: (application && application.handler) || '',
+      originalHandler: (application && application.handler) || '',
     })
   }
 

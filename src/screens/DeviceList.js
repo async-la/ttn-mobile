@@ -55,10 +55,12 @@ class DeviceList extends Component {
     isRefreshing: false,
   }
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.appName || '',
+    title: (navigation.state.params && navigation.state.params.appName) || '',
   })
   componentWillMount() {
     const { application } = this.props
+
+    if (!application) return
 
     if (applicationHasDevicesRights(application)) {
       this.setState({ authorized: true })

@@ -1,6 +1,11 @@
 // @flow
 import React from 'react'
-import { TabNavigator, TabView, StackNavigator } from 'react-navigation'
+import {
+  TabNavigator,
+  TabBarBottom,
+  TabBarTop,
+  StackNavigator,
+} from 'react-navigation'
 
 import ApplicationData from '../../screens/ApplicationData'
 import ApplicationList from '../../screens/ApplicationList'
@@ -91,7 +96,7 @@ const ApplicationDetail = TabNavigator(
   {
     backBehavior: 'none',
     order: [OVERVIEW, DEVICE_LIST, DATA, SETTINGS],
-    tabBarComponent: TabView.TabBarTop,
+    tabBarComponent: TabBarTop,
     tabBarPosition: 'top',
     lazy: true,
     animationEnabled: true,
@@ -140,7 +145,7 @@ const DeviceDetail = TabNavigator(
     order: [OVERVIEW, DATA, SETTINGS],
     scrollEnabled: true,
     swipeEnabled: true,
-    tabBarComponent: TabView.TabBarTop,
+    tabBarComponent: TabBarTop,
     tabBarPosition: 'top',
     tabBarOptions: {
       labelStyle: {
@@ -194,7 +199,7 @@ const GatewayDetail = TabNavigator(
   {
     backBehavior: 'none',
     order: [OVERVIEW, TRAFFIC, SETTINGS],
-    tabBarComponent: TabView.TabBarTop,
+    tabBarComponent: TabBarTop,
     tabBarPosition: 'top',
     lazy: true,
     animationEnabled: true,
@@ -270,7 +275,7 @@ const AppNavigator = TabNavigator(
     order: [APPLICATIONS, GATEWAYS, PROFILE],
     lazy: true,
     swipeEnabled: false,
-    tabBarComponent: TabView.TabBarBottom,
+    tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
     tabBarOptions: {
       showLabel: false,

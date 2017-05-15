@@ -43,7 +43,7 @@ type State = {
 
 class ApplicationOverview extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.appName || '',
+    title: (navigation.state.params && navigation.state.params.appName) || '',
   })
   props: Props
   state: State = {
@@ -163,7 +163,7 @@ class ApplicationOverview extends Component {
             <Text>{moment(application.created).fromNow()}</Text>
 
             <Text style={styles.header}>Handler</Text>
-            <Text>{application.handler}</Text>
+            <Text>{application && application.handler}</Text>
 
           </ContentBlock>
 
