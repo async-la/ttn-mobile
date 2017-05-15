@@ -5,11 +5,14 @@ import { connect } from 'react-redux'
 import {
   ActivityIndicator,
   FlatList,
+  Modal,
   StyleSheet,
   Text,
   View,
 } from 'react-native'
 
+import AddButton from '../components/AddButton'
+import GatewayForm from '../components/GatewayForm'
 import GatewayListItem from '../components/GatewayListItem'
 
 import { GATEWAYS_LABEL } from '../scopes/navigation/constants'
@@ -32,6 +35,7 @@ type Props = {
 type State = {
   initialLoad: boolean,
   isRefreshing: boolean,
+  modalVisible: boolean,
 }
 
 class GatewayList extends Component {
@@ -42,6 +46,7 @@ class GatewayList extends Component {
   state: State = {
     initialLoad: false,
     isRefreshing: false,
+    modalVisible: false,
   }
   componentDidMount() {
     this._fetchGateways(true)
@@ -57,6 +62,25 @@ class GatewayList extends Component {
     } else {
       this.setState({ initialLoad: true })
     }
+  }
+  _renderModal() {
+    return (
+      <Modal
+        animationType={'slide'}
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {}}
+      >
+        <GatewayForm
+          onCancel={this._dismissModal}
+          onSubmit={this._dismissModal}
+        />
+      </Modal>
+    )
+  }
+
+  _dismissModal = () => {
+    this.setState({ modalVisible: false })
   }
   _renderGatewayRow(id) {
     const gateway = this.props.gateways.dictionary[id]
@@ -94,6 +118,8 @@ class GatewayList extends Component {
     return (
       <View style={styles.container}>
         {this._renderContent()}
+        {this._renderModal()}
+        <AddButton onPress={() => this.setState({ modalVisible: true })} />
       </View>
     )
   }

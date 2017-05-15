@@ -183,7 +183,7 @@ class GatewaySettings extends Component {
       this.state.ownerPublic !== this.state.originalOwnerPublic
     return statusPublicChanged || locationPublicChanged || ownerPublicChanged
   }
-  _infoSettingsHaveChnaged = () => {
+  _infoSettingsHaveChanged = () => {
     const brandChanged = this.state.brand !== this.state.originalBrand
     const modelChanged = this.state.model !== this.state.originalModel
     const antennaChanged = this.state.antenna !== this.state.originalAntenna
@@ -602,7 +602,7 @@ class GatewaySettings extends Component {
           />
           <SubmitButton
             inProgress={this.state.inProgressInfo}
-            active={this._infoSettingsHaveChnaged()}
+            active={this._infoSettingsHaveChanged()}
             title="Save info settings"
             onPress={this._onSubmitInfo}
             style={styles.submitButton}

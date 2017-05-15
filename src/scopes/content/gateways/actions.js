@@ -43,7 +43,14 @@ export function getGatewayAsync(gateway: TTNGateway) {
  * Add Gateway
  */
 
-export function addGatewayAsync(gateway: TTNGateway) {
+export function addGatewayAsync(
+  gateway: {
+    id: string,
+    router: string,
+    frequency_plan: string,
+    attributes: { description: string, placement: string },
+  }
+) {
   return async (
     dispatch: Dispatch,
     getState: GetState

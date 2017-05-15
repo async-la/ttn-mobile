@@ -40,6 +40,7 @@ type Props = {
     | typeof validationTypes.APPLICATION_DESCRIPTION
     | typeof validationTypes.DEVICE_ID
     | typeof validationTypes.EMAIL
+    | typeof validationTypes.GATEWAY_ID
     | typeof validationTypes.NONE
     | typeof validationTypes.USERNAME,
   value: ?string | ?number,
@@ -59,6 +60,7 @@ class FormInput extends Component {
       case validationTypes.ACCESS_KEY:
       case validationTypes.APPLICATION_ID:
       case validationTypes.DEVICE_ID:
+      case validationTypes.GATEWAY_ID:
         text = text.toLowerCase()
         break
       case validationTypes.NONE:
@@ -78,6 +80,7 @@ class FormInput extends Component {
       case validationTypes.ACCESS_KEY:
       case validationTypes.APPLICATION_ID:
       case validationTypes.DEVICE_ID:
+      case validationTypes.GATEWAY_ID:
         validation = validateDeviceId(value)
         break
       case validationTypes.APPLICATION_DESCRIPTION:
