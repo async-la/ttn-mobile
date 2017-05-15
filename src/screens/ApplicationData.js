@@ -139,13 +139,6 @@ class ApplicationData extends Component {
     let data = this.state.data
     let parsedMessage = JSON.parse(message)
 
-    if (!this.state.data.length) {
-      this.props.navigation.setParams({
-        clearTitle: 'Clear',
-        clearData: this._clearData,
-      })
-    }
-
     // Filter out messages when in single device view
     if (
       navigation &&
@@ -158,6 +151,12 @@ class ApplicationData extends Component {
 
     data.unshift(parsedMessage)
     this.setState({ data })
+
+    // Set top right clear button in navbar
+    this.props.navigation.setParams({
+      clearTitle: 'Clear',
+      clearData: this._clearData,
+    })
   }
   _renderConnectionStatus = () => {
     let { connectionStatus } = this.state
