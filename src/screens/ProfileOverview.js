@@ -8,6 +8,7 @@ import { WHITE } from '../constants/colors'
 import Avatar from '../components/Avatar'
 import DeleteButton from '../components/DeleteButton'
 import ImagePicker from 'react-native-image-picker'
+import ImageCropPicker from 'react-native-image-crop-picker'
 import FormInput from '../components/FormInput'
 import FormLabel from '../components/FormLabel'
 import SubmitButton from '../components/SubmitButton'
@@ -138,13 +139,13 @@ class ProfileOverview extends Component {
       mediaType: 'photo', // 'photo' or 'video'
       videoQuality: 'high', // 'low', 'medium', or 'high'
       durationLimit: 10, // video recording max time in seconds
-      maxWidth: 250, // photos only
-      maxHeight: 250, // photos only
+      maxWidth: 500, // photos only
+      maxHeight: 500, // photos only
       aspectX: 2, // android only - aspectX:aspectY, the cropping image's ratio of width to height
       aspectY: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
       quality: 0.5, // 0 to 1, photos only
       angle: 0, // android only, photos only
-      allowsEditing: true, // Built in functionality to resize/reposition the image after selection
+      allowsEditing: false, // Built in functionality to resize/reposition the image after selection
       noData: true, // photos only - disables the base64 `data` field from being generated (greatly improves performance on large photos)
       storageOptions: {
         // if this key is provided, the image will get saved in the documents directory on ios, and the pictures directory on android (rather than a temporary directory)
@@ -160,7 +161,15 @@ class ProfileOverview extends Component {
         return
       } else {
         try {
-          await this.props.uploadUserAvatar(response.uri)
+          const image = await ImageCropPicker.openCropper({
+            path: response.uri,
+            width: response.width,
+            height: response.height,
+            cropperCircleOverlay: true,
+            cropping: true,
+          })
+
+          await this.props.uploadUserAvatar(image.path)
           alert('Profile photo updated.')
         } catch (err) {
           alert('Error uploading photo. Please try again.')

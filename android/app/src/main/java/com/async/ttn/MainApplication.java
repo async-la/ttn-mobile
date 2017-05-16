@@ -9,6 +9,7 @@ import android.util.Log;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
 import com.imagepicker.ImagePickerPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.horcrux.svg.SvgPackage;
 import io.sentry.RNSentryPackage;
@@ -54,6 +55,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new ImagePickerPackage(),
+          new PickerPackage(),
           new CodePush(metaData.getString("com.async.ttn.codePushKey"), getApplicationContext(), BuildConfig.DEBUG),
           new SvgPackage(),
           new RNSentryPackage(),

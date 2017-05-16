@@ -125,6 +125,7 @@ android {
         applicationId "com.async.ttn"
         minSdkVersion 16
         targetSdkVersion 22
+        vectorDrawables.useSupportLibrary = true
         versionCode verCode
         versionName verName
         ndk {
@@ -186,6 +187,7 @@ dependencies {
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile "com.android.support:appcompat-v7:23.0.1"
 
+    compile project(':react-native-image-crop-picker')
     compile project(':react-native-image-picker')
     compile project(':react-native-code-push')
     compile project(':react-native-maps')
