@@ -132,7 +132,7 @@ class FormInput extends Component {
           onSubmitEditing={onSubmitEditing}
           returnKeyType={returnKeyType}
           underlineColorAndroid={this.state.isInvalid ? RED : DARK_GREY}
-          value={stringifiedVal}
+          value={stringifiedVal || null}
           style={[
             styles.textInput,
             this.state.isInvalid && styles.invalidInput,

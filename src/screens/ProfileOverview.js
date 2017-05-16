@@ -110,8 +110,11 @@ class ProfileOverview extends Component {
       this.setState({ inProgress: false })
 
       if (
-        this.state.user.email !== null &&
-        this.state.user.email !== (this.props.user && this.props.user.email)
+        this.state.user &&
+        this.props.user &&
+        this.state.user.email &&
+        this.props.user.email &&
+        this.state.user.email !== this.props.user.email
       ) {
         alert(
           'Profile updated successfully. An email confirmation has been sent to your new email address.'
