@@ -34,7 +34,6 @@ import RadioButtonPanel from '../components/RadioButtonPanel'
 import SubmitButton from '../components/SubmitButton'
 import TagLabel from '../components/TagLabel'
 
-import _ from 'lodash'
 import { connect } from 'react-redux'
 import { applicationHasDeleteRights } from '../utils/permissionCheck'
 
@@ -399,7 +398,7 @@ class ApplicationSettings extends Component {
 
             <FormLabel primaryText="Handler" />
             <RadioButtonPanel
-              buttons={_.map(handlers)}
+              buttons={handlers}
               selected={this.state.handler}
               onSelect={handler => this.setState({ handler })}
             />

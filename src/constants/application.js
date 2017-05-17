@@ -1,5 +1,7 @@
 //@flow
 
+import { ASIA_SE, EU, US_WEST, BRAZIL, NONE, locations } from './location'
+
 // Rights
 export const COLLABORATORS = 'collaborators'
 export const DELETE = 'delete'
@@ -13,25 +15,36 @@ export const OTAA = 'OTAA'
 export const ABP = 'ABP'
 
 // Handlers
-export const ASIA_SE = {
+const asiaSeHandler = {
   label: 'asia-se',
   value: 'ttn-handler-asia-se',
+  location: locations[ASIA_SE],
 }
-export const BRAZIL = {
+const brazilHandler = {
   label: 'brazil',
   value: 'ttn-handler-brazil',
+  location: locations[BRAZIL],
 }
-export const EU = { label: 'eu', value: 'ttn-handler-eu' }
-export const US_WEST = {
+const euHandler = {
+  label: 'eu',
+  value: 'ttn-handler-eu',
+  location: locations[EU],
+}
+const usWestHandler = {
   label: 'us-west',
   value: 'ttn-handler-us-west',
+  location: locations[US_WEST],
 }
-export const NONE = { label: 'none', value: '' }
+export const noneHandler = {
+  label: 'none',
+  value: '',
+  location: locations[NONE],
+}
 
-export const handlers = {
-  ASIA_SE,
-  BRAZIL,
-  EU,
-  US_WEST,
-  NONE,
-}
+export const handlers = [
+  asiaSeHandler,
+  brazilHandler,
+  euHandler,
+  usWestHandler,
+  noneHandler,
+]

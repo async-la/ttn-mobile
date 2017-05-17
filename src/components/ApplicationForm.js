@@ -23,7 +23,7 @@ import SubmitButton from '../components/SubmitButton'
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 import { handlers } from '../constants/application'
 import { connect } from 'react-redux'
-import _ from 'lodash'
+import { getClosestOption } from '../utils/locationUtils'
 
 const BUTTON_SIZE = 60
 
@@ -50,8 +50,16 @@ class ApplicationForm extends Component {
     id: '',
     idValid: false,
     inProgress: false,
-    handler: 'ttn-handler-us-west',
+    handler: handlers[0].value,
   }
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(position => {
+      this.setState({
+        handler: getClosestOption(position.coords, handlers).value,
+      })
+    })
+  }
+
   _onChangeText = (text, formInputId) => {
     switch (formInputId) {
       case 'applicationId':
@@ -132,7 +140,7 @@ class ApplicationForm extends Component {
             secondaryText="Select the handler you want to register this application to"
           />
           <RadioButtonPanel
-            buttons={_.map(handlers)}
+            buttons={handlers}
             selected={this.state.handler}
             onSelect={handler => this.setState({ handler })}
           />

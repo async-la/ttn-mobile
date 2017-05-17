@@ -1,6 +1,12 @@
 //@flow
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native'
 
 import { BLUE, WHITE } from '../constants/colors'
 
@@ -19,19 +25,20 @@ import MapView from 'react-native-maps'
 
 import copy from '../constants/copy'
 
+import _ from 'lodash'
 import { connect } from 'react-redux'
 import { frequencyPlans, routers } from '../constants/gateway'
 import { validationTypes } from '../constants/validation'
 import * as permissionCheck from '../utils/permissionCheck'
 import * as TTNGatewayActions from '../scopes/content/gateways/actions'
 
-const DEFAULT_LOCATION = {
-  latitude: 39.8282,
-  longitude: -98.5795,
+let DEFAULT_LOCATION = {
+  latitude: 0,
+  longitude: 0,
 }
 
 const ZOOMED_IN_DELTA = 0.02
-const ZOOMED_OUT_DELTA = 30
+const ZOOMED_OUT_DELTA = 10
 
 const DEFAULT_ALTITUDE = 0
 const BUTTON_SIZE = 60
@@ -81,12 +88,40 @@ class GatewaySettings extends Component {
   _textInputs = []
   componentDidMount() {
     const { gateway } = this.props.navigation.state.params
+    const hasLocation = !!gateway.antenna_location
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords
+        DEFAULT_LOCATION = {
+          latitude,
+          longitude,
+        }
+        if (!hasLocation && this._mapView !== null) {
+          setTimeout(() => {
+            this.setState({
+              originalLocation: DEFAULT_LOCATION,
+            })
+            this._mapView.animateToRegion(
+              {
+                ...DEFAULT_LOCATION,
+                latitudeDelta: ZOOMED_IN_DELTA,
+                longitudeDelta: ZOOMED_IN_DELTA,
+              },
+              500
+            )
+          }, 10)
+        }
+      },
+      err => {
+        console.log('# geolocation fail', err)
+      }
+    )
 
     const autoUpdate = gateway.auto_update
     const freqPlan = gateway.frequency_plan
     const description = gateway.attributes.description
     const router = gateway.router.id
-    const hasLocation = !!gateway.antenna_location
     const location = hasLocation
       ? {
           latitude: gateway.antenna_location.latitude,
@@ -315,8 +350,10 @@ class GatewaySettings extends Component {
     }
   }
   _resetMap = async () => {
-    if (this.state.originalLocation === DEFAULT_LOCATION)
+    if (_.isEqual(this.state.originalLocation, DEFAULT_LOCATION)) {
       await this.setState({ hasLocation: false })
+    }
+
     this.setState({
       location: this.state.originalLocation,
     })
@@ -451,7 +488,10 @@ class GatewaySettings extends Component {
                   >
                     <Ionicons
                       name={'ios-pin'}
-                      style={{ color: BLUE }}
+                      style={[
+                        { color: BLUE },
+                        Platform.OS == 'ios' && { top: -25 },
+                      ]}
                       size={50}
                     />
                   </MapView.Marker>}
@@ -470,7 +510,9 @@ class GatewaySettings extends Component {
                   this.setState({ mapEditEnabled: !this.state.mapEditEnabled })}
               >
                 <Text style={{ color: BLUE }}>
-                  {this.state.mapEditEnabled ? 'Done' : 'Edit'}
+                  {this.state.mapEditEnabled
+                    ? 'Done'
+                    : this.state.hasLocation ? 'Edit' : 'Add'}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity

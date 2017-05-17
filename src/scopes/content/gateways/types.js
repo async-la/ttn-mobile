@@ -5,6 +5,20 @@ type Collaborator = {
   rights: Array<string>,
 }
 
+export type Coordinate = {
+  latitude: number,
+  longitude: number,
+}
+
+export type LocalizedOption = {
+  label: string,
+  value: string,
+  location: {
+    latitude: number,
+    longitude: number,
+  },
+}
+
 export type TTNGateway = {
   id: string,
   activated: boolean,
