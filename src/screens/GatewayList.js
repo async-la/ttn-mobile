@@ -69,7 +69,7 @@ class GatewayList extends Component {
         animationType={'slide'}
         transparent={false}
         visible={this.state.modalVisible}
-        onRequestClose={() => {}}
+        onRequestClose={this._dismissModal}
       >
         <GatewayForm
           onCancel={this._dismissModal}

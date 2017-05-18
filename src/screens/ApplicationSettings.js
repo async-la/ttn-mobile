@@ -202,7 +202,7 @@ class ApplicationSettings extends Component {
         animationType={'slide'}
         transparent={false}
         visible={this.state.accessKeyGenerateFormVisible}
-        onRequestClose={() => {}}
+        onRequestClose={this._dismissAccessKeyForm}
       >
         <AccessKeyGenerateForm
           application={this.props.application}
@@ -218,7 +218,7 @@ class ApplicationSettings extends Component {
         animationType={'slide'}
         transparent={false}
         visible={this.state.collaboratorFormVisible}
-        onRequestClose={this._noop}
+        onRequestClose={this._dismissCollaboratorForm}
       >
         <CollaboratorForm
           application={this.props.application}
@@ -234,7 +234,7 @@ class ApplicationSettings extends Component {
         animationType={'slide'}
         transparent={false}
         visible={this.state.collaboratorEditFormVisible}
-        onRequestClose={this._noop}
+        onRequestClose={this._dismissCollaboratorEditForm}
       >
         <CollaboratorEditForm
           application={this.props.application}

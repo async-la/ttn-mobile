@@ -79,7 +79,7 @@ class ApplicationsList extends Component {
         animationType={'slide'}
         transparent={false}
         visible={this.state.modalVisible}
-        onRequestClose={() => {}}
+        onRequestClose={this._dismissModal}
       >
         <ApplicationForm
           onCancel={this._dismissModal}

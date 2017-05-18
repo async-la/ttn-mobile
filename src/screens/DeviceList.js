@@ -115,7 +115,7 @@ class DeviceList extends Component {
         animationType="slide"
         transparent={false}
         visible={this.state.modalVisible}
-        onRequestClose={() => {}}
+        onRequestClose={this._dismissModal}
       >
         <DeviceForm
           application={this.props.navigation.state.params.application}
