@@ -38,7 +38,8 @@ const BUTTON_SIZE = 60
 
 class GatewaySettings extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.gateway.id,
+    title: (navigation.state.params && navigation.state.params.gateway.id) ||
+      '',
   })
   state = {
     mapEditEnabled: false,

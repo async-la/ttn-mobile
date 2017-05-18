@@ -44,7 +44,7 @@ type State = {
 
 class GatewayOverview extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.gatewayId,
+    title: (navigation.state.params && navigation.state.params.gatewayId) || '',
   })
   props: Props
   state: State = {
