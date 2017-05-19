@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import {
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -22,15 +23,17 @@ import RadioButtonPanel from '../components/RadioButtonPanel'
 import SubmitButton from '../components/SubmitButton'
 
 import * as TTNGatewayActions from '../scopes/content/gateways/actions'
+import { getClosestOption } from '../utils/locationUtils'
 import { frequencyPlans, routers } from '../constants/gateway'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 
 const BUTTON_SIZE = 60
 const ZOOMED_OUT_DELTA = 30
-const DEFAULT_LOCATION = {
-  latitude: 39.8282,
-  longitude: -98.5795,
+const ZOOMED_IN_DELTA = 0.02
+let DEFAULT_LOCATION = {
+  latitude: 0,
+  longitude: 0,
 }
 
 type Props = {
@@ -58,7 +61,7 @@ class GatewayForm extends Component {
   state: State = {
     description: '',
     descriptionValid: false,
-    frequencyPlan: 'US_902_928',
+    frequencyPlan: frequencyPlans[0].value,
     hasLocation: false,
     id: '',
     idValid: false,
@@ -66,9 +69,48 @@ class GatewayForm extends Component {
     location: DEFAULT_LOCATION,
     mapEditEnabled: false,
     placement: 'indoor',
-    router: 'ttn-router-us-west',
+    router: routers[0].value,
   }
   _mapView = null
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords
+        DEFAULT_LOCATION = {
+          latitude,
+          longitude,
+        }
+
+        this.setState({
+          hasLocation: true,
+          location: {
+            latitude,
+            longitude,
+          },
+          frequencyPlan: getClosestOption(position.coords, frequencyPlans)
+            .value,
+          router: getClosestOption(position.coords, routers).value,
+        })
+
+        if (this._mapView !== null) {
+          setTimeout(() => {
+            this._mapView.animateToRegion(
+              {
+                ...DEFAULT_LOCATION,
+                latitudeDelta: ZOOMED_IN_DELTA,
+                longitudeDelta: ZOOMED_IN_DELTA,
+              },
+              500
+            )
+          }, 1500)
+        }
+      },
+      err => {
+        console.log('# geolocation fail', err)
+      }
+    )
+  }
+
   _onChangeText = (text, formInputId) => {
     switch (formInputId) {
       case 'gatewayId':
@@ -218,7 +260,10 @@ class GatewayForm extends Component {
                 >
                   <Ionicons
                     name={'ios-pin'}
-                    style={{ color: BLUE }}
+                    style={[
+                      { color: BLUE },
+                      Platform.OS == 'ios' && { top: -25 },
+                    ]}
                     size={50}
                   />
                 </MapView.Marker>}
@@ -237,7 +282,9 @@ class GatewayForm extends Component {
                 this.setState({ mapEditEnabled: !this.state.mapEditEnabled })}
             >
               <Text style={{ color: BLUE }}>
-                {this.state.mapEditEnabled ? 'Done' : 'Edit'}
+                {this.state.mapEditEnabled
+                  ? 'Done'
+                  : this.state.hasLocation ? 'Edit' : 'Add'}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -333,12 +380,12 @@ const styles = StyleSheet.create({
   },
   map: {
     position: 'absolute',
-    borderRadius: 3,
     borderColor: LIGHT_GREY,
     borderWidth: 1,
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
+    borderRadius: 3,
   },
 })
