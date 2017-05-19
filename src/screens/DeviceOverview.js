@@ -19,12 +19,16 @@ import StatusDot from '../components/StatusDot'
 import TagLabel from '../components/TagLabel'
 import { connect } from 'react-redux'
 
-import type { TTNDevice } from '../scopes/content/applications/types'
+import type {
+  TTNApplication,
+  TTNDevice,
+} from '../scopes/content/applications/types'
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
 
 import moment from 'moment'
 
 type Props = {
+  application: TTNApplication,
   device: TTNDevice,
   getDeviceAsync: Function,
   navigation: Object,
@@ -48,7 +52,7 @@ class DeviceOverview extends Component {
 
   _getDevice = async () => {
     const { dev_id } = this.props.device
-    const { application } = this.props.navigation.state.params
+    const { application } = this.props
     this.setState({ isRefreshing: true })
     try {
       await this.props.getDeviceAsync(application, dev_id)
@@ -186,6 +190,9 @@ export default connect(
   (state, props) => ({
     device: state.content.devices.dictionary[
       props.navigation.state.params.device.dev_id
+    ],
+    application: state.content.applications.dictionary[
+      props.navigation.state.params.device.app_id
     ],
   }),
   TTNApplicationActions

@@ -124,9 +124,14 @@ class ApplicationOverview extends Component {
   _renderApplicationEUIS(euis) {
     return (
       <ContentBlock heading={copy.APPLICATION_EUI}>
-        {euis.map(eui => (
-          <ClipboardToggle key={eui} style={{ marginBottom: 10 }} value={eui} />
-        ))}
+        {euis &&
+          euis.map(eui => (
+            <ClipboardToggle
+              key={eui}
+              style={{ marginBottom: 10 }}
+              value={eui}
+            />
+          ))}
       </ContentBlock>
     )
   }
