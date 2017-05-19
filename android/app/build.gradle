@@ -122,7 +122,7 @@ android {
     def verCode = getVersionCode()
 
     defaultConfig {
-        applicationId "com.async.ttn"
+        applicationId "com.ttnconsole"
         minSdkVersion 16
         targetSdkVersion 22
         vectorDrawables.useSupportLibrary = true
