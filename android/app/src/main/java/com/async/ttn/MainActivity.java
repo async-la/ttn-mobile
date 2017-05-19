@@ -1,4 +1,4 @@
-package com.async.ttn;
+package com.ttnconsole;
 
 import com.facebook.react.ReactActivity;
 
