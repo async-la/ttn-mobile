@@ -3,6 +3,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
+import { MID_GREY, LIGHT_GREY } from '../constants/colors'
+import { LATO_REGULAR } from '../constants/fonts'
+
 export default class GatewayDetailPlaceholder extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.gatewayName,
@@ -10,8 +15,8 @@ export default class GatewayDetailPlaceholder extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>I'm a Gateway!</Text>
-        <Text>{this.props.navigation.state.key}</Text>
+        <Ionicons name={'ios-pulse'} size={80} color={MID_GREY} />
+        <Text style={[styles.text, { fontSize: 30 }]}>Coming Soon!</Text>
       </View>
     )
   }
@@ -22,6 +27,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FF00FF',
+    backgroundColor: LIGHT_GREY,
+  },
+  text: {
+    fontFamily: LATO_REGULAR,
+    color: MID_GREY,
   },
 })
