@@ -17,7 +17,7 @@ import DeviceSettings from '../../screens/DeviceSettings'
 import GatewayList from '../../screens/GatewayList'
 import GatewayOverview from '../../screens/GatewayOverview'
 import GatewaySettings from '../../screens/GatewaySettings'
-import GatewayDetailPlaceholder from '../../screens/GatewayDetailPlaceholder'
+import GatewayTraffic from '../../screens/GatewayTraffic'
 import ProfileOverview from '../../screens/ProfileOverview'
 
 import IconAccount from '../../components/IconAccount'
@@ -184,7 +184,7 @@ const GatewayDetail = TabNavigator(
       },
     },
     [TRAFFIC]: {
-      screen: GatewayDetailPlaceholder,
+      screen: GatewayTraffic,
       navigationOptions: {
         tabBarLabel: TRAFFIC_LABEL,
       },
