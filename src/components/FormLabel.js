@@ -10,12 +10,15 @@ type Props = {
   primaryText: string,
   primaryTextStyle?: Object,
   secondaryText?: string,
-  style?: Object,
-};
+  style?: Object | Array<Object>,
+}
 
-const FormLabel = (
-  { primaryText, primaryTextStyle, secondaryText, style }: Props
-) => {
+const FormLabel = ({
+  primaryText,
+  primaryTextStyle,
+  secondaryText,
+  style,
+}: Props) => {
   return (
     <View style={[styles.container, style]}>
       <Text style={[styles.descriptionPrimary, primaryTextStyle]}>

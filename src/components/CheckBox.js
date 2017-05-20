@@ -29,7 +29,7 @@ const CheckBox = ({
       <FormLabel
         primaryText={primaryText}
         secondaryText={secondaryText}
-        style={!secondaryText ? styles.oneLine : {}}
+        style={secondaryText ? styles.multiLine : styles.oneLine}
       />
     </TouchableOpacity>
   )
@@ -57,6 +57,12 @@ const styles = StyleSheet.create({
   },
   oneLine: {
     marginTop: undefined,
+    flexWrap: 'wrap',
+    flex: 1,
+  },
+  multiLine: {
+    flexWrap: 'wrap',
+    flex: 1,
   },
   option: {
     padding: 10,
