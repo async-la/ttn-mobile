@@ -22,7 +22,10 @@ import SubmitButton from '../components/SubmitButton'
 import WarningText from '../components/WarningText'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
-import type { TTNDevice } from '../scopes/content/applications/types'
+import type {
+  TTNApplication,
+  TTNDevice,
+} from '../scopes/content/applications/types'
 
 import { connect } from 'react-redux'
 import { splitHex } from '../utils/payloadConversion'
@@ -30,6 +33,7 @@ import { splitHex } from '../utils/payloadConversion'
 const BUTTON_SIZE = 60
 
 type Props = {
+  application: TTNApplication,
   device: TTNDevice,
   navigation: Object,
   getApplicationDevicesAsync: Function,
@@ -195,14 +199,14 @@ class DeviceSettings extends Component {
   }
 
   render() {
-    const { application } = this.props.navigation.state.params
-
-    const { device } = this.props
+    const { application, device } = this.props
     if (!device) return <View />
-    const appEuis = application.euis.map(eui => ({
-      label: splitHex(eui),
-      value: eui,
-    }))
+    const appEuis =
+      application.euis &&
+      application.euis.map(eui => ({
+        label: splitHex(eui),
+        value: eui,
+      }))
     const frameCounterWidths = [
       { label: '16 bit', value: '16' },
       { label: '32 bit', value: '32' },
@@ -231,12 +235,16 @@ class DeviceSettings extends Component {
                   <ClipboardToggle value={device.dev_eui} style={{ flex: 1 }} />
                 </View>
 
-                <FormLabel primaryText={copy.APPLICATION_EUI} />
-                <RadioButtonPanel
-                  buttons={appEuis}
-                  selected={this.state.appEui}
-                  onSelect={appEui => this.setState({ appEui })}
+                <FormLabel
+                  primaryText={copy.APPLICATION_EUI}
+                  secondaryText={appEuis ? undefined : 'None'}
                 />
+                {appEuis &&
+                  <RadioButtonPanel
+                    buttons={appEuis}
+                    selected={this.state.appEui}
+                    onSelect={appEui => this.setState({ appEui })}
+                  />}
 
                 <FormLabel primaryText={copy.ACTIVATION_METHOD} />
                 <RadioButtonPanel
@@ -297,6 +305,9 @@ export default connect(
   (state, props) => ({
     device: state.content.devices.dictionary[
       props.navigation.state.params.device.dev_id
+    ],
+    application: state.content.applications.dictionary[
+      props.navigation.state.params.device.app_id
     ],
   }),
   TTNApplicationActions

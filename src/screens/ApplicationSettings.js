@@ -363,18 +363,21 @@ class ApplicationSettings extends Component {
     )
   }
   _renderEUIs(euis) {
-    return euis.map((eui, i) => {
-      return (
-        <View style={styles.euiRow} key={i}>
-          <ClipboardToggle value={eui} style={{ flex: 1, marginRight: 20 }} />
-          <DeleteButton
-            itemToDeleteTitle={`EUI ${eui}`}
-            small
-            onConfirm={() => this._deleteEui(eui)}
-          />
-        </View>
-      )
-    })
+    return (
+      euis &&
+      euis.map((eui, i) => {
+        return (
+          <View style={styles.euiRow} key={i}>
+            <ClipboardToggle value={eui} style={{ flex: 1, marginRight: 20 }} />
+            <DeleteButton
+              itemToDeleteTitle={`EUI ${eui}`}
+              small
+              onConfirm={() => this._deleteEui(eui)}
+            />
+          </View>
+        )
+      })
+    )
   }
 
   render() {
