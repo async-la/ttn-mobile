@@ -3,9 +3,11 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native'
@@ -110,13 +112,25 @@ class DeviceForm extends Component {
         }
         await updateDeviceAsync(application, device.dev_id, device)
       }
+      this.props.onSubmit && this.props.onSubmit()
     } catch (err) {
-      alert('Error: ' + err.status)
       console.log('# DeviceForm onSubmit error', err)
+      if (err.status === 409) {
+        switch (Platform.OS) {
+          case 'ios':
+            alert(copy.DEVICE_ID_ALREADY_REGISTERED)
+            break
+          case 'android':
+            ToastAndroid.show(
+              copy.DEVICE_ID_ALREADY_REGISTERED,
+              ToastAndroid.SHORT
+            )
+            break
+        }
+      }
+    } finally {
+      this.setState({ inProgress: false })
     }
-
-    this.setState({ inProgress: false })
-    this.props.onSubmit()
   }
   _allInputsValid() {
     return Boolean(this.state.idValid && this.state.eui)
