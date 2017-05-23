@@ -3,7 +3,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 
-import { WHITE } from '../constants/colors'
+import { LATO_REGULAR } from '../constants/fonts'
+import { DARK_GREY, WHITE } from '../constants/colors'
 
 import Avatar from '../components/Avatar'
 import DeleteButton from '../components/DeleteButton'
@@ -16,6 +17,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 
 import * as authActions from '../scopes/auth/actions'
 import { connect } from 'react-redux'
+import { version } from '../../package.json'
 
 import type { User } from '../scopes/auth/types'
 
@@ -256,6 +258,7 @@ class ProfileOverview extends Component {
             title="Save Changes"
           />
         </View>
+        <Text style={styles.version}>Version: {version}</Text>
       </KeyboardAwareScrollView>
     )
   }
@@ -291,5 +294,11 @@ const styles = StyleSheet.create({
     width: BUTTON_SIZE * 3.5,
     height: BUTTON_SIZE,
     marginBottom: 15,
+  },
+  version: {
+    fontFamily: LATO_REGULAR,
+    color: DARK_GREY,
+    textAlign: 'center',
+    margin: 20,
   },
 })
