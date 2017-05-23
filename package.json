@@ -1,6 +1,6 @@
 {
   "name": "TTNConsole",
-  "version": "1.16.0",
+  "version": "1.16.1",
   "private": true,
   "lint-staged": {
     "src/**/*.js": [
