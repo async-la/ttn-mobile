@@ -34,7 +34,7 @@
     "react-native-image-crop-picker": "^0.13.0",
     "react-native-image-picker": "^0.26.3",
     "react-native-keyboard-aware-scrollview": "git+ssh://git@github.com/async-la/react-native-keyboard-aware-scrollview#master",
-    "react-native-maps": "0.15-rc",
+    "react-native-maps": "0.15.2",
     "react-native-safari-view": "^2.0.0",
     "react-native-sentry": "^0.6.0",
     "react-native-svg": "git+ssh://git@github.com/react-native-community/react-native-svg#master",
