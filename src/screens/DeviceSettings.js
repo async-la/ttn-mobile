@@ -43,6 +43,7 @@ type Props = {
 
 type State = {
   activationMethod: string,
+  originalActivationMethod: string,
   appEui: ?string,
   originalAppEui: ?string,
   description: ?string,
@@ -62,7 +63,8 @@ class DeviceSettings extends Component {
   })
   props: Props
   state: State = {
-    activationMethod: OTAA,
+    activationMethod: '',
+    originalActivationMethod: '',
     appEui: '',
     originalAppEui: '',
     description: '',
@@ -82,7 +84,10 @@ class DeviceSettings extends Component {
   _getDevice = async () => {
     try {
       const { device } = this.props
+      const activationMethod = device.app_key ? OTAA : ABP
       this.setState({
+        activationMethod,
+        originalActivationMethod: activationMethod,
         appEui: device.app_eui,
         originalAppEui: device.app_eui,
         description: device.description,
@@ -119,6 +124,8 @@ class DeviceSettings extends Component {
   }
   _cancelDeleteDevice = () => {}
   _settingsHaveChanged = () => {
+    const activationMethodHasChanged =
+      this.state.activationMethod !== this.state.originalActivationMethod
     const appEuiHasChanged = this.state.appEui !== this.state.originalAppEui
     const descriptionHasChanged =
       this.state.description !== this.state.originalDescription
@@ -127,6 +134,7 @@ class DeviceSettings extends Component {
     const disableFrameCounterChecksHasChanged =
       this.state.frameCounterChecks !== this.state.originalFrameCounterChecks
     return (
+      activationMethodHasChanged ||
       appEuiHasChanged ||
       descriptionHasChanged ||
       frameCounterWidthHasChanged ||
@@ -159,6 +167,7 @@ class DeviceSettings extends Component {
       const device = await updateDeviceAsync(application, dev_id, updatedDevice)
       if (device)
         this.setState({
+          originalActivationMethod: device.app_key ? OTAA : ABP,
           originalAppEui: device.app_eui,
           originalDescription: device.description,
           originalFrameCounterChecks: !device.disable_fcnt_check,
