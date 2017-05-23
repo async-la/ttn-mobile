@@ -2,15 +2,18 @@
 
 import React, { Component } from 'react'
 import {
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native'
 
 import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LEAGUE_SPARTAN } from '../constants/fonts'
+import copy from '../constants/copy'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -89,10 +92,28 @@ class ApplicationForm extends Component {
       handler: this.state.handler,
     }
 
-    this.setState({ inProgress: true })
-    await addApplicationAsync(body)
-    this.setState({ inProgress: false })
-    this.props.onSubmit()
+    try {
+      this.setState({ inProgress: true })
+      await addApplicationAsync(body)
+      this.props.onSubmit && this.props.onSubmit()
+    } catch (err) {
+      console.log('## ApplicationForm _onSubmit error ', err)
+      if (err.status === 409) {
+        switch (Platform.OS) {
+          case 'ios':
+            alert(copy.APP_ID_ALREADY_REGISTERED)
+            break
+          case 'android':
+            ToastAndroid.show(
+              copy.APP_ID_ALREADY_REGISTERED,
+              ToastAndroid.SHORT
+            )
+            break
+        }
+      }
+    } finally {
+      this.setState({ inProgress: false })
+    }
   }
   _allInputsValid() {
     return this.state.idValid && this.state.descriptionValid

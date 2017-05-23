@@ -50,10 +50,12 @@ export const FRAMES_DOWN = 'Frames down'
 // Messages
 export const ABP_KEYS_GENERATED =
   'Device Address, Network Session Key & App Session Key will be generated'
+export const APP_ID_ALREADY_REGISTERED = 'Application ID already registered'
 export const AUTOMATICALLY_UPDATE_GATEWAY_WARNING =
   'Enabling auto updates may cause your gateway to have unexpected downtime when updating'
 export const CONFIRM_DELETE = 'Are you sure you want to delete'
 export const CONFIRM_REMOVE = 'Are you sure you want to remove'
+export const DEVICE_ID_ALREADY_REGISTERED = 'Device ID already registered'
 export const EDIT_COLLABORATOR = 'Edit collaborator'
 export const FRAME_COUNTER_CHECK_WARNING =
   'Disabling frame counter checks drastically reduces security and should only be used for development purposes'
