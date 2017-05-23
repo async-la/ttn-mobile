@@ -173,7 +173,6 @@ class DeviceForm extends Component {
             onChangeText={this._onChangeText}
             onValidate={this._onValidate}
             value={this.state.description}
-            required
           />
 
           <FormLabel primaryText="App EUI" />
