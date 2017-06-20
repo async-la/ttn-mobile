@@ -118,7 +118,7 @@ export function getAccessTokenAsync(event: { url: string }) {
       const result = await fetch(ACCESS_TOKEN_URI, {
         method: 'POST',
         headers: {
-          Authorization: `Basic ${base64.encode('async-llc:1f1f78bf32611b4f22a12e2bc040c2afbd161dffa683a0a3d049292425cd99d2')}`,
+          Authorization: `Basic ${base64.encode('async-llc:DYvEg9HlOdl+TKiaLxNNo7jOlQwve8kmszPv9dRGk6Q=')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -144,7 +144,7 @@ export function refreshAccessTokenAsync() {
       const result = await fetch(ACCESS_TOKEN_URI, {
         method: 'POST',
         headers: {
-          Authorization: `Basic ${base64.encode('async-llc:1f1f78bf32611b4f22a12e2bc040c2afbd161dffa683a0a3d049292425cd99d2')}`,
+          Authorization: `Basic ${base64.encode('async-llc:DYvEg9HlOdl+TKiaLxNNo7jOlQwve8kmszPv9dRGk6Q=')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
