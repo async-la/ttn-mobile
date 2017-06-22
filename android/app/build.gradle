@@ -196,7 +196,7 @@ dependencies {
     compile project(':react-native-vector-icons')
 
     // Facebook SDK
-    compile 'com.facebook.android:facebook-android-sdk:4.+'
+    compile 'com.facebook.android:facebook-android-sdk:4.22.1'
 
     // Paho MQTT
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
