@@ -9,15 +9,19 @@ import android.util.Log;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactApplication;
 import com.imagepicker.ImagePickerPackage;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.horcrux.svg.SvgPackage;
 import io.sentry.RNSentryPackage;
+
+
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -25,6 +29,7 @@ import com.facebook.appevents.AppEventsLogger;
 import java.util.Arrays;
 import java.util.List;
 
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -59,6 +64,7 @@ public class MainApplication extends Application implements ReactApplication {
           new CodePush(metaData.getString("com.ttnconsole.codePushKey"), getApplicationContext(), BuildConfig.DEBUG),
           new SvgPackage(),
           new RNSentryPackage(),
+          new RCTCameraPackage(),
           new TTNMQTTPackage(),
           new VectorIconsPackage(),
           new MapsPackage()
