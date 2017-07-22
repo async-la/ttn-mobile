@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
+  Button,
   View,
   ScrollView,
   RefreshControl,
@@ -10,7 +11,7 @@ import {
 } from 'react-native'
 
 import copy from '../constants/copy'
-import { DARK_GREY, MID_GREY } from '../constants/colors'
+import { BLACK, DARK_GREY, MID_GREY } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import ClipboardToggle from '../components/ClipboardToggle'
@@ -106,6 +107,7 @@ class DeviceOverview extends Component {
                 />
               }
             >
+              <Button title="Track with TTN Mapper" color={BLACK} />
               <ContentBlock heading={copy.DEVICE_OVERVIEW}>
                 {this._renderRow(
                   copy.APPLICATION_ID,

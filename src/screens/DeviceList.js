@@ -18,7 +18,7 @@ import AddButton from '../components/AddButton'
 import DeviceForm from '../components/DeviceForm'
 import DeviceListItem from '../components/DeviceListItem'
 
-import { LIGHT_GREY, WHITE } from '../constants/colors'
+import { BLACK, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
@@ -154,7 +154,7 @@ class DeviceList extends Component {
       return <Text>You do not have permissions to access devices</Text>
     }
     if (!this.state.initialLoad) {
-      return <ActivityIndicator size="large" />
+      return <ActivityIndicator size="large" color={BLACK} />
     } else if (
       this.state.initialLoad &&
       this.props.devices &&

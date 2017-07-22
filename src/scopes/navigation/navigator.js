@@ -48,7 +48,7 @@ import {
   TRAFFIC_LABEL,
 } from './constants'
 
-import { BLUE, LIGHT_BLUE, GREY, WHITE } from '../../constants/colors'
+import { BLACK, MID_GREY, GREY, WHITE } from '../../constants/colors'
 import { LATO_REGULAR } from '../../constants/fonts'
 
 const ApplicationDetail = TabNavigator(
@@ -107,7 +107,7 @@ const ApplicationDetail = TabNavigator(
         fontFamily: LATO_REGULAR,
       },
       style: {
-        backgroundColor: BLUE,
+        backgroundColor: BLACK,
       },
       indicatorStyle: {
         backgroundColor: WHITE,
@@ -150,13 +150,13 @@ const DeviceDetail = TabNavigator(
     tabBarOptions: {
       labelStyle: {
         fontFamily: LATO_REGULAR,
-        color: BLUE,
+        color: BLACK,
       },
       style: {
         backgroundColor: WHITE,
       },
       indicatorStyle: {
-        backgroundColor: BLUE,
+        backgroundColor: BLACK,
       },
     },
   }
@@ -210,7 +210,7 @@ const GatewayDetail = TabNavigator(
         fontFamily: LATO_REGULAR,
       },
       style: {
-        backgroundColor: BLUE,
+        backgroundColor: BLACK,
       },
       indicatorStyle: {
         backgroundColor: WHITE,
@@ -246,7 +246,7 @@ const AppNavigator = TabNavigator(
       navigationOptions: {
         tabBarLabel: APPLICATIONS_LABEL,
         tabBarIcon: ({ tintColor, focused }) => (
-          <IconApplications fill={focused ? LIGHT_BLUE : GREY} />
+          <IconApplications fill={focused ? MID_GREY : GREY} />
         ),
       },
     },
@@ -256,7 +256,7 @@ const AppNavigator = TabNavigator(
       navigationOptions: {
         tabBarLabel: GATEWAYS_LABEL,
         tabBarIcon: ({ tintColor, focused }) => (
-          <IconGateways fill={focused ? LIGHT_BLUE : GREY} />
+          <IconGateways fill={focused ? MID_GREY : GREY} />
         ),
       },
     },
@@ -266,7 +266,7 @@ const AppNavigator = TabNavigator(
       navigationOptions: {
         tabBarLabel: PROFILE_LABEL,
         tabBarIcon: ({ tintColor, focused }) => (
-          <IconAccount fill={focused ? LIGHT_BLUE : GREY} />
+          <IconAccount fill={focused ? MID_GREY : GREY} />
         ),
       },
     },

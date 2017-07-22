@@ -16,7 +16,7 @@ import ApplicationForm from '../components/ApplicationForm'
 import ApplicationListItem from '../components/ApplicationListItem'
 
 import { APPLICATIONS_LABEL } from '../scopes/navigation/constants'
-import { LIGHT_GREY, WHITE } from '../constants/colors'
+import { BLACK, LIGHT_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import * as TTNApplicationActions from '../scopes/content/applications/actions'
@@ -98,7 +98,7 @@ class ApplicationsList extends Component {
 
   _renderContent = () => {
     if (!this.state.initialLoad) {
-      return <ActivityIndicator size="large" />
+      return <ActivityIndicator size="large" color={BLACK} />
     } else if (this.state.initialLoad && !this.props.applications.list) {
       return (
         <Text onPress={this._fetchApplications}>

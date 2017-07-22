@@ -5,7 +5,7 @@
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>CFBundleDisplayName</key>
-	<string>The Things Network</string>
+	<string>TTN Mobile</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -97,6 +97,6 @@
 	<key>FacebookAppID</key>
 	<string>$(FACEBOOK_APP_ID)</string>
 	<key>FacebookDisplayName</key>
-	<string>The Things Network</string>
+	<string>TTN Mobile</string>
 </dict>
 </plist>

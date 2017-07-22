@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { BLUE, MID_GREY } from '../constants/colors'
+import { BRIGHT_GREEN, MID_GREY } from '../constants/colors'
 import StatusDot from '../components/StatusDot'
 
 import type { TTNGateway } from '../scopes/content/gateways/types'
@@ -17,5 +17,5 @@ export default function GatewayStatusDot(props: Props): React.Element<any> {
   const { gateway } = props
   const lastSeen = gateway.status ? gateway.status.time : 0
   const isAlive = Date.now() - lastSeen / (1000 * 1000) < LAST_SEEN_LIMIT_MSECS
-  return <StatusDot downColor={MID_GREY} up={isAlive} upColor={BLUE} />
+  return <StatusDot downColor={MID_GREY} up={isAlive} upColor={BRIGHT_GREEN} />
 }

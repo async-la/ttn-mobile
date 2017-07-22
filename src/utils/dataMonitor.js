@@ -13,6 +13,6 @@ export function getApplicationMQTTHost(application: TTNApplication) {
   if (regions.includes(region)) {
     return region.concat('.thethings.network')
   } else {
-    throw new Error("Invalid The Things Network region '" + region + "'")
+    throw new Error("Invalid TTN region '" + region + "'")
   }
 }

@@ -3,8 +3,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import { BLUE, LIGHT_GREY, WHITE } from '../constants/colors'
-import { LEAGUE_SPARTAN } from '../constants/fonts'
+import { BLACK, LIGHT_GREY, WHITE } from '../constants/colors'
 
 type Props = {
   heading: string,
@@ -47,9 +46,8 @@ const styles = {
     justifyContent: 'space-between',
   },
   headingText: {
-    fontFamily: LEAGUE_SPARTAN,
     fontSize: 18,
     letterSpacing: 2,
-    color: BLUE,
+    color: BLACK,
   },
 }

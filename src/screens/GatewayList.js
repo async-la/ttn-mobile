@@ -17,7 +17,7 @@ import GatewayListItem from '../components/GatewayListItem'
 
 import { GATEWAYS_LABEL } from '../scopes/navigation/constants'
 import { LATO_REGULAR } from '../constants/fonts'
-import { LIGHT_GREY, WHITE } from '../constants/colors'
+import { BLACK, LIGHT_GREY, WHITE } from '../constants/colors'
 
 import * as TTNGatewayActions from '../scopes/content/gateways/actions'
 
@@ -91,7 +91,7 @@ class GatewayList extends Component {
 
   _renderContent() {
     if (!this.state.initialLoad) {
-      return <ActivityIndicator size="large" />
+      return <ActivityIndicator size="large" color={BLACK} />
     } else if (this.state.initialLoad && !this.props.gateways.list) {
       return (
         <Text onPress={this._fetchGateways}>
