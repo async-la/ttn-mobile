@@ -14,7 +14,6 @@ import {
 } from 'react-native'
 
 import { BLACK, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
-
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MapView from 'react-native-maps'
 
