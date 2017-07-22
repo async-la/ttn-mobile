@@ -14,7 +14,7 @@ import ClipboardToggle from '../components/ClipboardToggle'
 import TagLabel from '../components/TagLabel'
 import copy from '../constants/copy'
 
-import { BLUE, LIGHT_GREY } from '../constants/colors'
+import { BLACK, LIGHT_GREY } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 import { base64toHEX } from '../utils/payloadConversion'
 import moment from 'moment'
@@ -88,7 +88,7 @@ export default class DataListItem extends Component {
         <TouchableOpacity style={styles.summary} onPress={this._toggleMetadata}>
           <View style={styles.caret}>
             <Text style={styles.dataColumnHeading} />
-            <FontAwesome name="caret-up" size={20} style={{ color: BLUE }} />
+            <FontAwesome name="caret-up" size={20} style={{ color: BLACK }} />
           </View>
           <View style={styles.dataContainer}>
             <View style={styles.dataRow}>
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     fontFamily: LATO_REGULAR,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: BLUE,
+    color: BLACK,
   },
   dataText: {
     fontFamily: LATO_REGULAR,

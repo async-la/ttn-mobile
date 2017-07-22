@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import { BLUE, WHITE } from '../constants/colors'
+import { BLACK, WHITE } from '../constants/colors'
 
 import ContentBlock from '../components/ContentBlock'
 import CheckBox from '../components/CheckBox'
@@ -490,7 +490,7 @@ class GatewaySettings extends Component {
                     <Ionicons
                       name={'ios-pin'}
                       style={[
-                        { color: BLUE },
+                        { color: BLACK },
                         Platform.OS == 'ios' && { top: -25 },
                       ]}
                       size={50}
@@ -510,7 +510,7 @@ class GatewaySettings extends Component {
                 onPress={() =>
                   this.setState({ mapEditEnabled: !this.state.mapEditEnabled })}
               >
-                <Text style={{ color: BLUE }}>
+                <Text style={{ color: BLACK }}>
                   {this.state.mapEditEnabled
                     ? 'Done'
                     : this.state.hasLocation ? 'Edit' : 'Add'}
@@ -528,7 +528,7 @@ class GatewaySettings extends Component {
                 }}
                 onPress={this._resetMap}
               >
-                <Text style={{ color: BLUE }}>Reset</Text>
+                <Text style={{ color: BLACK }}>Reset</Text>
               </TouchableOpacity>
             </View>
             <FormLabel

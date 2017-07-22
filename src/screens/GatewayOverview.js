@@ -12,7 +12,7 @@ import {
 
 import MapView from 'react-native-maps'
 
-import { BLUE, MID_GREY, DARK_GREY } from '../constants/colors'
+import { BLACK, MID_GREY, DARK_GREY } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import ClipboardToggle from '../components/ClipboardToggle'
@@ -96,7 +96,9 @@ class GatewayOverview extends Component {
     const router = routerObj ? routerObj.label : 'No router listed'
 
     if (!this.state.initialLoad) {
-      return <ActivityIndicator size="large" style={{ flex: 1 }} />
+      return (
+        <ActivityIndicator size="large" style={{ flex: 1 }} color={BLACK} />
+      )
     } else if (this.state.initialLoad && !gateway) {
       return (
         <Text onPress={this._fetchGateway}>
@@ -193,7 +195,7 @@ class GatewayOverview extends Component {
                       >
                         <Ionicons
                           name={'ios-pin'}
-                          style={{ color: BLUE }}
+                          style={{ color: BLACK }}
                           size={50}
                         />
                       </MapView.Marker>
@@ -268,7 +270,7 @@ const styles = StyleSheet.create({
     fontFamily: LATO_REGULAR,
     fontWeight: 'bold',
     fontSize: 18,
-    color: BLUE,
+    color: BLACK,
     margin: 10,
   },
   statusContainer: {

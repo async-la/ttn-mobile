@@ -2,7 +2,7 @@
 import React from 'react'
 import SVG, { G, Path } from 'react-native-svg'
 
-import { BLUE } from '../constants/colors'
+import { BLACK } from '../constants/colors'
 
 type Props = {
   fill: string,
@@ -17,7 +17,7 @@ const IconApplications = (props: Props) => {
   return (
     <SVG height="35" width="30">
       <G scale=".5" y={2}>
-        <Path stroke={BLUE} strokeWidth={3} fill={props.fill} d={path} />
+        <Path stroke={BLACK} strokeWidth={3} fill={props.fill} d={path} />
       </G>
     </SVG>
   )

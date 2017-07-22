@@ -15,7 +15,7 @@ import {
   View,
 } from 'react-native'
 
-import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
+import { BLACK, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import copy from '../constants/copy'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -206,7 +206,7 @@ class DeviceForm extends Component {
           <Button
             onPress={this._displayModal}
             title="Scan QR Code"
-            color={BLUE}
+            color={BLACK}
           />
           <FormLabel
             primaryText="Device ID"
@@ -243,7 +243,7 @@ class DeviceForm extends Component {
               >
                 {!this.state.inProgressEUI
                   ? <Text style={styles.noEUIText}>Generate App EUI</Text>
-                  : <ActivityIndicator size="small" color={BLUE} />}
+                  : <ActivityIndicator size="small" color={BLACK} />}
               </TouchableOpacity>}
 
           <View>
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
   },
   formTitle: {
-    color: BLUE,
+    color: BLACK,
     fontSize: 22,
   },
   header: {
@@ -318,6 +318,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   noEUIText: {
-    color: BLUE,
+    color: BLACK,
   },
 })

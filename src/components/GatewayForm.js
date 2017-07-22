@@ -13,7 +13,7 @@ import {
   View,
 } from 'react-native'
 
-import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
+import { BLACK, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MapView from 'react-native-maps'
@@ -223,7 +223,7 @@ class GatewayForm extends Component {
           <Button
             onPress={this._displayModal}
             title="Scan QR Code"
-            color={BLUE}
+            color={BLACK}
           />
           <FormLabel
             primaryText="Gateway ID"
@@ -305,7 +305,7 @@ class GatewayForm extends Component {
                   <Ionicons
                     name={'ios-pin'}
                     style={[
-                      { color: BLUE },
+                      { color: BLACK },
                       Platform.OS == 'ios' && { top: -25 },
                     ]}
                     size={50}
@@ -325,7 +325,7 @@ class GatewayForm extends Component {
               onPress={() =>
                 this.setState({ mapEditEnabled: !this.state.mapEditEnabled })}
             >
-              <Text style={{ color: BLUE }}>
+              <Text style={{ color: BLACK }}>
                 {this.state.mapEditEnabled
                   ? 'Done'
                   : this.state.hasLocation ? 'Edit' : 'Add'}
@@ -343,7 +343,7 @@ class GatewayForm extends Component {
               }}
               onPress={this._resetMap}
             >
-              <Text style={{ color: BLUE }}>Reset</Text>
+              <Text style={{ color: BLACK }}>Reset</Text>
             </TouchableOpacity>
           </View>
           <FormLabel primaryText={'Antenna placement'} />
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
   },
   formTitle: {
-    color: BLUE,
+    color: BLACK,
     fontSize: 22,
   },
   header: {

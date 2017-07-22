@@ -20,7 +20,13 @@ import {
   CLOSED,
   UNAUTHORIZED,
 } from '../constants/mqttConnectionStatus'
-import { GREEN, LIGHT_GREY, RED, WHITE } from '../constants/colors'
+import {
+  BLACK,
+  BRIGHT_GREEN,
+  LIGHT_GREY,
+  RED,
+  WHITE,
+} from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import { connect } from 'react-redux'
@@ -169,7 +175,7 @@ class ApplicationData extends Component {
       connectionStatus = 'NO REGISTERED HANLDER'
     }
 
-    const backgroundColor = connectionStatus === CONNECTED ? GREEN : RED
+    const backgroundColor = connectionStatus === CONNECTED ? BRIGHT_GREEN : RED
     return (
       <View style={[styles.connectionStatus, { backgroundColor }]}>
         {connectionStatus === CONNECTED
@@ -194,7 +200,7 @@ class ApplicationData extends Component {
     ) {
       return (
         <View>
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size="large" color={BLACK} />
           <Text>Waiting for incoming data...</Text>
         </View>
       )

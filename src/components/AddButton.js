@@ -4,7 +4,7 @@ import React from 'react'
 import { ActivityIndicator, Platform, TouchableOpacity } from 'react-native'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { BLUE, GREY, WHITE } from '../constants/colors'
+import { BLACK, GREY, WHITE } from '../constants/colors'
 
 const AddButton = ({
   disabled,
@@ -25,7 +25,7 @@ const AddButton = ({
       onPress={onPress}
     >
       {inProgress
-        ? <ActivityIndicator color={BLUE} />
+        ? <ActivityIndicator color={BLACK} />
         : <Ionicons
             name="ios-add"
             size={header ? 25 : 35}
@@ -49,7 +49,7 @@ const styles = {
     right: 22,
     width: 44,
     height: 44,
-    backgroundColor: BLUE,
+    backgroundColor: BLACK,
     borderRadius: 44,
     justifyContent: 'center',
     alignItems: 'center',
@@ -68,7 +68,7 @@ const styles = {
     width: 25,
     height: 25,
     backgroundColor: WHITE,
-    borderColor: BLUE,
+    borderColor: BLACK,
     borderWidth: 1,
   },
   icon: {
@@ -76,7 +76,7 @@ const styles = {
     backgroundColor: 'transparent',
   },
   iconHeader: {
-    color: BLUE,
+    color: BLACK,
   },
   shadow: {
     elevation: 5,

@@ -2,7 +2,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-import { GREEN, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
+import { BLACK, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 
 import FormLabel from './FormLabel'
 
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   selected: {
-    backgroundColor: GREEN,
+    backgroundColor: BLACK,
   },
   oneLine: {
     marginTop: undefined,

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import { MID_GREY, GREEN, GREY, WHITE } from '../constants/colors'
+import { MID_GREY, BLACK, GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 type Props = {
@@ -38,7 +38,7 @@ export default SubmitButton
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: GREEN,
+    backgroundColor: BLACK,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 20,

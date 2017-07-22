@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { BLUE } from '../constants/colors'
+import { BLACK } from '../constants/colors'
 
 type Props = {
   onPress?: Function,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   icon: {
-    color: BLUE,
+    color: BLACK,
     paddingTop: 3,
   },
 })

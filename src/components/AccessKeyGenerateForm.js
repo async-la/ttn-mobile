@@ -9,8 +9,7 @@ import {
   View,
 } from 'react-native'
 
-import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
-import { LEAGUE_SPARTAN } from '../constants/fonts'
+import { BLACK, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import {
   DEVICES,
   MESSAGES_DOWN_W,
@@ -200,8 +199,7 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
   },
   formTitle: {
-    color: BLUE,
-    fontFamily: LEAGUE_SPARTAN,
+    color: BLACK,
     fontSize: 22,
   },
   header: {
@@ -214,7 +212,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   option: {
-    borderColor: BLUE,
+    borderColor: BLACK,
     borderBottomWidth: 1,
   },
   optionContainer: {
