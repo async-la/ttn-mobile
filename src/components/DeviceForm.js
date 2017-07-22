@@ -3,17 +3,19 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
+  Button,
+  Modal,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
   ToastAndroid,
   TouchableOpacity,
+  Vibration,
   View,
 } from 'react-native'
 
-import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
-import { LEAGUE_SPARTAN } from '../constants/fonts'
+import { BLACK, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 import copy from '../constants/copy'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -21,6 +23,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import CancelButton from '../components/CancelButton'
 import FormInput from '../components/FormInput'
 import FormLabel from '../components/FormLabel'
+import QRCodeScanner from '../components/QRCodeScanner'
 import RadioButtonPanel from '../components/RadioButtonPanel'
 import SubmitButton from '../components/SubmitButton'
 
@@ -47,6 +50,7 @@ type State = {
   idValid: boolean,
   inProgress: boolean,
   inProgressEUI: boolean,
+  modalVisible: boolean,
 }
 
 class DeviceForm extends Component {
@@ -58,6 +62,7 @@ class DeviceForm extends Component {
     idValid: false,
     inProgress: false,
     inProgressEUI: false,
+    modalVisible: false,
   }
   componentDidMount() {
     const { application } = this.props
@@ -148,6 +153,38 @@ class DeviceForm extends Component {
 
     this.setState({ inProgressEUI: false })
   }
+  _onBarCodeRead = async event => {
+    if (event.type === 'org.iso.QRCode' || event.type === 'QR_CODE') {
+      Vibration.vibrate()
+      this._dismissModal()
+
+      const parsedData = JSON.parse(event.data)
+      if (parsedData.id) this.setState({ id: parsedData.id, idValid: true })
+      if (parsedData.description)
+        this.setState({ description: parsedData.description })
+    }
+  }
+  _displayModal = () => {
+    this.setState({ modalVisible: true })
+  }
+  _dismissModal = () => {
+    this.setState({ modalVisible: false })
+  }
+  _renderModal = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={this._dismissModal}
+      >
+        <QRCodeScanner
+          onDismiss={this._dismissModal}
+          onBarCodeRead={this._onBarCodeRead}
+        />
+      </Modal>
+    )
+  }
   render() {
     const { application, onCancel } = this.props
     const euis = application.euis && application.euis.length
@@ -166,7 +203,11 @@ class DeviceForm extends Component {
           <Text style={styles.formTitle}>REGISTER DEVICE</Text>
         </View>
         <View style={styles.container}>
-
+          <Button
+            onPress={this._displayModal}
+            title="Scan QR Code"
+            color={BLACK}
+          />
           <FormLabel
             primaryText="Device ID"
             secondaryText="This is the unique identifier for the device in this app. The device ID will be immutable."
@@ -202,7 +243,7 @@ class DeviceForm extends Component {
               >
                 {!this.state.inProgressEUI
                   ? <Text style={styles.noEUIText}>Generate App EUI</Text>
-                  : <ActivityIndicator size="small" color={BLUE} />}
+                  : <ActivityIndicator size="small" color={BLACK} />}
               </TouchableOpacity>}
 
           <View>
@@ -217,8 +258,9 @@ class DeviceForm extends Component {
               />
             </View>
           </View>
-
         </View>
+        {this._renderModal()}
+
       </ScrollView>
     )
   }
@@ -257,8 +299,7 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
   },
   formTitle: {
-    color: BLUE,
-    fontFamily: LEAGUE_SPARTAN,
+    color: BLACK,
     fontSize: 22,
   },
   header: {
@@ -277,6 +318,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   noEUIText: {
-    color: BLUE,
+    color: BLACK,
   },
 })

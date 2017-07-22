@@ -2,7 +2,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
-import { GREEN, GREY, LIGHT_GREY } from '../constants/colors'
+import { BLACK, GREY, LIGHT_GREY } from '../constants/colors'
 
 import FormLabel from './FormLabel'
 
@@ -15,11 +15,16 @@ type Props = {
   onPress?: Function,
   style?: Object,
   value: string,
-};
+}
 
-const RadioButton = (
-  { selected, primaryText, secondaryText, onPress, style, value }: Props
-) => {
+const RadioButton = ({
+  selected,
+  primaryText,
+  secondaryText,
+  onPress,
+  style,
+  value,
+}: Props) => {
   return (
     <TouchableOpacity
       style={[styles.option, selected && styles.selectedOption, style]}
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   selectedButton: {
-    backgroundColor: GREEN,
+    backgroundColor: BLACK,
   },
   option: {
     padding: 15,

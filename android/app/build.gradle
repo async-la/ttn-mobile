@@ -140,6 +140,10 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    dexOptions {
+        jumboMode true
+        javaMaxHeapSize "4g"
+    }
     signingConfigs {
         release {
             // need to set up env variables and place keystore in ./android/app
@@ -187,9 +191,10 @@ dependencies {
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile "com.android.support:appcompat-v7:23.0.1"
 
+    compile project(':react-native-camera')
+    compile project(':react-native-code-push')
     compile project(':react-native-image-crop-picker')
     compile project(':react-native-image-picker')
-    compile project(':react-native-code-push')
     compile project(':react-native-maps')
     compile project(':react-native-svg')
     compile project(':react-native-sentry')
@@ -199,7 +204,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.22.1'
 
     // Paho MQTT
-    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
+    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1'
 
 }
 

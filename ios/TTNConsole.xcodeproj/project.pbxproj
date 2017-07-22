@@ -24,6 +24,7 @@
 		112783B71E89C80D0049531B /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AE1E89C80D0049531B /* Lato-Regular.ttf */; };
 		112783B81E89C80D0049531B /* LeagueSpartan-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 112783AF1E89C80D0049531B /* LeagueSpartan-Bold.otf */; };
 		1198B72F1E97FF7A00BAA9A3 /* TTNMQTT.m in Sources */ = {isa = PBXBuildFile; fileRef = 1198B72E1E97FF7A00BAA9A3 /* TTNMQTT.m */; };
+		11BAE1E61F22665800DE046D /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11BAE1C91F22664B00DE046D /* libRCTCamera.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -149,6 +150,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
 			remoteInfo = RNSVG;
+		};
+		11BAE1C81F22664B00DE046D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11BAE1BE1F22664B00DE046D /* RCTCamera.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
+			remoteInfo = RCTCamera;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -364,6 +372,7 @@
 		112783AF1E89C80D0049531B /* LeagueSpartan-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LeagueSpartan-Bold.otf"; path = "TTNConsole/Assets/Fonts/LeagueSpartan-Bold.otf"; sourceTree = "<group>"; };
 		1198B72D1E97FF7A00BAA9A3 /* TTNMQTT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNMQTT.h; path = TTNConsole/Modules/TTNMQTT.h; sourceTree = "<group>"; };
 		1198B72E1E97FF7A00BAA9A3 /* TTNMQTT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTNMQTT.m; path = TTNConsole/Modules/TTNMQTT.m; sourceTree = "<group>"; };
+		11BAE1BE1F22664B00DE046D /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TTNConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTNConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -423,6 +432,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11BAE1E61F22665800DE046D /* libRCTCamera.a in Frameworks */,
 				607AF0CD1ECA7D1B00BB900D /* libimageCropPicker.a in Frameworks */,
 				6094A3751EBBA3EB00827CCA /* libAirMaps.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -607,6 +617,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		11BAE1BF1F22664B00DE046D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11BAE1C91F22664B00DE046D /* libRCTCamera.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -730,6 +748,7 @@
 				607AF0A41ECA7CE400BB900D /* imageCropPicker.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
+				11BAE1BE1F22664B00DE046D /* RCTCamera.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
 				00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */,
 				78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */,
@@ -939,6 +958,10 @@
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
 				},
 				{
+					ProductGroup = 11BAE1BF1F22664B00DE046D /* Products */;
+					ProjectRef = 11BAE1BE1F22664B00DE046D /* RCTCamera.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
 				},
@@ -1074,6 +1097,13 @@
 			fileType = archive.ar;
 			path = libRNSVG.a;
 			remoteRef = 119E8B2C1EA692C2001CA550 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		11BAE1C91F22664B00DE046D /* libRCTCamera.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCamera.a;
+			remoteRef = 11BAE1C81F22664B00DE046D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {

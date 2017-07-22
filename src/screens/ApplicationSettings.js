@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 
 import { handlers } from '../constants/application'
-import { BLUE, DARK_GREY } from '../constants/colors'
+import { BLACK, DARK_GREY } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -469,7 +469,7 @@ class ApplicationSettings extends Component {
           <ActivityIndicator
             size="large"
             style={styles.activityIndicator}
-            color={BLUE}
+            color={BLACK}
           />}
       </View>
     )

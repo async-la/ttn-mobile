@@ -4,14 +4,14 @@ import React from 'react'
 import { Text, View } from 'react-native'
 
 import {
-  BLUE,
+  BLACK,
   MID_GREY,
   GREY,
   LIGHT_GREY,
   DARK_ORANGE,
-  LIGHT_BLUE,
   LIGHT_ORANGE,
   ORANGE,
+  WHITE,
 } from '../constants/colors'
 
 import { LATO_REGULAR } from '../constants/fonts'
@@ -33,14 +33,14 @@ const TagLabel = (props: Props) => {
     labelColor.backgroundColor = LIGHT_ORANGE
     labelColor.borderBottomColor = ORANGE
   } else {
-    labelColor.backgroundColor = LIGHT_BLUE
-    labelColor.borderBottomColor = BLUE
+    labelColor.backgroundColor = BLACK
+    labelColor.borderBottomColor = MID_GREY
   }
 
   let textColor
   if (props.grey) textColor = MID_GREY
   else if (props.orange) textColor = DARK_ORANGE
-  else textColor = BLUE
+  else textColor = WHITE
 
   return (
     <View

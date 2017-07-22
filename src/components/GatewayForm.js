@@ -2,16 +2,18 @@
 
 import React, { Component } from 'react'
 import {
+  Button,
+  Modal,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
+  Vibration,
   View,
 } from 'react-native'
 
-import { BLUE, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
-import { LEAGUE_SPARTAN } from '../constants/fonts'
+import { BLACK, GREY, LIGHT_GREY, WHITE } from '../constants/colors'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MapView from 'react-native-maps'
@@ -19,6 +21,7 @@ import MapView from 'react-native-maps'
 import CancelButton from '../components/CancelButton'
 import FormInput from '../components/FormInput'
 import FormLabel from '../components/FormLabel'
+import QRCodeScanner from '../components/QRCodeScanner'
 import RadioButtonPanel from '../components/RadioButtonPanel'
 import SubmitButton from '../components/SubmitButton'
 
@@ -52,6 +55,7 @@ type State = {
   inProgress: boolean,
   location: Object,
   mapEditEnabled: boolean,
+  modalVisible: boolean,
   placement: string,
   router: string,
 }
@@ -68,6 +72,7 @@ class GatewayForm extends Component {
     inProgress: false,
     location: DEFAULT_LOCATION,
     mapEditEnabled: false,
+    modalVisible: false,
     placement: 'indoor',
     router: routers[0].value,
   }
@@ -169,6 +174,41 @@ class GatewayForm extends Component {
         500
       )
   }
+  _onBarCodeRead = async event => {
+    if (event.type === 'org.iso.QRCode' || event.type === 'QR_CODE') {
+      Vibration.vibrate()
+      this._dismissModal()
+
+      const parsedData = JSON.parse(event.data)
+      if (parsedData.id) this.setState({ id: parsedData.id, idValid: true })
+      if (parsedData.description)
+        this.setState({
+          description: parsedData.description,
+          descriptionValid: true,
+        })
+    }
+  }
+  _displayModal = () => {
+    this.setState({ modalVisible: true })
+  }
+  _dismissModal = () => {
+    this.setState({ modalVisible: false })
+  }
+  _renderModal = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={this.state.modalVisible}
+        onRequestClose={this._dismissModal}
+      >
+        <QRCodeScanner
+          onDismiss={this._dismissModal}
+          onBarCodeRead={this._onBarCodeRead}
+        />
+      </Modal>
+    )
+  }
   render() {
     const { onCancel } = this.props
     return (
@@ -180,7 +220,11 @@ class GatewayForm extends Component {
           <Text style={styles.formTitle}>ADD GATEWAY</Text>
         </View>
         <View style={styles.container}>
-
+          <Button
+            onPress={this._displayModal}
+            title="Scan QR Code"
+            color={BLACK}
+          />
           <FormLabel
             primaryText="Gateway ID"
             secondaryText="A unique identifier for your gateway"
@@ -261,7 +305,7 @@ class GatewayForm extends Component {
                   <Ionicons
                     name={'ios-pin'}
                     style={[
-                      { color: BLUE },
+                      { color: BLACK },
                       Platform.OS == 'ios' && { top: -25 },
                     ]}
                     size={50}
@@ -281,7 +325,7 @@ class GatewayForm extends Component {
               onPress={() =>
                 this.setState({ mapEditEnabled: !this.state.mapEditEnabled })}
             >
-              <Text style={{ color: BLUE }}>
+              <Text style={{ color: BLACK }}>
                 {this.state.mapEditEnabled
                   ? 'Done'
                   : this.state.hasLocation ? 'Edit' : 'Add'}
@@ -299,7 +343,7 @@ class GatewayForm extends Component {
               }}
               onPress={this._resetMap}
             >
-              <Text style={{ color: BLUE }}>Reset</Text>
+              <Text style={{ color: BLACK }}>Reset</Text>
             </TouchableOpacity>
           </View>
           <FormLabel primaryText={'Antenna placement'} />
@@ -323,8 +367,9 @@ class GatewayForm extends Component {
               />
             </View>
           </View>
-
         </View>
+        {this._renderModal()}
+
       </ScrollView>
     )
   }
@@ -358,8 +403,7 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
   },
   formTitle: {
-    color: BLUE,
-    fontFamily: LEAGUE_SPARTAN,
+    color: BLACK,
     fontSize: 22,
   },
   header: {

@@ -3,7 +3,6 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
-  Image,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -12,7 +11,7 @@ import {
   View,
 } from 'react-native'
 
-import { BLUE } from '../constants/colors'
+import { BLACK } from '../constants/colors'
 import { DEVICE_LIST } from '../scopes/navigation/constants'
 import { LATO_REGULAR } from '../constants/fonts'
 
@@ -139,7 +138,9 @@ class ApplicationOverview extends Component {
   render() {
     const { application } = this.props
     if (!this.state.initialLoad) {
-      return <ActivityIndicator size="large" style={{ flex: 1 }} />
+      return (
+        <ActivityIndicator size="large" style={{ flex: 1 }} color={BLACK} />
+      )
     } else if (this.state.initialLoad && !application) {
       return (
         <Text onPress={this._fetchApplication}>
@@ -179,11 +180,6 @@ class ApplicationOverview extends Component {
               style={styles.deviceButton}
               onPress={this._navigateToDevices}
             >
-              <Image
-                resizeMode="contain"
-                source={require('../assets/device.png')}
-                style={styles.deviceButtonImage}
-              />
               <Text style={styles.deviceButtonText}>
                 {this.state.devices ? this.state.devices.length : 0}
               </Text>
@@ -260,7 +256,7 @@ const styles = StyleSheet.create({
     fontFamily: LATO_REGULAR,
     fontWeight: 'bold',
     fontSize: 18,
-    color: BLUE,
+    color: BLACK,
     margin: 10,
   },
 })

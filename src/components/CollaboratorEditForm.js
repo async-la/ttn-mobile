@@ -9,8 +9,8 @@ import {
   View,
 } from 'react-native'
 
-import { BLUE, GREY, LIGHT_GREY, MID_GREY, WHITE } from '../constants/colors'
-import { LATO_REGULAR, LEAGUE_SPARTAN } from '../constants/fonts'
+import { BLACK, GREY, LIGHT_GREY, MID_GREY, WHITE } from '../constants/colors'
+import { LATO_REGULAR } from '../constants/fonts'
 import {
   COLLABORATORS,
   DELETE,
@@ -265,8 +265,7 @@ const styles = StyleSheet.create({
     backgroundColor: WHITE,
   },
   formTitle: {
-    color: BLUE,
-    fontFamily: LEAGUE_SPARTAN,
+    color: BLACK,
     fontSize: 22,
   },
   header: {
@@ -283,7 +282,7 @@ const styles = StyleSheet.create({
     fontFamily: LATO_REGULAR,
   },
   option: {
-    borderColor: BLUE,
+    borderColor: BLACK,
     borderBottomWidth: 1,
   },
   optionContainer: {

@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 
 import copy from '../constants/copy'
+import { BLACK } from '../constants/colors'
 import { OTAA, ABP } from '../constants/application'
 
 import CheckBox from '../components/CheckBox'
@@ -228,7 +229,11 @@ class DeviceSettings extends Component {
     return (
       <View style={{ flex: 1 }}>
         {!device.dev_id
-          ? <ActivityIndicator size="large" style={styles.activityIndicator} />
+          ? <ActivityIndicator
+              size="large"
+              style={styles.activityIndicator}
+              color={BLACK}
+            />
           : <ScrollView style={styles.container}>
               <ContentBlock heading={copy.GENERAL}>
 
