@@ -10,7 +10,6 @@ import { MID_GREY, WHITE } from '../constants/colors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import type { TTNApplication } from '../scopes/content/applications/types'
-import { removePrefix } from '../utils/textUtils'
 
 type Props = {
   application: TTNApplication,
@@ -41,7 +40,7 @@ export default class ApplicationListItem extends Component {
           </TagLabel>
           <View style={[styles.applicationContainer, styles.handlerContainer]}>
             <Text style={styles.handlerText}>
-              {removePrefix(application.handler, 'ttn-handler-')}
+              {application.handler}
             </Text>
           </View>
         </View>
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   handlerContainer: {
-    width: 70,
+    width: 100,
   },
   handlerText: {
     fontStyle: 'italic',

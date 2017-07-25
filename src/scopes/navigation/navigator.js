@@ -21,8 +21,7 @@ import GatewayTraffic from '../../screens/GatewayTraffic'
 import ProfileOverview from '../../screens/ProfileOverview'
 
 import IconAccount from '../../components/IconAccount'
-import IconApplications from '../../components/IconApplications'
-import IconGateways from '../../components/IconGateways'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import {
   APPLICATION_DETAIL,
@@ -48,7 +47,7 @@ import {
   TRAFFIC_LABEL,
 } from './constants'
 
-import { BLACK, MID_GREY, GREY, WHITE } from '../../constants/colors'
+import { BLACK, GREY, WHITE } from '../../constants/colors'
 import { LATO_REGULAR } from '../../constants/fonts'
 
 const ApplicationDetail = TabNavigator(
@@ -246,7 +245,10 @@ const AppNavigator = TabNavigator(
       navigationOptions: {
         tabBarLabel: APPLICATIONS_LABEL,
         tabBarIcon: ({ tintColor, focused }) => (
-          <IconApplications fill={focused ? MID_GREY : GREY} />
+          <Ionicons
+            name={focused ? 'ios-apps' : 'ios-apps-outline'}
+            size={36}
+          />
         ),
       },
     },
@@ -256,7 +258,10 @@ const AppNavigator = TabNavigator(
       navigationOptions: {
         tabBarLabel: GATEWAYS_LABEL,
         tabBarIcon: ({ tintColor, focused }) => (
-          <IconGateways fill={focused ? MID_GREY : GREY} />
+          <Ionicons
+            name={focused ? 'ios-wifi' : 'ios-wifi-outline'}
+            size={36}
+          />
         ),
       },
     },
@@ -266,7 +271,7 @@ const AppNavigator = TabNavigator(
       navigationOptions: {
         tabBarLabel: PROFILE_LABEL,
         tabBarIcon: ({ tintColor, focused }) => (
-          <IconAccount fill={focused ? MID_GREY : GREY} />
+          <IconAccount fill={focused ? BLACK : GREY} />
         ),
       },
     },
