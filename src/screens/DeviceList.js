@@ -31,6 +31,7 @@ import type { TTNDevice } from '../scopes/content/applications/types'
 type Props = {
   application: Object,
   devices: Array<TTNDevice>,
+  getApplicationAsync: Function,
   getApplicationDevicesAsync: Function,
   navigation: Object,
 }
@@ -54,6 +55,7 @@ class DeviceList extends Component {
     modalVisible: false,
     isRefreshing: false,
   }
+  _retry = false
   static navigationOptions = ({ navigation }) => ({
     title: (navigation.state.params && navigation.state.params.appName) || '',
   })
@@ -76,6 +78,15 @@ class DeviceList extends Component {
 
     if (applicationHasDevicesRights(nextProps.application)) {
       this.setState({ authorized: true })
+    } else if (!this._retry) {
+      /* Workaround for when the last route in the navigation state is DeviceList
+      * and the app is either booted or foregrounded. The problem lies in TTN's
+      * backend where fetching for all devices does not return the `rights` property
+      * on the application object which is required when using `applicationHasDevicesRights`.
+      * https://github.com/async-la/ttn-mobile/issues/148
+      */
+      this._retry = true
+      return this.props.getApplicationAsync(nextProps.application)
     } else {
       this.setState({ authorized: false })
     }
