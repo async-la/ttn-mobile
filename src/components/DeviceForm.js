@@ -157,11 +157,13 @@ class DeviceForm extends Component {
     if (event.type === 'org.iso.QRCode' || event.type === 'QR_CODE') {
       Vibration.vibrate()
       this._dismissModal()
-
       const parsedData = JSON.parse(event.data)
-      if (parsedData.id) this.setState({ id: parsedData.id, idValid: true })
+      if (parsedData.dev_eui)
+        this.setState({ id: parsedData.dev_eui.toLowerCase(), idValid: true })
       if (parsedData.description)
         this.setState({ description: parsedData.description })
+      if (parsedData.app_eui || parsedData.app_key)
+        alert(`App EUI: ${parsedData.app_eui}\nApp Key: ${parsedData.app_key}`)
     }
   }
   _displayModal = () => {
