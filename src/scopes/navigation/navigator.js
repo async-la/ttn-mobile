@@ -1,10 +1,13 @@
 // @flow
 import React from 'react'
+import { Animated, Easing } from 'react-native'
+
 import {
   TabNavigator,
   TabBarBottom,
   TabBarTop,
   StackNavigator,
+  NavigationActions,
 } from 'react-navigation'
 
 import ApplicationData from '../../screens/ApplicationData'
@@ -49,6 +52,64 @@ import {
 
 import { BLACK, GREY, WHITE } from '../../constants/colors'
 import { LATO_REGULAR } from '../../constants/fonts'
+
+const transitionConfig = () => ({
+  transitionSpec: {
+    duration: 750,
+    easing: Easing.out(Easing.poly(4)),
+    timing: Animated.timing,
+  },
+  screenInterpolator: sceneProps => {
+    const { layout, position, scene, scenes } = sceneProps
+    const { index } = scene
+
+    const height = layout.initHeight
+    const width = layout.initWidth
+
+    const translateY = position.interpolate({
+      inputRange: [index - 1, index, index + 1],
+      outputRange: [height, 0, 0],
+    })
+
+    const translateX = position.interpolate({
+      inputRange: [index - 1, index, index + 1],
+      outputRange: [width, 0, 0],
+    })
+
+    const opacity = position.interpolate({
+      inputRange: [index - 1, index - 0.99, index],
+      outputRange: [0, 1, 1],
+    })
+
+    console.log('PROPS!!', sceneProps)
+    console.log('SCENES:', scenes)
+    console.log('SCENES LENGTH:', scenes.length)
+    console.log('INDEX:', index)
+
+    if (index > 0 && index < scenes.length - 2) return { opacity: 0 } //Hide transitions if we're navigating through multiple screens in a single action
+    if (scenes.length - index > 1)
+      return { opacity, transform: [{ translateY }] } // if we're adding more than one item to the stack do a vertical transition
+    return { opacity, transform: [{ translateX }] } // all other transitions slide in from the right
+  },
+})
+
+const tabBarComponent = ({ jumpToIndex, ...props }) => (
+  <TabBarBottom
+    {...props}
+    jumpToIndex={index => {
+      if (props.navigation.state.index === index) {
+        const { routeName } = props.navigation.state.routes[index].routes[0]
+        const resetAction = NavigationActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName })],
+        })
+        props.navigation.dispatch(resetAction)
+      } else {
+        jumpToIndex(index)
+      }
+    }}
+  />
+)
 
 const ApplicationDetail = TabNavigator(
   {
@@ -161,18 +222,21 @@ const DeviceDetail = TabNavigator(
   }
 )
 
-const Applications = StackNavigator({
-  [APPLICATION_LIST]: {
-    screen: ApplicationList,
-    path: '/',
+const Applications = StackNavigator(
+  {
+    [APPLICATION_LIST]: {
+      screen: ApplicationList,
+      path: '/',
+    },
+    [APPLICATION_DETAIL]: {
+      screen: ApplicationDetail,
+    },
+    [DEVICE_DETAIL]: {
+      screen: DeviceDetail,
+    },
   },
-  [APPLICATION_DETAIL]: {
-    screen: ApplicationDetail,
-  },
-  [DEVICE_DETAIL]: {
-    screen: DeviceDetail,
-  },
-})
+  { transitionConfig }
+)
 
 const GatewayDetail = TabNavigator(
   {
@@ -219,16 +283,19 @@ const GatewayDetail = TabNavigator(
   }
 )
 
-const Gateways = StackNavigator({
-  [GATEWAY_LIST]: {
-    screen: GatewayList,
-    path: '/',
+const Gateways = StackNavigator(
+  {
+    [GATEWAY_LIST]: {
+      screen: GatewayList,
+      path: '/',
+    },
+    [GATEWAY_DETAIL]: {
+      screen: GatewayDetail,
+      path: '/gatewaydetail',
+    },
   },
-  [GATEWAY_DETAIL]: {
-    screen: GatewayDetail,
-    path: '/gatewaydetail',
-  },
-})
+  { transitionConfig }
+)
 
 const Profile = StackNavigator({
   [PROFILE]: {
@@ -280,7 +347,7 @@ const AppNavigator = TabNavigator(
     order: [APPLICATIONS, GATEWAYS, PROFILE],
     lazy: true,
     swipeEnabled: false,
-    tabBarComponent: TabBarBottom,
+    tabBarComponent,
     tabBarPosition: 'bottom',
     tabBarOptions: {
       showLabel: false,
