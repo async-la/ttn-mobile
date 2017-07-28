@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>TTN QR Code Generator</title>
+    <style>
+
+      body {
+        color: #666;
+      }
+
+      label {
+        display: block;
+        margin-top: 20px;
+      }
+
+      input {
+        height: 25px;
+        width: 100%;
+        margin-top: 5px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+      }
+      .container {
+        font-family: sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      #form-container {
+        flex: 1;
+        width: 50%;
+        max-width: 500px;
+      }
+
+      #submit-button {
+        height: 40px;
+        border: none;
+        color: white;
+        background: lightskyblue;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+
+      #qr-code-img {
+        margin-top: 30px;
+        border: none;
+      }
+
+    </style>
+    <script>
+    function createQRCode() {
+      const dev_eui = document.getElementById("dev_eui").value
+      const description = document.getElementById("description").value
+      const app_eui = document.getElementById("app_eui").value
+      const app_key = document.getElementById("app_key").value
+      const url = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={"dev_eui":"${dev_eui}","description":"${description}","app_eui":"${app_eui}","app_key":"${app_key}"}`
+      const qrCode = document.getElementById("qr-code-img")
+      qrCode.src = url
+      window.scrollTo(0, document.body.scrollHeight);
+      return false;
+    }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>The Things Network</h1>
+      <h2>QR Code Generator</h2>
+      <div id="form-container">
+        <form onsubmit="return createQRCode()">
+          <label for="dev_eui">Device EUI</label>
+          <input type="text" name="dev_eui" id="dev_eui"><br>
+          <label for="description">Description</label>
+          <input type="text" name="description" id="description"><br>
+          <label for="app_eui">App EUI</label>
+          <input type="text" name="app_eui" id="app_eui"><br>
+          <label for="app_key">App Key</label>
+          <input type="text" name="app_key" id="app_key"><br><br>
+          <input type="submit" value="Generate QR Code" id="submit-button">
+        </form>
+
+      </div>
+      <iframe id="qr-code-img" height="200" width="200"></iframe>
+    </div>
+  </body>
+</html>
