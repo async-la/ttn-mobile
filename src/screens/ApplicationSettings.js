@@ -188,10 +188,10 @@ class ApplicationSettings extends Component {
       const { application, createEUIAsync } = this.props
       this.setState({ inProgressEUI: true })
       await createEUIAsync(application)
-      this.setState({ inProgressEUI: false })
     } catch (err) {
-      this.setState({ inProgressEUI: false })
       alert('Error adding EUI')
+    } finally {
+      this.setState({ inProgressEUI: false })
     }
   }
   _deleteEui = async eui => {
