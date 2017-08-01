@@ -184,10 +184,15 @@ class ApplicationSettings extends Component {
       ToastAndroid.show('Application delete cancelled', ToastAndroid.SHORT)
   }
   _addEUI = async () => {
-    const { application, createEUIAsync } = this.props
-    this.setState({ inProgressEUI: true })
-    await createEUIAsync(application)
-    this.setState({ inProgressEUI: false })
+    try {
+      const { application, createEUIAsync } = this.props
+      this.setState({ inProgressEUI: true })
+      await createEUIAsync(application)
+      this.setState({ inProgressEUI: false })
+    } catch (err) {
+      this.setState({ inProgressEUI: false })
+      alert('Error adding EUI')
+    }
   }
   _deleteEui = async eui => {
     const { application, deleteEUIAsync } = this.props

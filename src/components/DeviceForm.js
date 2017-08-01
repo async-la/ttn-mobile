@@ -47,10 +47,12 @@ type State = {
   eui: string,
   description: string,
   id: string,
+  appKey: string,
   idValid: boolean,
   inProgress: boolean,
   inProgressEUI: boolean,
   modalVisible: boolean,
+  scannedQR: boolean,
 }
 
 class DeviceForm extends Component {
@@ -59,10 +61,12 @@ class DeviceForm extends Component {
     eui: '',
     id: '',
     description: '',
+    appKey: '',
     idValid: false,
     inProgress: false,
     inProgressEUI: false,
     modalVisible: false,
+    scannedQR: false,
   }
   componentDidMount() {
     const { application } = this.props
@@ -88,6 +92,9 @@ class DeviceForm extends Component {
       case 'deviceDescription':
         this.setState({ description: text })
         break
+      case 'eui':
+        this.setState({ eui: text })
+        break
     }
   }
   _onValidate = (isValid, formInputId) => {
@@ -98,16 +105,28 @@ class DeviceForm extends Component {
     }
   }
   _onSubmit = async () => {
-    const { application, addDeviceAsync, updateDeviceAsync } = this.props
-    const { eui, id, description } = this.state
-
-    let device = {
-      app_eui: eui,
-      dev_id: id,
-    }
+    const {
+      application,
+      addDeviceAsync,
+      createEUIAsync,
+      updateDeviceAsync,
+    } = this.props
+    const { appKey, eui, id, description } = this.state
 
     this.setState({ inProgress: true })
     try {
+      // Create custom defined application EUI.
+      // Currently only possible through QR Code scan
+      if (application.euis && application.euis.indexOf(eui) == -1) {
+        await createEUIAsync(application, eui)
+      }
+
+      let device = {
+        app_eui: eui,
+        dev_id: id,
+        app_key: appKey || null,
+      }
+
       device = await addDeviceAsync(application, device)
 
       if (description) {
@@ -132,6 +151,9 @@ class DeviceForm extends Component {
             )
             break
         }
+      } else {
+        // Likely from bad app eui or key
+        alert('Unable to register device')
       }
     } finally {
       this.setState({ inProgress: false })
@@ -162,8 +184,9 @@ class DeviceForm extends Component {
         this.setState({ id: parsedData.dev_eui.toLowerCase(), idValid: true })
       if (parsedData.description)
         this.setState({ description: parsedData.description })
-      if (parsedData.app_eui || parsedData.app_key)
-        alert(`App EUI: ${parsedData.app_eui}\nApp Key: ${parsedData.app_key}`)
+      if (parsedData.app_eui)
+        this.setState({ eui: parsedData.app_eui, scannedQR: true })
+      if (parsedData.app_key) this.setState({ appKey: parsedData.app_key })
     }
   }
   _displayModal = () => {
@@ -218,7 +241,6 @@ class DeviceForm extends Component {
             id="deviceId"
             validationType="deviceId"
             onChangeText={this._onChangeText}
-            onValidate={this._onValidate}
             value={this.state.id.toLowerCase()}
             required
           />
@@ -232,22 +254,42 @@ class DeviceForm extends Component {
             value={this.state.description}
           />
 
-          <FormLabel primaryText="App EUI" />
-          {application.euis && application.euis.length
-            ? <RadioButtonPanel
-                buttons={euis}
-                selected={this.state.eui}
-                onSelect={eui => this.setState({ eui })}
-              />
-            : <TouchableOpacity
-                style={styles.noEUIButton}
-                onPress={this._addEUI}
-              >
-                {!this.state.inProgressEUI
-                  ? <Text style={styles.noEUIText}>Generate App EUI</Text>
-                  : <ActivityIndicator size="small" color={BLACK} />}
-              </TouchableOpacity>}
+          <View>
+            {!this.state.scannedQR
+              ? <View>
+                  <FormLabel primaryText="App EUI" />
+                  {application.euis &&
+                    application.euis.length &&
+                    <RadioButtonPanel
+                      buttons={euis}
+                      selected={this.state.eui}
+                      onSelect={eui => this.setState({ eui })}
+                    />}
 
+                  <TouchableOpacity
+                    style={styles.noEUIButton}
+                    onPress={this._addEUI}
+                  >
+                    {!this.state.inProgressEUI
+                      ? <Text style={styles.noEUIText}>
+                          Generate New App EUI
+                        </Text>
+                      : <ActivityIndicator size="small" color={BLACK} />}
+                  </TouchableOpacity>
+                </View>
+              : <View>
+                  <FormLabel
+                    primaryText="App EUI"
+                    secondaryText="Application EUI's generated from the QR code scan."
+                  />
+                  <FormInput
+                    id="eui"
+                    editable={false}
+                    onChangeText={this._onChangeText}
+                    value={this.state.eui}
+                  />
+                </View>}
+          </View>
           <View>
             <View style={styles.buttonRow}>
               <CancelButton onPress={onCancel} style={styles.cancelButton} />
