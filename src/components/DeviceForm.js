@@ -44,9 +44,10 @@ type Props = {
 }
 
 type State = {
-  eui: string,
+  appEUI: string,
   description: string,
   id: string,
+  deviceEUI: ?string,
   appKey: string,
   idValid: boolean,
   inProgress: boolean,
@@ -58,10 +59,11 @@ type State = {
 class DeviceForm extends Component {
   props: Props
   state: State = {
-    eui: '',
-    id: '',
-    description: '',
+    appEUI: '',
     appKey: '',
+    description: '',
+    deviceEUI: null,
+    id: '',
     idValid: false,
     inProgress: false,
     inProgressEUI: false,
@@ -71,16 +73,16 @@ class DeviceForm extends Component {
   componentDidMount() {
     const { application } = this.props
     if (application.euis && application.euis.length)
-      this.setState({ eui: application.euis[0] })
+      this.setState({ appEUI: application.euis[0] })
   }
 
   componentWillReceiveProps(nextProps) {
     if (
-      !this.state.eui &&
+      !this.state.appEUI &&
       nextProps.application.euis &&
       nextProps.application.euis.length
     ) {
-      this.setState({ eui: nextProps.application.euis[0] })
+      this.setState({ appEUI: nextProps.application.euis[0] })
     }
   }
 
@@ -92,8 +94,8 @@ class DeviceForm extends Component {
       case 'deviceDescription':
         this.setState({ description: text })
         break
-      case 'eui':
-        this.setState({ eui: text })
+      case 'appEUI':
+        this.setState({ appEUI: text })
         break
     }
   }
@@ -111,20 +113,21 @@ class DeviceForm extends Component {
       createEUIAsync,
       updateDeviceAsync,
     } = this.props
-    const { appKey, eui, id, description } = this.state
+    const { appKey, appEUI, deviceEUI, id, description } = this.state
 
     this.setState({ inProgress: true })
     try {
       // Create custom defined application EUI.
       // Currently only possible through QR Code scan
-      if (application.euis && application.euis.indexOf(eui) == -1) {
-        await createEUIAsync(application, eui)
+      if (application.euis && application.euis.indexOf(appEUI) == -1) {
+        await createEUIAsync(application, appEUI)
       }
 
       let device = {
-        app_eui: eui,
+        app_eui: appEUI,
         dev_id: id,
         app_key: appKey || null,
+        dev_eui: deviceEUI || null,
       }
 
       device = await addDeviceAsync(application, device)
@@ -160,7 +163,7 @@ class DeviceForm extends Component {
     }
   }
   _allInputsValid() {
-    return Boolean(this.state.idValid && this.state.eui)
+    return Boolean(this.state.idValid && this.state.appEUI)
   }
 
   _addEUI = async () => {
@@ -181,11 +184,15 @@ class DeviceForm extends Component {
       this._dismissModal()
       const parsedData = JSON.parse(event.data)
       if (parsedData.dev_eui)
-        this.setState({ id: parsedData.dev_eui.toLowerCase(), idValid: true })
+        this.setState({
+          id: parsedData.dev_eui.toLowerCase(), // Defaul ID to device EUI
+          deviceEUI: parsedData.dev_eui, // Only applied through QR Scan
+          idValid: true,
+        })
       if (parsedData.description)
         this.setState({ description: parsedData.description })
       if (parsedData.app_eui)
-        this.setState({ eui: parsedData.app_eui, scannedQR: true })
+        this.setState({ appEUI: parsedData.app_eui, scannedQR: true })
       if (parsedData.app_key) this.setState({ appKey: parsedData.app_key })
     }
   }
@@ -262,8 +269,8 @@ class DeviceForm extends Component {
                     application.euis.length &&
                     <RadioButtonPanel
                       buttons={euis}
-                      selected={this.state.eui}
-                      onSelect={eui => this.setState({ eui })}
+                      selected={this.state.appEUI}
+                      onSelect={appEUI => this.setState({ appEUI })}
                     />}
 
                   <TouchableOpacity
@@ -283,10 +290,10 @@ class DeviceForm extends Component {
                     secondaryText="Application EUI's generated from the QR code scan."
                   />
                   <FormInput
-                    id="eui"
+                    id="appEUI"
                     editable={false}
                     onChangeText={this._onChangeText}
-                    value={this.state.eui}
+                    value={this.state.appEUI}
                   />
                 </View>}
           </View>

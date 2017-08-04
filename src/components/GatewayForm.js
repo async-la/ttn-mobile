@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react'
 import {
-  Button,
   Modal,
   Platform,
   ScrollView,
@@ -220,11 +219,6 @@ class GatewayForm extends Component {
           <Text style={styles.formTitle}>ADD GATEWAY</Text>
         </View>
         <View style={styles.container}>
-          <Button
-            onPress={this._displayModal}
-            title="Scan QR Code"
-            color={BLACK}
-          />
           <FormLabel
             primaryText="Gateway ID"
             secondaryText="A unique identifier for your gateway"
