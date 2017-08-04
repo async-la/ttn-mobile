@@ -1,4 +1,4 @@
-package com.ttnconsole;
+package com.async.ttn;
 
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
@@ -61,7 +61,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new ImagePickerPackage(),
           new PickerPackage(),
-          new CodePush(metaData.getString("com.ttnconsole.codePushKey"), getApplicationContext(), BuildConfig.DEBUG),
+          new CodePush(metaData.getString("com.async.ttn.codePushKey"), getApplicationContext(), BuildConfig.DEBUG),
           new SvgPackage(),
           new RNSentryPackage(),
           new RCTCameraPackage(),
