@@ -1,4 +1,4 @@
-package com.ttnconsole;
+package com.async.ttn;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;

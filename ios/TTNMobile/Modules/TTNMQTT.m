@@ -1,6 +1,6 @@
 //
 //  TTNMQTT.m
-//  TTNConsole
+//  TTNMobile
 //
 //  Created by Christopher Dro on 4/7/17.
 //  Copyright © 2017 Async LLC. All rights reserved.

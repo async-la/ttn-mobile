@@ -4,7 +4,6 @@
 global.Intl = require('react-intl')
 
 import React, { Component } from 'react'
-import { AppRegistry } from 'react-native'
 
 import App from './App'
 import DelayUntilBootstrapped from './components/DelayUntilBootstrapped'
@@ -21,7 +20,7 @@ configureSentry()
 const { store } = configureStore()
 initializeClient(store)
 
-export default class TTNConsole extends Component {
+export default class TTNMobile extends Component {
   render() {
     return (
       <Provider store={store}>
@@ -36,5 +35,3 @@ export default class TTNConsole extends Component {
     )
   }
 }
-
-AppRegistry.registerComponent('TTNConsole', () => TTNConsole)

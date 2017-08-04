@@ -12,7 +12,7 @@
 		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
-		00E356F31AD99517003FC87E /* TTNConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TTNConsoleTests.m */; };
+		00E356F31AD99517003FC87E /* TTNMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TTNMobileTests.m */; };
 		0F64370947914AD085235A73 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 44775372B8B946159069F7FC /* libz.tbd */; };
 		112783B01E89C80D0049531B /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783A71E89C80D0049531B /* Lato-Black.ttf */; };
 		112783B11E89C80D0049531B /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 112783A81E89C80D0049531B /* Lato-BlackItalic.ttf */; };
@@ -46,7 +46,7 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
-		2DCD954D1E0B4F2C00145EB5 /* TTNConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TTNConsoleTests.m */; };
+		2DCD954D1E0B4F2C00145EB5 /* TTNMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TTNMobileTests.m */; };
 		2EEC0BA317F54295B2B532CB /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FC072E86C194377A3EA121A /* Octicons.ttf */; };
 		34EC611AB38A4AA9A1785E90 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAE482AA97D640BC8788F820 /* SimpleLineIcons.ttf */; };
 		46DEB8962CC44411B6EA997C /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DD8BE224B64E65AFA027AC /* libRNImagePicker.a */; };
@@ -60,7 +60,7 @@
 		607AF0D31ECA7D2300BB900D /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 607AF0D11ECA7D2300BB900D /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6094A3751EBBA3EB00827CCA /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6094A3521EBBA3A800827CCA /* libAirMaps.a */; };
 		64ACB264A11D47CCA8106F8A /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A10B627C0004084AED87C8F /* libCodePush.a */; };
-		7AE8D8476B7E68D38F26DA7D /* libPods-TTNConsole.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4615CA4FECA96623CDAE3231 /* libPods-TTNConsole.a */; };
+		7AE8D8476B7E68D38F26DA7D /* libPods-TTNMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4615CA4FECA96623CDAE3231 /* libPods-TTNMobile.a */; };
 		819C951BB36F418E96C62856 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5867E3E6A03B4B65893FFDB4 /* MaterialIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8A2F75CE6551465EB7F2474A /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D965A8EF89F64E4AA54C1FB9 /* EvilIcons.ttf */; };
@@ -114,7 +114,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = TTNConsole;
+			remoteInfo = TTNMobile;
 		};
 		110E27AF1EA183C000A31A8F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -191,7 +191,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "TTNConsole-tvOS";
+			remoteInfo = "TTNMobile-tvOS";
 		};
 		3DAD3E831DF850E9000B6D8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -357,40 +357,40 @@
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
 		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* TTNConsoleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TTNConsoleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* TTNMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TTNMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* TTNConsoleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTNConsoleTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* TTNMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTNMobileTests.m; sourceTree = "<group>"; };
 		0179AA5811CF43C8BC9A6BAA /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		112783A71E89C80D0049531B /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Black.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
-		112783A81E89C80D0049531B /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-BlackItalic.ttf"; path = "TTNConsole/Assets/Fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
-		112783A91E89C80D0049531B /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Bold.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
-		112783AA1E89C80D0049531B /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-BoldItalic.ttf"; path = "TTNConsole/Assets/Fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
-		112783AB1E89C80D0049531B /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Italic.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
-		112783AC1E89C80D0049531B /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Light.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
-		112783AD1E89C80D0049531B /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-LightItalic.ttf"; path = "TTNConsole/Assets/Fonts/Lato-LightItalic.ttf"; sourceTree = "<group>"; };
-		112783AE1E89C80D0049531B /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "TTNConsole/Assets/Fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
-		112783AF1E89C80D0049531B /* LeagueSpartan-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LeagueSpartan-Bold.otf"; path = "TTNConsole/Assets/Fonts/LeagueSpartan-Bold.otf"; sourceTree = "<group>"; };
-		1198B72D1E97FF7A00BAA9A3 /* TTNMQTT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNMQTT.h; path = TTNConsole/Modules/TTNMQTT.h; sourceTree = "<group>"; };
-		1198B72E1E97FF7A00BAA9A3 /* TTNMQTT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTNMQTT.m; path = TTNConsole/Modules/TTNMQTT.m; sourceTree = "<group>"; };
+		112783A71E89C80D0049531B /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Black.ttf"; path = "TTNMobile/Assets/Fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
+		112783A81E89C80D0049531B /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-BlackItalic.ttf"; path = "TTNMobile/Assets/Fonts/Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
+		112783A91E89C80D0049531B /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Bold.ttf"; path = "TTNMobile/Assets/Fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
+		112783AA1E89C80D0049531B /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-BoldItalic.ttf"; path = "TTNMobile/Assets/Fonts/Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
+		112783AB1E89C80D0049531B /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Italic.ttf"; path = "TTNMobile/Assets/Fonts/Lato-Italic.ttf"; sourceTree = "<group>"; };
+		112783AC1E89C80D0049531B /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Light.ttf"; path = "TTNMobile/Assets/Fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
+		112783AD1E89C80D0049531B /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-LightItalic.ttf"; path = "TTNMobile/Assets/Fonts/Lato-LightItalic.ttf"; sourceTree = "<group>"; };
+		112783AE1E89C80D0049531B /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "TTNMobile/Assets/Fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
+		112783AF1E89C80D0049531B /* LeagueSpartan-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "LeagueSpartan-Bold.otf"; path = "TTNMobile/Assets/Fonts/LeagueSpartan-Bold.otf"; sourceTree = "<group>"; };
+		1198B72D1E97FF7A00BAA9A3 /* TTNMQTT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNMQTT.h; path = TTNMobile/Modules/TTNMQTT.h; sourceTree = "<group>"; };
+		1198B72E1E97FF7A00BAA9A3 /* TTNMQTT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TTNMQTT.m; path = TTNMobile/Modules/TTNMQTT.m; sourceTree = "<group>"; };
 		11BAE1BE1F22664B00DE046D /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* TTNConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTNConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TTNConsole/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TTNConsole/AppDelegate.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* TTNMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTNMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = TTNMobile/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = TTNMobile/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TTNConsole/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TTNConsole/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TTNConsole/main.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TTNMobile/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TTNMobile/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TTNMobile/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		171983CA7741437AB36E6DE9 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		20A34B38E1E5459E9FF41EEA /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		279EAE2459934829AAB9414E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* TTNConsole-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TTNConsole-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* TTNConsole-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TTNConsole-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* TTNMobile-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TTNMobile-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* TTNMobile-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TTNMobile-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36CF29FB5AF347EABFA80021 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		44775372B8B946159069F7FC /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		4615CA4FECA96623CDAE3231 /* libPods-TTNConsole.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TTNConsole.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4615CA4FECA96623CDAE3231 /* libPods-TTNMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TTNMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A10B627C0004084AED87C8F /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
 		4FC072E86C194377A3EA121A /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		57F85268FBF940BD853AE777 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -405,9 +405,9 @@
 		71C016C8B1F54F229D3A5372 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		89D9D892B2A7C2030EB33FEF /* Pods-TTNConsole.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTNConsole.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TTNConsole/Pods-TTNConsole.debug.xcconfig"; sourceTree = "<group>"; };
+		89D9D892B2A7C2030EB33FEF /* Pods-TTNMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTNMobile.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TTNMobile/Pods-TTNMobile.debug.xcconfig"; sourceTree = "<group>"; };
 		9414EFCAFA6B4D97845A843B /* RNSentry.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSentry.xcodeproj; path = "../node_modules/react-native-sentry/ios/RNSentry.xcodeproj"; sourceTree = "<group>"; };
-		946DAE36859431ABC81D2C73 /* Pods-TTNConsole.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTNConsole.release.xcconfig"; path = "Pods/Target Support Files/Pods-TTNConsole/Pods-TTNConsole.release.xcconfig"; sourceTree = "<group>"; };
+		946DAE36859431ABC81D2C73 /* Pods-TTNMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTNMobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-TTNMobile/Pods-TTNMobile.release.xcconfig"; sourceTree = "<group>"; };
 		96DD8BE224B64E65AFA027AC /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		9BE0273A718044668F19E3DE /* libSafariViewManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSafariViewManager.a; sourceTree = "<group>"; };
 		9CF1E36DAF2F4C789F9C0561 /* SafariViewManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SafariViewManager.xcodeproj; path = "../node_modules/react-native-safari-view/SafariViewManager.xcodeproj"; sourceTree = "<group>"; };
@@ -447,7 +447,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				DC9B90D7377A4864BBDAB52B /* libRNVectorIcons.a in Frameworks */,
-				7AE8D8476B7E68D38F26DA7D /* libPods-TTNConsole.a in Frameworks */,
+				7AE8D8476B7E68D38F26DA7D /* libPods-TTNMobile.a in Frameworks */,
 				4BD15C82AC8D4ADB98141A0A /* libSafariViewManager.a in Frameworks */,
 				607AF0D21ECA7D2300BB900D /* QBImagePicker.framework in Frameworks */,
 				21342814CB9240D7A77D3659 /* libRNSentry.a in Frameworks */,
@@ -526,13 +526,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		00E356EF1AD99517003FC87E /* TTNConsoleTests */ = {
+		00E356EF1AD99517003FC87E /* TTNMobileTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* TTNConsoleTests.m */,
+				00E356F21AD99517003FC87E /* TTNMobileTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = TTNConsoleTests;
+			path = TTNMobileTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -643,7 +643,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* TTNConsole */ = {
+		13B07FAE1A68108700A75B9A /* TTNMobile */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -654,7 +654,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = TTNConsole;
+			name = TTNMobile;
 			sourceTree = "<group>";
 		};
 		146834001AC3E56700842450 /* Products */ = {
@@ -725,8 +725,8 @@
 		6F34F9DCE24E2954E2089FCA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				89D9D892B2A7C2030EB33FEF /* Pods-TTNConsole.debug.xcconfig */,
-				946DAE36859431ABC81D2C73 /* Pods-TTNConsole.release.xcconfig */,
+				89D9D892B2A7C2030EB33FEF /* Pods-TTNMobile.debug.xcconfig */,
+				946DAE36859431ABC81D2C73 /* Pods-TTNMobile.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -786,8 +786,8 @@
 				6F34F9DCE24E2954E2089FCA /* Pods */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				5FB501B6AA7149F1B7E5E6C9 /* Resources */,
-				13B07FAE1A68108700A75B9A /* TTNConsole */,
-				00E356EF1AD99517003FC87E /* TTNConsoleTests */,
+				13B07FAE1A68108700A75B9A /* TTNMobile */,
+				00E356EF1AD99517003FC87E /* TTNMobileTests */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -796,10 +796,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* TTNConsole.app */,
-				00E356EE1AD99517003FC87E /* TTNConsoleTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* TTNConsole-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* TTNConsole-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* TTNMobile.app */,
+				00E356EE1AD99517003FC87E /* TTNMobileTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* TTNMobile-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* TTNMobile-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -809,7 +809,7 @@
 			children = (
 				607AF0D11ECA7D2300BB900D /* QBImagePicker.framework */,
 				607AF0CE1ECA7D2300BB900D /* RSKImageCropper.framework */,
-				4615CA4FECA96623CDAE3231 /* libPods-TTNConsole.a */,
+				4615CA4FECA96623CDAE3231 /* libPods-TTNMobile.a */,
 				44775372B8B946159069F7FC /* libz.tbd */,
 			);
 			name = Frameworks;
@@ -818,9 +818,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* TTNConsoleTests */ = {
+		00E356ED1AD99517003FC87E /* TTNMobileTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TTNConsoleTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TTNMobileTests" */;
 			buildPhases = (
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
@@ -831,14 +831,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = TTNConsoleTests;
-			productName = TTNConsoleTests;
-			productReference = 00E356EE1AD99517003FC87E /* TTNConsoleTests.xctest */;
+			name = TTNMobileTests;
+			productName = TTNMobileTests;
+			productReference = 00E356EE1AD99517003FC87E /* TTNMobileTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* TTNConsole */ = {
+		13B07F861A680F5B00A75B9A /* TTNMobile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TTNConsole" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TTNMobile" */;
 			buildPhases = (
 				A1966E5A2346E55A93FDDF02 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -853,14 +853,14 @@
 			);
 			dependencies = (
 			);
-			name = TTNConsole;
+			name = TTNMobile;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* TTNConsole.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* TTNMobile.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* TTNConsole-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* TTNMobile-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "TTNConsole-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "TTNMobile-tvOS" */;
 			buildPhases = (
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -871,14 +871,14 @@
 			);
 			dependencies = (
 			);
-			name = "TTNConsole-tvOS";
-			productName = "TTNConsole-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* TTNConsole-tvOS.app */;
+			name = "TTNMobile-tvOS";
+			productName = "TTNMobile-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* TTNMobile-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* TTNConsole-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* TTNMobile-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "TTNConsole-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "TTNMobile-tvOSTests" */;
 			buildPhases = (
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
@@ -889,9 +889,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "TTNConsole-tvOSTests";
-			productName = "TTNConsole-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* TTNConsole-tvOSTests.xctest */;
+			name = "TTNMobile-tvOSTests";
+			productName = "TTNMobile-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* TTNMobile-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -925,7 +925,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "TTNConsole" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "TTNMobile" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1020,10 +1020,10 @@
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* TTNConsole */,
-				00E356ED1AD99517003FC87E /* TTNConsoleTests */,
-				2D02E47A1E0B4A5D006451C7 /* TTNConsole-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* TTNConsole-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* TTNMobile */,
+				00E356ED1AD99517003FC87E /* TTNMobileTests */,
+				2D02E47A1E0B4A5D006451C7 /* TTNMobile-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* TTNMobile-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1356,7 +1356,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TTNConsole/Pods-TTNConsole-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TTNMobile/Pods-TTNMobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		208E8561684EF69463476C74 /* [CP] Embed Pods Frameworks */ = {
@@ -1371,7 +1371,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TTNConsole/Pods-TTNConsole-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TTNMobile/Pods-TTNMobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
@@ -1410,7 +1410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* TTNConsoleTests.m in Sources */,
+				00E356F31AD99517003FC87E /* TTNMobileTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1437,7 +1437,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* TTNConsoleTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* TTNMobileTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1446,12 +1446,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* TTNConsole */;
+			target = 13B07F861A680F5B00A75B9A /* TTNMobile */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* TTNConsole-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* TTNMobile-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1463,7 +1463,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = TTNConsole;
+			path = TTNMobile;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1488,7 +1488,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
-				INFOPLIST_FILE = TTNConsoleTests/Info.plist;
+				INFOPLIST_FILE = TTNMobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1507,7 +1507,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNConsole.app/TTNConsole";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNMobile.app/TTNMobile";
 			};
 			name = Debug;
 		};
@@ -1527,7 +1527,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
-				INFOPLIST_FILE = TTNConsoleTests/Info.plist;
+				INFOPLIST_FILE = TTNMobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1546,13 +1546,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNConsole.app/TTNConsole";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNMobile.app/TTNMobile";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89D9D892B2A7C2030EB33FEF /* Pods-TTNConsole.debug.xcconfig */;
+			baseConfigurationReference = 89D9D892B2A7C2030EB33FEF /* Pods-TTNMobile.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1570,7 +1570,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
-				INFOPLIST_FILE = TTNConsole/Info.plist;
+				INFOPLIST_FILE = TTNMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1578,16 +1578,16 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.async.ttn;
-				PRODUCT_NAME = TTNConsole;
-				PROVISIONING_PROFILE = "ffd97d28-1a18-47c5-b4e0-3066f913a19b";
-				PROVISIONING_PROFILE_SPECIFIER = "TTN Console Development";
+				PRODUCT_NAME = TTNMobile;
+				PROVISIONING_PROFILE = "0e01f1c5-df8b-4007-922c-f6903ff82448";
+				PROVISIONING_PROFILE_SPECIFIER = "TTN Mobile Development";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 946DAE36859431ABC81D2C73 /* Pods-TTNConsole.release.xcconfig */;
+			baseConfigurationReference = 946DAE36859431ABC81D2C73 /* Pods-TTNMobile.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1604,7 +1604,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
-				INFOPLIST_FILE = TTNConsole/Info.plist;
+				INFOPLIST_FILE = TTNMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1612,9 +1612,9 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.async.ttn;
-				PRODUCT_NAME = TTNConsole;
-				PROVISIONING_PROFILE = "5e6f87db-2d39-4988-85d9-c85862d2e9e1";
-				PROVISIONING_PROFILE_SPECIFIER = "TTN Console Distribution";
+				PRODUCT_NAME = TTNMobile;
+				PROVISIONING_PROFILE = "57ef42e9-6ea6-487f-947d-369254d781e4";
+				PROVISIONING_PROFILE_SPECIFIER = "TTN Mobile Distribution";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1641,7 +1641,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
-				INFOPLIST_FILE = "TTNConsole-tvOS/Info.plist";
+				INFOPLIST_FILE = "TTNMobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1656,7 +1656,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.TTNConsole-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.TTNMobile-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
@@ -1687,7 +1687,7 @@
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
-				INFOPLIST_FILE = "TTNConsole-tvOS/Info.plist";
+				INFOPLIST_FILE = "TTNMobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1702,7 +1702,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.TTNConsole-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.TTNMobile-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
@@ -1723,7 +1723,7 @@
 				DEVELOPMENT_TEAM = Z3USYGGF55;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "TTNConsole-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "TTNMobile-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1734,11 +1734,11 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.TTNConsole-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.TTNMobile-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNConsole-tvOS.app/TTNConsole-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNMobile-tvOS.app/TTNMobile-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
@@ -1756,7 +1756,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3USYGGF55;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "TTNConsole-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "TTNMobile-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1767,11 +1767,11 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.TTNConsole-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.TTNMobile-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNConsole-tvOS.app/TTNConsole-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TTNMobile-tvOS.app/TTNMobile-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -1862,7 +1862,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TTNConsoleTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TTNMobileTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1871,7 +1871,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TTNConsole" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TTNMobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1880,7 +1880,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "TTNConsole-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "TTNMobile-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1889,7 +1889,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "TTNConsole-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "TTNMobile-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1898,7 +1898,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "TTNConsole" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "TTNMobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
