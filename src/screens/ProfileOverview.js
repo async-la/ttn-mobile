@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 
 import { LATO_REGULAR } from '../constants/fonts'
-import { DARK_GREY, WHITE } from '../constants/colors'
+import { BLACK, DARK_GREY, WHITE } from '../constants/colors'
 
 import Avatar from '../components/Avatar'
 import DeleteButton from '../components/DeleteButton'
@@ -42,7 +42,7 @@ class ProfileOverview extends Component {
     return {
       headerRight: (
         <Text
-          style={{ margin: 10 }}
+          style={styles.logoutButton}
           onPress={() => navigation.dispatch(authActions.resetAuth())}
         >
           Logout
@@ -289,6 +289,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginTop: 20,
+  },
+  logoutButton: {
+    margin: 10,
+    color: BLACK,
   },
   submitButton: {
     width: BUTTON_SIZE * 3.5,
