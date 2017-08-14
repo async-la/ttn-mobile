@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import {
   ActivityIndicator,
   FlatList,
+  InteractionManager,
   Modal,
   StyleSheet,
   Text,
@@ -49,7 +50,9 @@ class ApplicationsList extends Component {
     isRefreshing: false,
   }
   componentDidMount() {
-    this._fetchApplications(true)
+    InteractionManager.runAfterInteractions(() => {
+      this._fetchApplications(true)
+    })
   }
 
   _fetchApplications = async (initialLoad = false) => {

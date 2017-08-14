@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import {
   ActivityIndicator,
   FlatList,
+  InteractionManager,
   Modal,
   StyleSheet,
   Text,
@@ -49,7 +50,9 @@ class GatewayList extends Component {
     modalVisible: false,
   }
   componentDidMount() {
-    this._fetchGateways(true)
+    InteractionManager.runAfterInteractions(() => {
+      this._fetchGateways(true)
+    })
   }
 
   _fetchGateways = async (initialLoad = false) => {

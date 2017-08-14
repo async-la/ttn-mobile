@@ -2,11 +2,12 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
-  View,
-  ScrollView,
+  InteractionManager,
   RefreshControl,
+  ScrollView,
   StyleSheet,
   Text,
+  View,
 } from 'react-native'
 
 import copy from '../constants/copy'
@@ -47,7 +48,9 @@ class DeviceOverview extends Component {
     title: navigation.state.params.device.dev_id,
   })
   componentDidMount() {
-    this._getDevice()
+    InteractionManager.runAfterInteractions(() => {
+      this._getDevice()
+    })
   }
 
   _getDevice = async () => {

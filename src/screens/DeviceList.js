@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  InteractionManager,
   Modal,
   Platform,
   StyleSheet,
@@ -69,7 +70,10 @@ class DeviceList extends Component {
     } else if (!application.handler) {
       this.setState({ addButtonDisabled: true })
     }
-    this._fetchApplicationDevices(true)
+
+    InteractionManager.runAfterInteractions(() => {
+      this._fetchApplicationDevices(true)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
