@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
+  InteractionManager,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -51,7 +52,9 @@ class ApplicationOverview extends Component {
     isRefreshing: false,
   }
   componentDidMount() {
-    this._fetchApplication(true)
+    InteractionManager.runAfterInteractions(() => {
+      this._fetchApplication(true)
+    })
   }
 
   _fetchApplication = async (initialLoad = false) => {

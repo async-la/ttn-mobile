@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
+  InteractionManager,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -59,7 +60,10 @@ class GatewayOverview extends Component {
     const { gateway, getGatewayAsync } = this.props
 
     if (!initialLoad) this.setState({ isRefreshing: true })
-    await getGatewayAsync(gateway)
+
+    InteractionManager.runAfterInteractions(async () => {
+      await getGatewayAsync(gateway)
+    })
 
     if (!initialLoad) {
       this.setState({ isRefreshing: false })
