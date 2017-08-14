@@ -2,7 +2,7 @@
 
 import apiClient from '../../../utils/apiClient'
 
-import { APPLICATIONS } from '../../../constants/apiEndpoints'
+import { APPLICATIONS } from '../../../constants/api'
 import type {
   AccessKey,
   AccessKeyOptions,

@@ -2,7 +2,7 @@
 
 import apiClient from '../../../utils/apiClient'
 
-import { GATEWAYS } from '../../../constants/apiEndpoints'
+import { GATEWAYS } from '../../../constants/api'
 import type { TTNGateway } from './types'
 import type { Dispatch, GetState } from '../../../types/redux'
 

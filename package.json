@@ -9,6 +9,7 @@
     ]
   },
   "scripts": {
+    "config:setup": "node ./src/scripts/config.js",
     "lint": "eslint src",
     "postinstall": "yarn translate",
     "precommit": "lint-staged",
