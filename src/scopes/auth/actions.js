@@ -4,7 +4,7 @@ import apiClient from '../../utils/apiClient'
 import base64 from 'base-64'
 import queryString from 'query-string'
 
-import { ACCESS_TOKEN_URI } from '../../constants/apiEndpoints'
+import { ACCESS_TOKEN, ACCESS_TOKEN_URI } from '../../constants/api'
 import { RECEIVE_AUTH, RESET_AUTH } from './types'
 
 import type {
@@ -118,7 +118,7 @@ export function getAccessTokenAsync(event: { url: string }) {
       const result = await fetch(ACCESS_TOKEN_URI, {
         method: 'POST',
         headers: {
-          Authorization: `Basic ${base64.encode('async-llc:DYvEg9HlOdl+TKiaLxNNo7jOlQwve8kmszPv9dRGk6Q=')}`,
+          Authorization: `Basic ${base64.encode(ACCESS_TOKEN)}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -144,7 +144,7 @@ export function refreshAccessTokenAsync() {
       const result = await fetch(ACCESS_TOKEN_URI, {
         method: 'POST',
         headers: {
-          Authorization: `Basic ${base64.encode('async-llc:DYvEg9HlOdl+TKiaLxNNo7jOlQwve8kmszPv9dRGk6Q=')}`,
+          Authorization: `Basic ${base64.encode(ACCESS_TOKEN)}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -158,7 +158,7 @@ export function refreshAccessTokenAsync() {
       await dispatch(receiveAuth(formatPayload(json)))
       return await dispatch(getUserAsync())
     } catch (err) {
-      console.log('## getAccessTokenAsync error', err)
+      console.log('## refreshAccessTokenAsync error', err)
       throw err
     }
   }

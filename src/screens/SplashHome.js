@@ -14,7 +14,7 @@ import SafariView from 'react-native-safari-view'
 import SubmitButton from '../components/SubmitButton'
 import { connect } from 'react-redux'
 
-import { AUTHORIZATION_URI } from '../constants/apiEndpoints'
+import { AUTHORIZATION_URI } from '../constants/api'
 import { BLACK, MID_GREY } from '../constants/colors'
 import * as authActions from '../scopes/auth/actions'
 
