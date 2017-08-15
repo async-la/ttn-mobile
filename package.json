@@ -13,6 +13,7 @@
     "lint": "eslint src",
     "postinstall": "yarn translate",
     "precommit": "lint-staged",
+    "setup": "yarn install && (cd ios && pod install) && yarn config:setup",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:haul": "haul start --platform all",
     "test": "yarn lint && yarn flow && yarn jest",
