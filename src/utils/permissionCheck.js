@@ -3,13 +3,13 @@
 import type { TTNApplication } from '../scopes/content/applications/types'
 import type { TTNGateway } from '../scopes/content/gateways/types'
 
-export function getMessageUplinkPermission(application: TTNApplication) {
+export function getMessagePermission(application: TTNApplication) {
   return (
     application.access_keys &&
     application.access_keys.find(accessKey => {
       return (
         accessKey.rights &&
-        accessKey.rights.find(right => right.indexOf('messages:up') !== -1)
+        accessKey.rights.find(right => right.indexOf('messages') !== -1)
       )
     })
   )
