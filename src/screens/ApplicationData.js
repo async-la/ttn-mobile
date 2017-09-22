@@ -33,7 +33,7 @@ import { connect } from 'react-redux'
 import { getApplicationMQTTHost } from '../utils/dataMonitor'
 import {
   applicationHasDevicesRights,
-  getMessageUplinkPermission,
+  getMessagePermission,
 } from '../utils/permissionCheck'
 
 import type { TTNApplication } from '../scopes/content/applications/types'
@@ -99,7 +99,7 @@ class ApplicationData extends Component {
   }
 
   _createMQTTSession = async application => {
-    const messageUplinkPermission = getMessageUplinkPermission(application)
+    const messageUplinkPermission = getMessagePermission(application)
     if (!messageUplinkPermission) {
       this.setState({ connectionStatus: UNAUTHORIZED })
       return

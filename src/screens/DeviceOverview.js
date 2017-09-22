@@ -2,7 +2,9 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
+  Button,
   InteractionManager,
+  Linking,
   RefreshControl,
   ScrollView,
   StyleSheet,
@@ -11,7 +13,8 @@ import {
 } from 'react-native'
 
 import copy from '../constants/copy'
-import { DARK_GREY, MID_GREY } from '../constants/colors'
+import { BLACK, DARK_GREY, MID_GREY } from '../constants/colors'
+import { NO_ACCESS_KEY } from '../constants/errors'
 import { LATO_REGULAR } from '../constants/fonts'
 
 import ClipboardToggle from '../components/ClipboardToggle'
@@ -49,14 +52,14 @@ class DeviceOverview extends Component {
   })
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      this._getDevice()
+      this._getDevice(true)
     })
   }
 
-  _getDevice = async () => {
+  _getDevice = async (initialSync = false) => {
     const { dev_id } = this.props.device
     const { application } = this.props
-    this.setState({ isRefreshing: true })
+    if (!initialSync) this.setState({ isRefreshing: true })
     try {
       await this.props.getDeviceAsync(application, dev_id)
     } catch (err) {
@@ -92,13 +95,30 @@ class DeviceOverview extends Component {
   }
 
   _onRefresh = () => {
-    this._getDevice()
+    this._getDevice(false)
+  }
+  _linkTTNMapper = () => {
+    const { application, device } = this.props
+    const { app_id, dev_id } = device
+    const { access_keys, handler } = application
+
+    if (access_keys && access_keys.length === 0) {
+      alert(NO_ACCESS_KEY)
+      return
+    } else {
+      // @NOTE: Update to choose a valid access key
+      const validAccessKey = access_keys && access_keys[0].key
+      const link = `http://app.ttnmapper.org/?appid=${String(app_id)}&handler=${String(handler)}&accesskey=${String(validAccessKey)}&devid=${String(dev_id)}`
+      Linking.openURL(link).catch(err =>
+        console.error('An error occurred', err)
+      )
+    }
   }
   render() {
     const { device } = this.props
     if (!device) return <View />
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         {!device.dev_id
           ? <ActivityIndicator style={styles.activityIndicator} size="large" />
           : <ScrollView
@@ -109,6 +129,11 @@ class DeviceOverview extends Component {
                 />
               }
             >
+              <Button
+                onPress={this._linkTTNMapper}
+                title="Track with TTN Mapper"
+                color={BLACK}
+              />
               <ContentBlock heading={copy.DEVICE_OVERVIEW}>
                 {this._renderRow(
                   copy.APPLICATION_ID,
@@ -202,6 +227,10 @@ export default connect(
 )(DeviceOverview)
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 10,
+  },
   activityIndicator: {
     marginTop: 30,
   },
