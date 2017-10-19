@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 
 import copy from '../constants/copy'
-import { BLACK, DARK_GREY, MID_GREY } from '../constants/colors'
+import { DARK_GREY, MID_GREY } from '../constants/colors'
 import { NO_ACCESS_KEY } from '../constants/errors'
 import { LATO_REGULAR } from '../constants/fonts'
 
