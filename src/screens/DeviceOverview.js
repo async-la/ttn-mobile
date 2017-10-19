@@ -2,13 +2,14 @@
 import React, { Component } from 'react'
 import {
   ActivityIndicator,
-  Button,
+  Image,
   InteractionManager,
   Linking,
   RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native'
 
@@ -129,11 +130,6 @@ class DeviceOverview extends Component {
                 />
               }
             >
-              <Button
-                onPress={this._linkTTNMapper}
-                title="Track with TTN Mapper"
-                color={BLACK}
-              />
               <ContentBlock heading={copy.DEVICE_OVERVIEW}>
                 {this._renderRow(
                   copy.APPLICATION_ID,
@@ -150,6 +146,18 @@ class DeviceOverview extends Component {
                   <Text style={styles.content}>{device.description}</Text>,
                   device.description
                 )}
+
+                <TouchableOpacity
+                  style={styles.TTNMapperButton}
+                  onPress={this._linkTTNMapper}
+                >
+                  <Image
+                    style={styles.TTNMapperLogo}
+                    source={require('../assets/ic_silhouette.png')}
+                  />
+                  <Text style={styles.TTNMapperText}>Use with TTN Mapper</Text>
+                </TouchableOpacity>
+
               </ContentBlock>
 
               <ContentBlock heading={copy.STATUS}>
@@ -262,5 +270,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontStyle: 'italic',
     marginLeft: 20,
+  },
+  TTNMapperButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  TTNMapperLogo: {
+    height: 25,
+    width: 25,
+    marginRight: 5,
+  },
+  TTNMapperText: {
+    fontFamily: LATO_REGULAR,
+    color: DARK_GREY,
+    fontWeight: 'bold',
   },
 })
