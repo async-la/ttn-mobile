@@ -136,6 +136,18 @@ export default class DataListItem extends Component {
           >
             <Text style={styles.dataColumnHeading}>Payload</Text>
             <ClipboardToggle value={base64toHEX(data.payload_raw)} />
+
+            {data.payload_fields &&
+              <View>
+                <Text style={[styles.dataColumnHeading, styles.metadataTitle]}>
+                  {copy.FIELDS}
+                </Text>
+                <View style={styles.metadataInner}>
+                  <Text style={{ margin: 20, padding: 20 }}>
+                    {JSON.stringify(data.payload_fields, null, 2)}
+                  </Text>
+                </View>
+              </View>}
             <Text style={[styles.dataColumnHeading, styles.metadataTitle]}>
               {copy.METADATA}
             </Text>
@@ -195,9 +207,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   metadataInner: {
-    flex: 1,
     backgroundColor: LIGHT_GREY,
     borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
   },
   metadataOuter: {
     flex: 1,
