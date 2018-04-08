@@ -145,7 +145,14 @@ class DeviceSettings extends Component {
   _saveDevice = async () => {
     const { updateDeviceAsync } = this.props
     const { application } = this.props.navigation.state.params
-    const { dev_eui, dev_id, app_key, app_skey, nwk_skey } = this.props.device
+    const {
+      dev_addr,
+      dev_eui,
+      dev_id,
+      app_key,
+      app_skey,
+      nwk_skey,
+    } = this.props.device
 
     this.setState({ inProgressSave: true })
 
@@ -159,6 +166,7 @@ class DeviceSettings extends Component {
       app_eui: this.state.appEui,
       description: this.state.description,
       dev_eui,
+      dev_addr,
       disable_fcnt_check: !this.state.frameCounterChecks,
       method: this.state.activationMethod,
       uses_32bit_fcnt: this.state.frameCounterWidth === '32',
@@ -166,6 +174,7 @@ class DeviceSettings extends Component {
 
     try {
       const device = await updateDeviceAsync(application, dev_id, updatedDevice)
+
       if (device)
         this.setState({
           originalActivationMethod: device.app_key ? OTAA : ABP,
