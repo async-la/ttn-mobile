@@ -1,6 +1,6 @@
 {
   "name": "TTNMobile",
-  "version": "1.26.1",
+  "version": "1.26.2",
   "private": true,
   "lint-staged": {
     "src/**/*.js": [
